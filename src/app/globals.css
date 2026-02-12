@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
 @theme {
+  --color-rock-red: #DC2626;
+  --color-rock-dark: #1E1E1E;
+  --color-rock-white: #FFFFFF;
+
+  --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 1280px;
   --breakpoint-xl: 1920px;
   --breakpoint-2xl: 2560px;
+  --breakpoint-3xl: 3440px;
 }
