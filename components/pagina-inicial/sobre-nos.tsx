@@ -13,7 +13,7 @@ export default function SobreNos() {
             </h3>
             <p className="text-white text-sm md:text-base leading-relaxed mb-8 flex-grow">
               Proporcionar aos fãs de rock e metal produtos de alta qualidade
-              que expressem sua paixão pela música que amam.
+              que expressem sua paixão através da música.
             </p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
