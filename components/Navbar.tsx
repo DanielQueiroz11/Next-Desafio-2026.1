@@ -40,7 +40,7 @@ export default function Navbar() {
           Login
         </Link>
 
-        <button className="text-white hover:text-rock-red transition-colors">
+        <button className="text-white hover:text-rock-red transition-colors cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
