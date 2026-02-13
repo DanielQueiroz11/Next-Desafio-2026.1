@@ -36,7 +36,7 @@ export default function Destaques() {
                 className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="mt-2">
+            <div className="mt-2 pl-2">
               <h3 className="text-lg font-medium text-white">
                 Camisa Linkin Park
               </h3>
@@ -57,7 +57,7 @@ export default function Destaques() {
                 className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="mt-2">
+            <div className="mt-2 pl-2">
               <h3 className="text-lg font-medium text-white">
                 Moletom Metallica
               </h3>
@@ -78,7 +78,7 @@ export default function Destaques() {
                 className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="mt-2">
+            <div className="mt-2 pl-2">
               <h3 className="text-lg font-medium text-white">
                 Colar Guns N&apos; Roses
               </h3>
