@@ -9,11 +9,11 @@ export default function Destaques() {
       </h2>
 
       <div className="flex items-center justify-center gap-4 md:gap-8">
-        <button className="p-3 bg-white text-black rounded hover:bg-gray-200 transition hidden md:block">
+        <button className="p-1.5 bg-white text-black rounded-full hover:bg-gray-200 transition hidden md:block">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="40"
+            height="40"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -90,11 +90,11 @@ export default function Destaques() {
           </div>
         </div>
 
-        <button className="p-3 bg-white text-black rounded hover:bg-gray-200 transition hidden md:block">
+        <button className="p-1.5 bg-white text-black rounded-full hover:bg-gray-200 transition hidden md:block">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="40"
+            height="40"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
