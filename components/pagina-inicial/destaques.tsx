@@ -27,7 +27,7 @@ export default function Destaques() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
           {/* produto 1 */}
-          <div className="flex flex-col gap-3 group cursor-pointer">
+          <div className="flex flex-col gap-2 group cursor-pointer">
             <div className="bg-white aspect-square w-full relative overflow-hidden rounded-sm">
               <Image
                 src="/imagens/produto-1.jpg"
@@ -36,19 +36,19 @@ export default function Destaques() {
                 className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="mt-2 pl-2">
+            <div className="mt-2 pl-3">
               <h3 className="text-lg font-medium text-white">
                 Camisa Linkin Park
               </h3>
               <p className="text-rock-red font-bold text-xl">R$64,99</p>
-              <p className="text-xs text-gray-400">
+              <p className="text-sm text-gray-400">
                 2x de <span className="text-rock-red font-medium">R$32,50</span> sem juros
               </p>
             </div>
           </div>
 
           {/* produto 2 */}
-          <div className="flex flex-col gap-3 group cursor-pointer">
+          <div className="flex flex-col gap-2 group cursor-pointer">
             <div className="bg-white aspect-square w-full relative overflow-hidden rounded-sm">
               <Image
                 src="/imagens/produto-2.jpg"
@@ -57,19 +57,19 @@ export default function Destaques() {
                 className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="mt-2 pl-2">
+            <div className="mt-2 pl-3">
               <h3 className="text-lg font-medium text-white">
                 Moletom Metallica
               </h3>
               <p className="text-rock-red font-bold text-xl">R$139,99</p>
-              <p className="text-xs text-gray-400">
+              <p className="text-sm text-gray-400">
                 3x de <span className="text-rock-red font-medium">R$46,67</span> sem juros
               </p>
             </div>
           </div>
 
           {/* produto 3 */}
-          <div className="flex flex-col gap-3 group cursor-pointer">
+          <div className="flex flex-col gap-2 group cursor-pointer">
             <div className="bg-white aspect-square w-full relative overflow-hidden rounded-sm">
               <Image
                 src="/imagens/produto-3.jpg"
@@ -78,12 +78,12 @@ export default function Destaques() {
                 className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="mt-2 pl-2">
+            <div className="mt-2 pl-3">
               <h3 className="text-lg font-medium text-white">
                 Colar Guns N&apos; Roses
               </h3>
               <p className="text-rock-red font-bold text-xl">R$29,99</p>
-              <p className="text-xs text-gray-400">
+              <p className="text-sm text-gray-400">
                 2x de <span className="text-rock-red font-medium">R$15,00</span> sem juros
               </p>
             </div>
@@ -110,7 +110,7 @@ export default function Destaques() {
       <div className="flex justify-center mt-12">
         <Link
   href="/produtos"
-  className="bg-rock-red hover:bg-red-700 text-white font-bold py-3.5 px-8 rounded-full transition-all duration-300 hover:scale-105 text-lg"
+  className="bg-rock-red hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hover:scale-105 text-xl"
 >
   Explorar produtos
 </Link>
