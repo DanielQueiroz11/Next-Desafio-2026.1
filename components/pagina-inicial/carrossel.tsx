@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Carrossel() {
   return (
     <section className="w-full max-w-7xl mx-auto px-4 py-16">
-      <h2 className="text-3xl font-bold text-center mb-12 text-white">
+      <h2 className="text-[35px] font-bold text-center mb-12 text-white">
         Destaques
       </h2>
 
@@ -26,6 +26,7 @@ export default function Carrossel() {
         </button>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
+          {/* produto 1 */}
           <div className="flex flex-col gap-3 group cursor-pointer">
             <div className="bg-white aspect-square w-full relative overflow-hidden rounded-sm">
               <Image
@@ -40,10 +41,13 @@ export default function Carrossel() {
                 Camisa Linkin Park
               </h3>
               <p className="text-rock-red font-bold text-xl">R$64,99</p>
-              <p className="text-xs text-gray-400">2x de R$32,50 sem juros</p>
+              <p className="text-xs text-gray-400">
+                2x de <span className="text-rock-red font-medium">R$32,50</span> sem juros
+              </p>
             </div>
           </div>
 
+          {/* produto 2 */}
           <div className="flex flex-col gap-3 group cursor-pointer">
             <div className="bg-white aspect-square w-full relative overflow-hidden rounded-sm">
               <Image
@@ -58,10 +62,13 @@ export default function Carrossel() {
                 Moletom Metallica
               </h3>
               <p className="text-rock-red font-bold text-xl">R$139,99</p>
-              <p className="text-xs text-gray-400">3x de R$46,67 sem juros</p>
+              <p className="text-xs text-gray-400">
+                3x de <span className="text-rock-red font-medium">R$46,67</span> sem juros
+              </p>
             </div>
           </div>
 
+          {/* produto 3 */}
           <div className="flex flex-col gap-3 group cursor-pointer">
             <div className="bg-white aspect-square w-full relative overflow-hidden rounded-sm">
               <Image
@@ -76,7 +83,9 @@ export default function Carrossel() {
                 Colar Guns N&apos; Roses
               </h3>
               <p className="text-rock-red font-bold text-xl">R$29,99</p>
-              <p className="text-xs text-gray-400">2x de R$15,00 sem juros</p>
+              <p className="text-xs text-gray-400">
+                2x de <span className="text-rock-red font-medium">R$15,00</span> sem juros
+              </p>
             </div>
           </div>
         </div>
