@@ -3,15 +3,15 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <nav className="w-full h-20 bg-rock-dark flex items-center justify-between px-8 border-b border-white/10">
-      <div className="text-2xl font-black tracking-tighter uppercase">
-        <span className="text-white">Caverna do </span>
-        <span className="text-rock-red">Rock</span>
+      <div className="text-[27px] font-black tracking-wider uppercase">
+          <span className="text-white">Caverna do </span>
+          <span className="text-rock-red">Rock</span>
       </div>
 
       <div className="flex items-center gap-8 font-medium">
         <Link
           href="/"
-          className="bg-rock-red text-white px-5 py-2 rounded-full hover:bg-red-700 transition-colors font-bold"
+          className="bg-rock-red text-white px-4 py-2 rounded-full hover:bg-red-700 transition-colors font-bold"
         >
           Home
         </Link>
