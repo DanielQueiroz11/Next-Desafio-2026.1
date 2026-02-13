@@ -66,7 +66,7 @@ export default function Footer() {
               </svg>
             </Link>
           </div>
-          <div className="text-xs text-gray-400 mt-2 font-mono">
+          <div className="text-xs text-gray-400 pt-6 font-mono">
             <p>© 2026 Caverna do Rock</p>
             <p>Todos os direitos reservados.</p>
           </div>
