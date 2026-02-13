@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Carrossel() {
   return (
-    <section className="w-full max-w-7xl mx-auto px-4 py-16">
+    <section className="w-full max-w-[1300px] mx-auto px-4 py-16">
       <h2 className="text-[35px] font-bold text-center mb-12 text-white">
         Destaques
       </h2>
@@ -25,7 +25,7 @@ export default function Carrossel() {
           </svg>
         </button>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
           {/* produto 1 */}
           <div className="flex flex-col gap-3 group cursor-pointer">
             <div className="bg-white aspect-square w-full relative overflow-hidden rounded-sm">
