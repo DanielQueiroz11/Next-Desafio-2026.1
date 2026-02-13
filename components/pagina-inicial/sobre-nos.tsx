@@ -1,10 +1,10 @@
 export default function SobreNos() {
   return (
-    <section className="w-full py-16 px-4 bg-rock-dark">
+    <section className="w-full py-16 px-4 bg-black">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-[35px] font-bold text-center mb-12 text-white">
-        Sobre Nós
-      </h2>
+          Sobre Nós
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="bg-rock-red p-8 rounded-lg flex flex-col items-center text-center h-full hover:scale-105 transition-transform duration-300">
