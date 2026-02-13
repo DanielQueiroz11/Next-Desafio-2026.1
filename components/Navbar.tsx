@@ -3,10 +3,10 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <nav className="w-full h-20 bg-rock-dark flex items-center justify-between px-8 border-b border-white/10">
-      <div className="text-[27px] font-black tracking-wider uppercase">
-          <span className="text-white">Caverna do </span>
-          <span className="text-rock-red">Rock</span>
-      </div>
+      <Link href="/" className="text-[28px] font-black tracking-wider uppercase cursor-pointer">
+        <span className="text-white">Caverna do </span>
+        <span className="text-rock-red">Rock</span>
+      </Link>
 
       <div className="flex items-center gap-8 font-medium">
         <Link
