@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Carrossel() {
+export default function Destaques() {
   return (
     <section className="w-full max-w-[1300px] mx-auto px-4 py-16">
       <h2 className="text-[35px] font-bold text-center mb-12 text-white">
