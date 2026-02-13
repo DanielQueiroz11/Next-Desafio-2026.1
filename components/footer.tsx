@@ -81,8 +81,8 @@ export default function Footer() {
             className="object-contain"
           />
         </div>
-        <div className="flex flex-col items-center md:items-end gap-4">
-          <h3 className="font-bold text-lg tracking-wider">Contato</h3>
+        <div className="flex flex-col items-center md:items-end gap-4 self-start">
+          <h3 className="font-bold text-lg tracking-wider pr-10">Contato</h3>
           <div className="flex flex-col gap-2 text-sm text-right">
             <div className="flex items-center justify-end gap-2">
               <span>(32) 98893-2957</span>
