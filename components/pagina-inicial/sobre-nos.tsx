@@ -2,7 +2,7 @@ export default function SobreNos() {
   return (
     <section className="w-full py-16 px-4 bg-rock-dark">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-12 text-white font-mono uppercase tracking-wider">
+        <h2 className="text-[34px] font-bold text-center mb-12 text-white font-mono tracking-wider">
           Sobre Nós
         </h2>
 
