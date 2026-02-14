@@ -1,14 +1,25 @@
 @import "tailwindcss";
 
 @theme {
+  /* cores do site */
   --color-rock-red: #DC2626;
   --color-rock-dark: #1E1E1E;
   --color-rock-white: #FFFFFF;
 
-  --breakpoint-sm: 640px;
+  /* RESPONSIVIDADE*
+  
+  /* tablet / notebook pequeno (768px a 1023px) */
   --breakpoint-md: 768px;
-  --breakpoint-lg: 1280px;
-  --breakpoint-xl: 1920px;
-  --breakpoint-2xl: 2560px;
-  --breakpoint-3xl: 3440px;
+
+  /* desktop padrão (1024px a 1439px) */
+  --breakpoint-lg: 1024px;
+
+  /* desktop grande (1440px a 1919px) */
+  --breakpoint-xl: 1440px;
+
+  /* monitor ultra wide / TV (1920px pra cima) */
+  --breakpoint-2xl: 1920px;
+  
+  /* celular grande/tablet pequeno */
+  --breakpoint-sm: 426px; 
 }
