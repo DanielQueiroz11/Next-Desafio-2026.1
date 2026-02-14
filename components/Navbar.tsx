@@ -28,7 +28,7 @@ export default function Navbar() {
       {/* logo */}
       <Link 
         href="/" 
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:transform-none md:translate-x-0 md:translate-y-0 flex flex-col md:flex-row items-center gap-0.5 md:gap-2 text-lg md:text-[28px] font-black tracking-wider uppercase cursor-pointer transition-all duration-100 hover:scale-103 leading-none md:leading-normal"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:transform-none md:translate-x-0 md:translate-y-0 flex flex-col md:flex-row items-center gap-0.5 md:gap-2 text-[20px] md:text-[28px] font-black tracking-wider uppercase cursor-pointer transition-all duration-100 hover:scale-103 leading-none md:leading-normal"
       >
         <span className="text-white">Caverna</span>
         <span className="text-white">
@@ -79,10 +79,10 @@ export default function Navbar() {
 
       {/* menu mobile */}
       {isMenuOpen && (
-        <div className="absolute top-20 left-0 w-full bg-rock-dark border-b border-white/10 md:hidden flex flex-col items-center py-6 shadow-xl animate-in slide-in-from-top-5 duration-200">
+        <div className="absolute top-20 left-0 w-full bg-rock-dark border-b border-white/10 md:hidden flex flex-col items-center py-2 shadow-xl animate-in slide-in-from-top-5 duration-200">
           <Link 
             href="/" 
-            className="w-full text-center py-3 text-white font-bold text-lg hover:bg-white/5 hover:text-rock-red transition-colors"
+           className="w-full text-center py-3 text-rock-red font-bold text-lg hover:bg-white/5 hover:text-rock-red transition-colors"
             onClick={() => setIsMenuOpen(false)}
           >
             Home
