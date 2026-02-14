@@ -1,12 +1,12 @@
 export default function PaginaContato() {
   return (
     <main className="min-h-screen bg-rock-dark text-white py-16 px-4">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <h1 className="text-[40px] font-extrabold text-center mb-12 text-white">
           Contato
         </h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-8 lg:gap-x-12">
           {/* Coluna da esquerda: formulário */}
           <div className="border border-white/10 rounded-lg p-8 bg-[#121212]">
             <h2 className="text-xl font-bold text-center mb-8">
