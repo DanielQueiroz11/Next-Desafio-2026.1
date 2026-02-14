@@ -2,13 +2,13 @@ import Image from "next/image";
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full py-20 md:py-32 flex flex-col items-center justify-center text-center overflow-hidden bg-rock-dark">
-      <div className="absolute inset-0 z-0 opacity-30">
+    <section className="relative w-full min-h-[450px] flex flex-col items-center justify-center text-center overflow-hidden bg-rock-dark">
+      <div className="absolute inset-0 z-0 opacity-20">
         <Image
           src="/imagens/fundo LP.jpg"
           alt="Fundo Rock"
           fill
-          className="object-cover"
+          className="object-cover object-[center_36%]"
           priority
         />
       </div>
