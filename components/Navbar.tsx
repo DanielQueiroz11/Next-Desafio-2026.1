@@ -6,15 +6,25 @@ export default function Navbar() {
       
       {/* botão hambúrguer para mobile */}
       <button className="text-white md:hidden hover:text-rock-red transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-list" viewBox="0 0 16 16">
-          <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-        </svg>
-      </button>
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    className="bi bi-list w-10 h-10" 
+    fill="currentColor" 
+    viewBox="0 0 16 16"
+  >
+    <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+  </svg>
+</button>
 
-      {/* logo (CDR)*/}
-      <Link href="/" className="text-[20px] md:text-[28px] font-black tracking-wider uppercase cursor-pointer transition-all duration-100 hover:scale-103">
-        <span className="text-white">Caverna do </span>
-        <span className="text-rock-red">Rock</span>
+      {/* logo (CDR) */}
+      <Link 
+        href="/" 
+        className="text-[20px] md:text-[28px] font-black tracking-wider uppercase cursor-pointer transition-all duration-100 hover:scale-103 flex flex-col md:flex-row items-center gap-1 md:gap-2 leading-none"
+      >
+        <span className="text-white">Caverna</span>
+        <span className="text-white">
+          do <span className="text-rock-red">Rock</span>
+        </span>
       </Link>
 
       {/* parte direita (links + carrinho) */}
@@ -63,7 +73,7 @@ export default function Navbar() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="w-6 h-6 md:w-8 md:h-8" 
+            className="w-7 h-7 md:w-8 md:h-8" 
           >
             <circle cx="8" cy="21" r="1" />
             <circle cx="19" cy="21" r="1" />
