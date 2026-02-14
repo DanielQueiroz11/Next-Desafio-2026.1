@@ -77,7 +77,7 @@ export default function Footer() {
         <div className="flex justify-center self-start md:-mt-4">
           <Link
             href="/"
-            className="cursor-pointer hover:opacity-90 transition-opacity"
+            className="cursor-pointer transition-all duration-100 hover:scale-103"
           >
             <Image
               src="/logo-footer.png"

@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <nav className="w-full h-20 bg-rock-dark flex items-center justify-between px-8 border-b border-white/10">
-      <Link href="/" className="text-[28px] font-black tracking-wider uppercase cursor-pointer">
+      <Link href="/" className="text-[28px] font-black tracking-wider uppercase cursor-pointer transition-all duration-100 hover:scale-103">
         <span className="text-white">Caverna do </span>
         <span className="text-rock-red">Rock</span>
       </Link>
