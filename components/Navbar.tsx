@@ -12,7 +12,7 @@ export default function Navbar() {
       </button>
 
       {/* logo (CDR)*/}
-      <Link href="/" className="text-[24px] md:text-[28px] font-black tracking-wider uppercase cursor-pointer transition-all duration-100 hover:scale-103">
+      <Link href="/" className="text-[20px] md:text-[28px] font-black tracking-wider uppercase cursor-pointer transition-all duration-100 hover:scale-103">
         <span className="text-white">Caverna do </span>
         <span className="text-rock-red">Rock</span>
       </Link>
