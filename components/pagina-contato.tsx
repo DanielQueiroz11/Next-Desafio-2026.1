@@ -52,7 +52,7 @@ export default function PaginaContato() {
 
               <button
                 type="button"
-                className="w-full bg-rock-red hover:bg-red-700 text-white font-bold py-3 rounded-full mt-2 transition-colors"
+                className="w-full bg-rock-red hover:bg-red-700 text-white font-bold py-3 rounded-full mt-2 transition-all duration-300 hover:scale-103"
               >
                 Enviar mensagem
               </button>
