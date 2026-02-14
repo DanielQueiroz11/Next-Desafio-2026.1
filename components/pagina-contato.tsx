@@ -2,7 +2,7 @@ export default function PaginaContato() {
   return (
     <main className="min-h-screen bg-rock-dark text-white py-16 px-4">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-black text-center mb-16 uppercase tracking-wide">
+        <h1 className="text-[40px] font-extrabold text-center mb-12 text-white">
           Contato
         </h1>
 
