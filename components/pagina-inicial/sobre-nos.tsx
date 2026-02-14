@@ -1,7 +1,13 @@
 export default function SobreNos() {
   return (
-    <section className="w-full py-16 px-4 bg-black">
-      <div className="max-w-7xl mx-auto">
+    <section className="w-full py-16 px-4 bg-[#111] relative">
+      <div className="absolute inset-0 opacity-20 pointer-events-none" 
+           style={{
+             backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E")`
+           }}
+      ></div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <h2 className="text-[35px] font-bold text-center mb-12 text-white">
           Sobre Nós
         </h2>
