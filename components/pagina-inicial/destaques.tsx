@@ -28,7 +28,7 @@ const produtos = [
   },
   {
     id: 4,
-    nome: "Camiseta Iron Maiden",
+    nome: "Camisa Iron Maiden",
     preco: "R$69,90",
     parcelamento: "2x de R$34,95",
     imagem: "/imagens/produto-4.jpg", 
