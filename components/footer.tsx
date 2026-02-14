@@ -75,13 +75,18 @@ export default function Footer() {
 
         {/* logo central */}
         <div className="flex justify-center self-start md:-mt-4">
-          <Image
-            src="/logo-footer.png"
-            alt="Logo Caverna do Rock"
-            width={250}
-            height={150}
-            className="object-contain"
-          />
+          <Link
+            href="/"
+            className="cursor-pointer hover:opacity-90 transition-opacity"
+          >
+            <Image
+              src="/logo-footer.png"
+              alt="Logo Caverna do Rock"
+              width={250}
+              height={150}
+              className="object-contain"
+            />
+          </Link>
         </div>
 
         {/* contato */}
