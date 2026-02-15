@@ -177,7 +177,7 @@ export default function Destaques() {
         </div>
 
         {/* linha vermelha */}
-        <div className="hidden md:block w-full h-1 bg-rock-red mt-4 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+        <div className="hidden md:block w-full h-1 bg-rock-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
       </div>
     </div>
   </div>
