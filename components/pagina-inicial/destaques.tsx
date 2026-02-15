@@ -208,7 +208,7 @@ export default function Destaques() {
       <div className="flex justify-center mt-12">
         <Link
           href="/produtos"
-          className="bg-rock-red hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hover:scale-105 text-xl"
+          className="bg-rock-red hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hover:scale-105 text-[22px]"
         >
           Explorar produtos
         </Link>
