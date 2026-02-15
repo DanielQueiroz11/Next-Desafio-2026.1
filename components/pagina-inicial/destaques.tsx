@@ -71,9 +71,44 @@ export default function Destaques() {
 
   return (
     <section className="w-full max-w-[1300px] mx-auto px-4 py-16">
-      <h2 className="text-[35px] font-bold text-center mb-12 text-white">
-        Destaques
-      </h2>
+      <div className="flex items-center justify-center gap-4 mb-12">
+  {/* raio esquerda */}
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width="24" 
+    height="24" 
+    viewBox="0 0 24 24" 
+    fill="#E11D48" 
+    stroke="#E11D48" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    className="w-6 h-6 md:w-8 md:h-8"
+  >
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+  </svg>
+
+  {/* texto */}
+  <h2 className="text-3xl md:text-4xl font-extrabold uppercase tracking-wide text-white">
+    Destaques
+  </h2>
+
+  {/* raio direita */}
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width="24" 
+    height="24" 
+    viewBox="0 0 24 24" 
+    fill="#E11D48" 
+    stroke="#E11D48" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    className="w-6 h-6 md:w-8 md:h-8"
+  >
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+  </svg>
+</div>
 
       <div className="flex items-center justify-center gap-4 md:gap-8 relative">
         <button
