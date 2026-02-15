@@ -13,7 +13,7 @@ export default function SobreNos() {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-rock-red p-8 rounded-lg flex flex-col items-center text-center h-full hover:scale-105 transition-transform duration-300">
+          <div className="bg-rock-red p-8 rounded-lg flex flex-col items-center text-center h-full hover:scale-103 transition-transform duration-300">
             <h3 className="text-2xl font-bold text-white mb-6 font-mono">
               Missão
             </h3>
@@ -39,7 +39,7 @@ export default function SobreNos() {
             </svg>
           </div>
 
-          <div className="bg-rock-red p-8 rounded-lg flex flex-col items-center text-center h-full hover:scale-105 transition-transform duration-300">
+          <div className="bg-rock-red p-8 rounded-lg flex flex-col items-center text-center h-full hover:scale-103 transition-transform duration-300">
             <h3 className="text-2xl font-bold text-white mb-6 font-mono">
               Visão
             </h3>
@@ -64,7 +64,7 @@ export default function SobreNos() {
             </svg>
           </div>
 
-          <div className="bg-rock-red p-8 rounded-lg flex flex-col items-center text-center h-full hover:scale-105 transition-transform duration-300">
+          <div className="bg-rock-red p-8 rounded-lg flex flex-col items-center text-center h-full hover:scale-103 transition-transform duration-300">
             <h3 className="text-2xl font-bold text-white mb-6 font-mono">
               Valores
             </h3>
