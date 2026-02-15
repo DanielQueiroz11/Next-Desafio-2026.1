@@ -90,7 +90,7 @@ export default function Footer() {
             className="cursor-pointer transition-all duration-300 hover:scale-103"
           >
             <Image
-              src="/logo-footer.png"
+              src="/imagens/logo-footer.jpg"
               alt="Logo Caverna do Rock"
               width={250}
               height={150}
