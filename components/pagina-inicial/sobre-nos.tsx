@@ -8,7 +8,7 @@ export default function SobreNos() {
       ></div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <h2 className="text-[35px] font-bold text-center mb-12 text-white">
+        <h2 className="text-[38px] font-bold text-center mb-12 text-white">
           Sobre Nós
         </h2>
 
