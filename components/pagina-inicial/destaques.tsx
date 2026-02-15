@@ -113,7 +113,7 @@ export default function Destaques() {
       <div className="flex items-center justify-center gap-4 md:gap-8 relative px-4 md:px-4">
         <button
           onClick={prevSlide}
-          className="p-1.5 bg-white text-black rounded-full hover:bg-gray-200 transition hidden md:block z-10 flex-shrink-0"
+          className="p-1.5 bg-white text-black rounded-full hover:bg-gray-200 transition hidden md:block z-10 flex-shrink-0 cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -185,7 +185,7 @@ export default function Destaques() {
 
         <button
           onClick={nextSlide}
-          className="p-1.5 bg-white text-black rounded-full hover:bg-gray-200 transition hidden md:block z-10 flex-shrink-0"
+          className="p-1.5 bg-white text-black rounded-full hover:bg-gray-200 transition hidden md:block z-10 flex-shrink-0 cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
