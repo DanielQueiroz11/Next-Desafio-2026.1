@@ -31,21 +31,21 @@ const produtos = [
     nome: "Camisa Iron Maiden",
     preco: "R$69,90",
     parcelamento: "2x de R$34,95",
-    imagem: "/imagens/produto-4.jpg", 
+    imagem: "/imagens/produto-4.jpg",
   },
   {
     id: 5,
     nome: "Caneca Rock N' Roll",
     preco: "R$39,90",
     parcelamento: "2x de R$19,95",
-    imagem: "/imagens/produto-5.jpg", 
+    imagem: "/imagens/produto-5.jpg",
   },
   {
     id: 6,
     nome: "Moletom Red Hot Chili Peppers",
     preco: "R$149,99",
     parcelamento: "3x de R$50,00",
-    imagem: "/imagens/produto-6.jpg", 
+    imagem: "/imagens/produto-6.jpg",
   },
 ];
 
@@ -72,43 +72,43 @@ export default function Destaques() {
   return (
     <section className="w-full max-w-[1300px] mx-auto px-4 py-16">
       <div className="flex items-center justify-center gap-4 mb-12">
-  {/* raio esquerda */}
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width="24" 
-    height="24" 
-    viewBox="0 0 24 24" 
-    fill="#E11D48" 
-    stroke="#E11D48" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
-    className="w-6 h-6 md:w-8 md:h-8"
-  >
-    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-  </svg>
+        {/* raio esquerda */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="#E11D48"
+          stroke="#E11D48"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="w-6 h-6 md:w-8 md:h-8"
+        >
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
 
-  {/* texto */}
-  <h2 className="text-3xl md:text-4xl font-extrabold uppercase tracking-wide text-white">
-    Destaques
-  </h2>
+        {/* texto */}
+        <h2 className="text-3xl md:text-4xl font-extrabold uppercase tracking-wide text-white">
+          Destaques
+        </h2>
 
-  {/* raio direita */}
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width="24" 
-    height="24" 
-    viewBox="0 0 24 24" 
-    fill="#E11D48" 
-    stroke="#E11D48" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
-    className="w-6 h-6 md:w-8 md:h-8"
-  >
-    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-  </svg>
-</div>
+        {/* raio direita */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="#E11D48"
+          stroke="#E11D48"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="w-6 h-6 md:w-8 md:h-8"
+        >
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+      </div>
 
       <div className="flex items-center justify-center gap-4 md:gap-8 relative">
         <button
@@ -138,34 +138,47 @@ export default function Destaques() {
             }}
           >
             {produtos.map((produto) => (
-              <div
-                key={produto.id}
-                className="min-w-full md:min-w-[33.333%] px-4 flex-shrink-0 box-border"
-              >
-                {/* produto */}
-                <div className="flex flex-col gap-2 group cursor-pointer h-full">
-                  <div className="bg-white aspect-square w-full relative overflow-hidden rounded-sm">
-                    <Image
-                      src={produto.imagem}
-                      alt={produto.nome}
-                      fill
-                      className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="mt-2 pl-3">
-                    <h3 className="text-lg font-medium text-white">
-                      {produto.nome}
-                    </h3>
-                    <p className="text-rock-red font-bold text-xl">
+            <div
+              key={produto.id}
+              className="min-w-full md:min-w-[33.333%] px-4 flex-shrink-0 box-border"
+            >
+              <div className="flex flex-col h-full bg-zinc-900 rounded-xl overflow-hidden shadow-lg pt-2
+              hover:-translate-y-2 hover:shadow-2xl 
+              transition-all duration-300 transform-gpu will-change-transform group cursor-pointer">
+                
+                <div className="bg-white aspect-square w-full relative overflow-hidden rounded-t-xl">
+                  <Image
+                    src={produto.imagem}
+                    alt={produto.nome}
+                    fill
+                    className="object-contain p-4 transition-transform duration-300"
+                  />
+                </div>
+
+                <div className="px-4 py-3 flex flex-col gap-1 antialiased">
+                  <h3 className="text-[20px] font-bold text-white truncate">
+                    {produto.nome}
+                  </h3>
+
+                  <div className="mt-2">
+                    <p className="text-rock-red font-extrabold text-2xl">
                       {produto.preco}
                     </p>
-                    <p className="text-sm text-gray-400">
-                      {produto.parcelamento.split(" R$")[0]} <span className="text-rock-red font-medium">R${produto.parcelamento.split(" R$")[1]}</span> sem juros
+                    <p className="text-[13px] text-gray-400 font-medium">
+                      {produto.parcelamento.split(" R$")[0]}{" "}
+                      <span className="text-rock-red font-medium">
+                        R${produto.parcelamento.split(" R$")[1]}
+                      </span>{" "}
+                      sem juros
                     </p>
                   </div>
+
+                  {/* linha vermelha */}
+                  <div className="w-full h-1 bg-rock-red mt-4 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                 </div>
               </div>
-            ))}
+            </div>
+          ))}
           </div>
         </div>
 
