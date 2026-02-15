@@ -92,7 +92,7 @@ export default function Footer() {
             <Image
               src="/imagens/logo-footer.jpg"
               alt="Logo Caverna do Rock"
-              width={250}
+              width={275}
               height={150}
               className="object-contain"
             />
