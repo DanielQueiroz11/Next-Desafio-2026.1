@@ -5,9 +5,19 @@ export default function Footer() {
   return (
     <footer className="w-full bg-rock-dark text-white py-10 border-t border-white/10">
       <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center md:text-left">
-        {/* redes rociais */}
-        <div className="flex flex-col items-center md:items-start gap-4">
-          <h3 className="font-bold text-lg tracking-wider">Redes Sociais</h3>
+        
+        {/* redes sociais */}
+<div className="flex flex-col items-center md:items-start gap-4">
+  <Link 
+    href="https://linktr.ee/the.rock.store" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="group"
+  >
+    <h3 className="font-bold text-lg tracking-wider hover:text-rock-red transition-colors cursor-pointer">
+      Redes Sociais
+    </h3>
+  </Link>
           <div className="flex gap-4">
             <Link href="#" className="hover:text-rock-red transition-colors">
               <svg
@@ -91,9 +101,11 @@ export default function Footer() {
 
         {/* contato */}
         <div className="flex flex-col items-center md:items-end gap-4 self-start">
-          <h3 className="font-bold text-lg tracking-wider w-full text-center md:text-right md:pr-20">
-            Contato
-          </h3>
+          <Link href="/contato" className="w-full text-center md:text-right md:pr-20">
+  <h3 className="font-bold text-lg tracking-wider hover:text-rock-red transition-colors cursor-pointer">
+    Contato
+  </h3>
+</Link>
 
           <div className="flex flex-col gap-2 text-sm text-left">
             <div className="flex items-center justify-start gap-2">
