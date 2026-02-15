@@ -15,8 +15,8 @@ const produtos = [
   {
     id: 2,
     nome: "Moletom Metallica",
-    preco: "R$139,99",
-    parcelamento: "3x de R$46,67",
+    preco: "R$159,99",
+    parcelamento: "3x de R$53,33",
     imagem: "/imagens/produto-2.jpg",
   },
   {
@@ -43,8 +43,8 @@ const produtos = [
   {
     id: 6,
     nome: "Moletom Red Hot Chili Peppers",
-    preco: "R$129,99",
-    parcelamento: "3x de R$43,34",
+    preco: "R$149,99",
+    parcelamento: "3x de R$50,00",
     imagem: "/imagens/produto-6.jpg", 
   },
 ];
