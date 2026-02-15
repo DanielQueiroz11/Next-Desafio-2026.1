@@ -70,7 +70,7 @@ export default function Destaques() {
   };
 
   return (
-    <section className="w-full max-w-[1300px] mx-auto px-4 py-16">
+    <section className="w-full max-w-[1400px] mx-auto px-4 py-16">
       <div className="flex items-center justify-center gap-4 mb-12">
         {/* raio esquerda */}
         <svg
@@ -110,7 +110,7 @@ export default function Destaques() {
         </svg>
       </div>
 
-      <div className="flex items-center justify-center gap-4 md:gap-8 relative">
+      <div className="flex items-center justify-center gap-4 md:gap-8 relative px-4 md:px-4">
         <button
           onClick={prevSlide}
           className="p-1.5 bg-white text-black rounded-full hover:bg-gray-200 transition hidden md:block z-10 flex-shrink-0"
@@ -138,47 +138,48 @@ export default function Destaques() {
             }}
           >
             {produtos.map((produto) => (
-            <div
-              key={produto.id}
-              className="min-w-full md:min-w-[33.333%] px-4 flex-shrink-0 box-border"
-            >
-              <div className="flex flex-col h-full bg-zinc-900 rounded-xl overflow-hidden shadow-lg pt-2
-              hover:-translate-y-2 hover:shadow-2xl 
-              transition-all duration-300 transform-gpu will-change-transform group cursor-pointer">
-                
-                <div className="bg-white aspect-square w-full relative overflow-hidden rounded-t-xl">
-                  <Image
-                    src={produto.imagem}
-                    alt={produto.nome}
-                    fill
-                    className="object-contain p-4 transition-transform duration-300"
-                  />
-                </div>
-
-                <div className="px-4 py-3 flex flex-col gap-1 antialiased">
-                  <h3 className="text-[20px] font-bold text-white truncate">
-                    {produto.nome}
-                  </h3>
-
-                  <div className="mt-2">
-                    <p className="text-rock-red font-extrabold text-2xl">
-                      {produto.preco}
-                    </p>
-                    <p className="text-[13px] text-gray-400 font-medium">
-                      {produto.parcelamento.split(" R$")[0]}{" "}
-                      <span className="text-rock-red font-medium">
-                        R${produto.parcelamento.split(" R$")[1]}
-                      </span>{" "}
-                      sem juros
-                    </p>
+              <div
+                key={produto.id}
+                className="min-w-full md:min-w-[33.333%] px-[15px] flex-shrink-0 box-border"
+              >
+                <div
+                  className="flex flex-col h-full bg-zinc-900 rounded-xl overflow-hidden shadow-lg pt-2 px-2
+                  hover:-translate-y-2 hover:shadow-2xl 
+                  transition-all duration-300 transform-gpu will-change-transform group cursor-pointer"
+                >
+                  <div className="bg-white aspect-square w-full relative overflow-hidden rounded-t-xl">
+                    <Image
+                      src={produto.imagem}
+                      alt={produto.nome}
+                      fill
+                      className="object-contain p-4 transition-transform duration-300"
+                    />
                   </div>
 
-                  {/* linha vermelha */}
-                  <div className="w-full h-1 bg-rock-red mt-4 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                  <div className="px-3 py-3 flex flex-col gap-1 antialiased">
+                    <h3 className="text-[20px] font-bold text-white truncate">
+                      {produto.nome}
+                    </h3>
+
+                    <div className="mt-2">
+                      <p className="text-rock-red font-extrabold text-2xl">
+                        {produto.preco}
+                      </p>
+                      <p className="text-[13px] text-gray-400 font-medium">
+                        {produto.parcelamento.split(" R$")[0]}{" "}
+                        <span className="text-rock-red font-medium">
+                          R${produto.parcelamento.split(" R$")[1]}
+                        </span>{" "}
+                        sem juros
+                      </p>
+                    </div>
+
+                    {/* linha vermelha */}
+                    <div className="w-full h-1 bg-rock-red mt-4 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
           </div>
         </div>
 
