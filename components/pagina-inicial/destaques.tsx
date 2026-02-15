@@ -138,48 +138,50 @@ export default function Destaques() {
             }}
           >
             {produtos.map((produto) => (
-              <div
-                key={produto.id}
-                className="min-w-full md:min-w-[33.333%] px-[15px] flex-shrink-0 box-border"
-              >
-                <div
-                  className="flex flex-col h-full bg-zinc-900 rounded-xl overflow-hidden shadow-lg pt-2 px-2
-                  hover:-translate-y-2 hover:shadow-2xl 
-                  transition-all duration-300 transform-gpu will-change-transform group cursor-pointer"
-                >
-                  <div className="bg-white aspect-square w-full relative overflow-hidden rounded-t-xl">
-                    <Image
-                      src={produto.imagem}
-                      alt={produto.nome}
-                      fill
-                      className="object-contain p-4 transition-transform duration-300"
-                    />
-                  </div>
+  <div
+    key={produto.id}
+    className="min-w-full md:min-w-[33.333%] px-[10px] md:px-[15px] flex-shrink-0 box-border"
+  >
+    <div
+      className="flex flex-col h-auto md:h-full w-full bg-zinc-900 rounded-xl overflow-hidden shadow-lg 
+      p-1 md:pt-2 md:px-2
+      hover:-translate-y-2 hover:shadow-2xl 
+      transition-all duration-300 transform-gpu will-change-transform group cursor-pointer"
+    >
+      <div className="bg-white aspect-square w-full relative overflow-hidden rounded-t-lg md:rounded-t-xl">
+        <Image
+          src={produto.imagem}
+          alt={produto.nome}
+          fill
+          className="object-contain p-2 md:p-4 transition-transform duration-300"
+        />
+      </div>
 
-                  <div className="px-3 py-3 flex flex-col gap-1 antialiased">
-                    <h3 className="text-[20px] font-bold text-white truncate">
-                      {produto.nome}
-                    </h3>
+      <div className="px-2 pt-2 pb-2 md:px-3 md:py-3 flex flex-col gap-0 md:gap-1 antialiased">
+        
+        <h3 className="text-[16px] md:text-[20px] font-bold text-white truncate leading-tight">
+          {produto.nome}
+        </h3>
 
-                    <div className="mt-2">
-                      <p className="text-rock-red font-extrabold text-2xl">
-                        {produto.preco}
-                      </p>
-                      <p className="text-[13px] text-gray-400 font-medium">
-                        {produto.parcelamento.split(" R$")[0]}{" "}
-                        <span className="text-rock-red font-medium">
-                          R${produto.parcelamento.split(" R$")[1]}
-                        </span>{" "}
-                        sem juros
-                      </p>
-                    </div>
+        <div className="mt-3 md:mt-3">
+          <p className="text-rock-red font-extrabold text-lg md:text-2xl leading-none">
+            {produto.preco}
+          </p>
+          <p className="text-[10px] md:text-[13px] text-gray-400 font-medium">
+            {produto.parcelamento.split(" R$")[0]}{" "}
+            <span className="text-rock-red font-medium">
+              R${produto.parcelamento.split(" R$")[1]}
+            </span>{" "}
+            sem juros
+          </p>
+        </div>
 
-                    {/* linha vermelha */}
-                    <div className="w-full h-1 bg-rock-red mt-4 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                  </div>
-                </div>
-              </div>
-            ))}
+        {/* linha vermelha */}
+        <div className="hidden md:block w-full h-1 bg-rock-red mt-4 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+      </div>
+    </div>
+  </div>
+))}
           </div>
         </div>
 
