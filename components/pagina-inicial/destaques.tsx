@@ -221,6 +221,22 @@ export default function Destaques() {
         </button>
       </div>
 
+      {/* labels */}
+      <div className="flex md:hidden justify-center items-center gap-2 mt-6">
+        {produtos.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+              currentIndex === index
+                ? "bg-rock-red"           
+                : "bg-zinc-600 hover:bg-zinc-500" 
+            }`}
+            aria-label={`Ir para o slide ${index + 1}`}
+          />
+        ))}
+      </div>
+
       <div className="flex justify-center mt-12">
         <Link
           href="/produtos"
