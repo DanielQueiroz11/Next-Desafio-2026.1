@@ -23,7 +23,7 @@ export default function Footer() {
         </div>
 
         {/* redes sociais */}
-        <div className="flex flex-col items-center md:items-start gap-4 md:order-1">
+        <div className="flex flex-col items-center md:items-start gap-4 md:order-1 self-start md:pt-3">
           <Link 
             href="https://linktr.ee/the.rock.store" 
             target="_blank" 
@@ -68,7 +68,7 @@ export default function Footer() {
         </div>
 
         {/* contato */}
-        <div className="flex flex-col items-center md:items-end gap-4 self-start md:order-3 pt-5">
+        <div className="flex flex-col items-center md:items-end gap-4 self-start md:order-3 md:pt-3">
           <Link href="/contato" className="w-full text-center md:text-right md:pr-20">
             <h3 className="font-bold text-lg tracking-wider hover:text-rock-red transition-colors cursor-pointer">
               Contato
