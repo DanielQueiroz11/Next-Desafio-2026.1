@@ -14,11 +14,11 @@ export default function HeroSection() {
       </div>
 
       <div className="relative z-10 px-4 max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-normal text-white drop-shadow-lg">
-          Vista o som que você ama
+        <h1 className="text-4xl md:text-[60px] font-black mb-6 tracking-normal text-white drop-shadow-lg">
+          Vista o <span className="text-rock-red">som</span> que você <span className="text-rock-red">ama</span>
         </h1>
-        <p className="text-gray-200 text-lg md:text-[21px] font-medium drop-shadow-md">
-          As melhores camisetas, moletons e acessórios do rock e metal!
+        <p className="text-gray-200 text-lg md:text-[21.5px] font-medium drop-shadow-md">
+          As melhores camisetas, moletons e acessórios do rock e metal!🎸
         </p>
       </div>
     </section>
