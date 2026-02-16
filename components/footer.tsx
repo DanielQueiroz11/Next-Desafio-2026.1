@@ -75,13 +75,13 @@ export default function Footer() {
             </h3>
           </Link>
           <div className="flex flex-col gap-2 text-sm text-left">
-            <div className="flex items-center justify-start gap-2">
+            <div className="flex items-center justify-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
               </svg>
               <span>(32) 98893-2957</span>
             </div>
-            <div className="flex items-center justify-start gap-2">
+            <div className="flex items-center justify-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
               </svg>
@@ -100,7 +100,7 @@ export default function Footer() {
       </div>
 
       {/* copyright mobile */}
-      <div className="md:hidden max-w-7xl mx-auto px-8 mt-8 pt-7">
+      <div className="md:hidden max-w-7xl mx-auto px-8 mt-8 pt-5">
         <div className="text-xs text-gray-400 font-mono text-center">
           <p>© 2026 Caverna do Rock</p>
           <p>Todos os direitos reservados.</p>
