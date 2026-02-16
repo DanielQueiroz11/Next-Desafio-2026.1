@@ -14,7 +14,7 @@ export default function HeroSection() {
       </div>
 
       <div className="relative z-10 px-4 max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-[60px] font-black mb-6 tracking-normal text-white drop-shadow-lg">
+        <h1 className="text-[33px] md:text-[53px] font-black mb-6 tracking-normal text-white drop-shadow-lg uppercase">
           Vista o <span className="text-rock-red">som</span> que você <span className="text-rock-red">ama</span>
         </h1>
         <p className="text-gray-200 text-lg md:text-[21.5px] font-medium drop-shadow-md">
