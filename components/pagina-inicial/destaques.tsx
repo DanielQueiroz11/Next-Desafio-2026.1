@@ -175,17 +175,17 @@ export default function Destaques() {
                   </div>
 
                   <div className="px-2 pt-2 pb-2 md:px-3 md:pt-3 md:pb-1 flex flex-col gap-0 md:gap-1 antialiased">
-                    <h3 className="text-[16px] md:text-[18px] font-bold text-white truncate leading-tight">
+                    <h3 className="text-[16px] md:text-[21px] font-bold text-white truncate leading-tight mb-2.5 md:mb-0.5">
                       {produto.nome}
                     </h3>
 
                     <div className="mt-1 md:mt-3">
-                      <p className="text-rock-red font-extrabold text-lg md:text-xl leading-none">
+                      <p className="text-rock-red font-extrabold text-lg md:text-[22px] leading-none mb-0.5 md:mb-1">
                         {produto.preco}
                       </p>
-                      <p className="text-[10px] md:text-[12px] text-gray-400 font-medium">
+                      <p className="text-[10px] md:text-[13px] text-gray-400 font-medium">
                         {produto.parcelamento.split(" R$")[0]}{" "}
-                        <span className="text-rock-red font-medium">
+                        <span className="text-rock-red font-bold">
                           R${produto.parcelamento.split(" R$")[1]}
                         </span>{" "}
                         sem juros
