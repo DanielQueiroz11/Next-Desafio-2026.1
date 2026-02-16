@@ -41,7 +41,7 @@ export default function Navbar() {
         
         {/* links (desktop) */}
         <div className="hidden md:flex items-center gap-8">
-            <Link href="/" className="bg-rock-red text-white px-4 py-2 rounded-full hover:bg-red-700 transition-colors font-bold">
+            <Link href="/" className="bg-rock-red text-white px-4 py-2 rounded-full hover:bg-red-700 transition-colors font-bold text-[17px]">
               Home
             </Link>
             <Link href="/contato" className="text-white hover:text-rock-red transition-colors">
