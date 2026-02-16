@@ -83,7 +83,7 @@ export default function Destaques() {
     if (isMobile) {
       const interval = setInterval(() => {
         nextSlide();
-      }, 3000);
+      }, 2000); {/* 2 segundos */}
       return () => clearInterval(interval);
     }
     //eslint-disable-next-line react-hooks/exhaustive-deps
