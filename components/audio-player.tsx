@@ -12,7 +12,7 @@ export default function AudioPlayer({ isPlaying, onToggle }: AudioPlayerProps) {
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = 0.4; 
+      audioRef.current.volume = 0.3; 
       
       if (isPlaying) {
         audioRef.current.play().catch(() => {});
