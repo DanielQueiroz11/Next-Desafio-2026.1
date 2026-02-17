@@ -5,42 +5,67 @@ import { useRef, useEffect } from "react";
 interface AudioPlayerProps {
   isPlaying: boolean;
   onToggle: () => void;
+  isRadio?: boolean;
 }
 
-export default function AudioPlayer({ isPlaying, onToggle }: AudioPlayerProps) {
+export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  const MP3_URL = "/audios/led-zep.mp3";
+  const RADIO_URL = "https://s2-webradio.antenne.de/heavy-metal";
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = 0.3; 
-      
+      audioRef.current.volume = 0.3;
+
+      if (!isRadio) {
+        const savedTime = sessionStorage.getItem("musicTime");
+        if (savedTime) {
+          audioRef.current.currentTime = parseFloat(savedTime);
+        }
+      }
+    }
+  }, [isRadio]);
+
+  useEffect(() => {
+    if (audioRef.current) {
       if (isPlaying) {
-        audioRef.current.play().catch(() => {});
+        const playPromise = audioRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((e) => console.log("Erro/Autoplay:", e));
+        }
       } else {
         audioRef.current.pause();
       }
     }
   }, [isPlaying]);
 
+  const handleTimeUpdate = () => {
+    if (audioRef.current && !isRadio) {
+      sessionStorage.setItem("musicTime", audioRef.current.currentTime.toString());
+    }
+  };
+
   return (
     <div className="hidden md:block absolute bottom-75 left-20 z-20 group">
       <audio
         ref={audioRef}
-        loop
-        src="/audios/led-zep.mp3" // https://s2-webradio.antenne.de/heavy-metal (rádio)
+        src={isRadio ? RADIO_URL : MP3_URL} 
+        loop={!isRadio} 
+        onTimeUpdate={!isRadio ? handleTimeUpdate : undefined} 
       />
 
       <button
         onClick={onToggle}
         className={`cursor-pointer flex items-center justify-center w-16 h-16 rounded-full shadow-lg transition-all duration-300 border-2 ${
           isPlaying
-            ? "bg-rock-red border-white animate-pulse" //quando tá tocando
-            : "bg-black/80 border-gray-500 hover:bg-rock-red hover:border-white" //quando tá mutado
+            ? "bg-rock-red border-white animate-pulse" 
+            : "bg-black/80 border-gray-500 hover:bg-rock-red hover:border-white"
         }`}
-        aria-label="Tocar música de fundo"
+        aria-label={isRadio ? "Tocar rádio" : "Tocar música"}
       >
-       {isPlaying ? (
-          // ícone com ondas
+        {isPlaying ? (
+          // ícone som ligado
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="34"
@@ -54,18 +79,15 @@ export default function AudioPlayer({ isPlaying, onToggle }: AudioPlayerProps) {
             className="text-white"
           >
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            
             <path d="M15.54 8.46a5 5 0 0 1 0 7.07" opacity="0.5">
                <animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite" begin="0s"/>
             </path>
-
             <path d="M19.07 4.93a10 10 0 0 1 0 14.14" opacity="0.5">
                <animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite" begin="0.3s"/>
             </path>
           </svg>
         ) : (
-
-          // ícone mute
+          // ícone mutar
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="34"
@@ -85,16 +107,16 @@ export default function AudioPlayer({ isPlaying, onToggle }: AudioPlayerProps) {
         )}
       </button>
       
-      {/* tooltips */ }
+      {/* tooltips */}
       {!isPlaying && (
         <span className="absolute left-17 top-1/2 -translate-y-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity pointer-events-none group-hover:opacity-100">
-          Tocar música 🎸
+          {isRadio ? "Ouvir rádio ao vivo 📻" : "Tocar música 🎸"}
         </span>
       )}
 
       {isPlaying && (
         <span className="absolute left-17 top-1/2 -translate-y-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity pointer-events-none group-hover:opacity-100">
-          Mutar
+          {isRadio ? "Parar rádio" : "Mutar"}
         </span>
       )}
     </div>
