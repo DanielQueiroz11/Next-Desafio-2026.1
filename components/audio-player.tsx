@@ -32,27 +32,44 @@ export default function AudioPlayer({ isPlaying, onToggle }: AudioPlayerProps) {
 
       <button
         onClick={onToggle}
-        className={`cursor-pointer flex items-center justify-center w-12 h-12 rounded-full shadow-lg transition-all duration-300 border-2 ${
+        className={`cursor-pointer flex items-center justify-center w-16 h-16 rounded-full shadow-lg transition-all duration-300 border-2 ${
           isPlaying
             ? "bg-rock-red border-white animate-pulse" //quando tá tocando
             : "bg-black/80 border-gray-500 hover:bg-rock-red hover:border-white" //quando tá mutado
         }`}
         aria-label="Tocar música de fundo"
       >
-        {isPlaying ? (
-          // ícone de som ligado 
-          <div className="flex items-end gap-[2px] h-4">
-            <span className="w-1 bg-white animate-[bounce_1s_infinite] h-2"></span>
-            <span className="w-1 bg-white animate-[bounce_1.2s_infinite] h-4"></span>
-            <span className="w-1 bg-white animate-[bounce_0.8s_infinite] h-3"></span>
-          </div>
+       {isPlaying ? (
+          // ícone com ondas
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="34"
+            height="34"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-white"
+          >
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" opacity="0.5">
+               <animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite" begin="0s"/>
+            </path>
+
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" opacity="0.5">
+               <animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite" begin="0.3s"/>
+            </path>
+          </svg>
         ) : (
 
           // ícone mute
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="34"
+            height="34"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -70,13 +87,13 @@ export default function AudioPlayer({ isPlaying, onToggle }: AudioPlayerProps) {
       
       {/* tooltips */ }
       {!isPlaying && (
-        <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity pointer-events-none group-hover:opacity-100">
+        <span className="absolute left-17 top-1/2 -translate-y-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity pointer-events-none group-hover:opacity-100">
           Tocar música 🎸
         </span>
       )}
 
       {isPlaying && (
-        <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity pointer-events-none group-hover:opacity-100">
+        <span className="absolute left-17 top-1/2 -translate-y-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity pointer-events-none group-hover:opacity-100">
           Mutar
         </span>
       )}
