@@ -27,7 +27,7 @@ export default function AudioPlayer({ isPlaying, onToggle }: AudioPlayerProps) {
       <audio
         ref={audioRef}
         loop
-        src="/audios/led-zep.mp3" 
+        src="/audios/led-zep.mp3" // https://s2-webradio.antenne.de/heavy-metal (rádio)
       />
 
       <button
