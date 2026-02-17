@@ -33,7 +33,7 @@ export default function AudioPlayer() {
 
       <button
         onClick={toggleAudio}
-        className={`flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-all duration-300 border-2 ${
+        className={`flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-all duration-300 border-2 cursor-pointer ${
           isPlaying
             ? "bg-rock-red border-white animate-pulse" //quando tá tocando
             : "bg-black/80 border-gray-500 hover:bg-rock-red hover:border-white" //quando tá mutado
