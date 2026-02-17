@@ -1,27 +1,26 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
-export default function AudioPlayer() {
-  const [isPlaying, setIsPlaying] = useState(false);
+interface AudioPlayerProps {
+  isPlaying: boolean;
+  onToggle: () => void;
+}
+
+export default function AudioPlayer({ isPlaying, onToggle }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = 0.4; 
+      
+      if (isPlaying) {
+        audioRef.current.play().catch(() => {});
+      } else {
+        audioRef.current.pause();
+      }
     }
-  }, []);
-
-  const toggleAudio = () => {
-    if (!audioRef.current) return;
-
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
+  }, [isPlaying]);
 
   return (
     <div className="hidden md:block absolute bottom-75 left-20 z-20 group">
@@ -32,8 +31,8 @@ export default function AudioPlayer() {
       />
 
       <button
-        onClick={toggleAudio}
-        className={`flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-all duration-300 border-2 cursor-pointer ${
+        onClick={onToggle}
+        className={`cursor-pointer flex items-center justify-center w-12 h-12 rounded-full shadow-lg transition-all duration-300 border-2 ${
           isPlaying
             ? "bg-rock-red border-white animate-pulse" //quando tá tocando
             : "bg-black/80 border-gray-500 hover:bg-rock-red hover:border-white" //quando tá mutado
@@ -43,17 +42,17 @@ export default function AudioPlayer() {
         {isPlaying ? (
           // ícone de som ligado 
           <div className="flex items-end gap-[2px] h-4">
-            <span className="w-1 bg-white animate-[bounce_1s_infinite] h-3"></span>
-            <span className="w-1 bg-white animate-[bounce_1.2s_infinite] h-5"></span>
-            <span className="w-1 bg-white animate-[bounce_0.8s_infinite] h-4"></span>
+            <span className="w-1 bg-white animate-[bounce_1s_infinite] h-2"></span>
+            <span className="w-1 bg-white animate-[bounce_1.2s_infinite] h-4"></span>
+            <span className="w-1 bg-white animate-[bounce_0.8s_infinite] h-3"></span>
           </div>
         ) : (
 
           // ícone mute
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="28"
-            height="28"
+            width="24"
+            height="24"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -71,13 +70,13 @@ export default function AudioPlayer() {
       
       {/* tooltips */ }
       {!isPlaying && (
-        <span className="absolute left-15 top-1/2 -translate-y-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity pointer-events-none group-hover:opacity-100">
+        <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity pointer-events-none group-hover:opacity-100">
           Tocar música 🎸
         </span>
       )}
 
       {isPlaying && (
-        <span className="absolute left-15 top-1/2 -translate-y-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity pointer-events-none group-hover:opacity-100">
+        <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity pointer-events-none group-hover:opacity-100">
           Mutar
         </span>
       )}
