@@ -107,7 +107,7 @@ export default function Destaques() {
           <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
         </svg>
 
-        <h2 className="text-3xl md:text-4xl font-extrabold uppercase tracking-wide text-white">
+        <h2 className="text-[26px] md:text-4xl font-extrabold uppercase tracking-wide text-white">
           Destaques
         </h2>
 
