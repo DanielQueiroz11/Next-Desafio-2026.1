@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import AudioPlayer from "../../components/audio-player"; 
+import AudioPlayer from "./audio-player"; 
 
 export default function HeroSection() {
   const [isPlaying, setIsPlaying] = useState(false);
