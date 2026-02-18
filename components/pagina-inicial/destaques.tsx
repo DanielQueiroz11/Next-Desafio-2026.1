@@ -160,7 +160,7 @@ export default function Destaques() {
                 className="basis-full md:basis-1/3 flex-shrink-0 px-2 box-border"
               >
                 <div
-                  className="flex flex-col h-auto md:h-full w-full bg-zinc-900 rounded-xl overflow-hidden shadow-lg 
+                  className="flex flex-col h-auto md:h-full w-full bg-[#121212] rounded-xl overflow-hidden shadow-lg 
                   p-1
                   hover:-translate-y-2 hover:shadow-2xl 
                   transition-all duration-300 transform-gpu will-change-transform group cursor-pointer"
