@@ -159,42 +159,44 @@ export default function Destaques() {
                 key={produto.id}
                 className="basis-full md:basis-1/3 flex-shrink-0 px-2 box-border"
               >
-                <div
-                  className="flex flex-col h-auto md:h-full w-full bg-[#121212] rounded-xl overflow-hidden shadow-lg 
-                  p-1
-                  hover:-translate-y-2 hover:shadow-2xl 
-                  transition-all duration-300 transform-gpu will-change-transform group cursor-pointer"
-                >
-                  <div className="bg-white aspect-square w-full relative overflow-hidden rounded-t-lg md:rounded-t-xl">
-                    <Image
-                      src={produto.imagem}
-                      alt={produto.nome}
-                      fill
-                      className="object-contain p-2 md:p-4 transition-transform duration-300"
-                    />
-                  </div>
-
-                  <div className="px-2 pt-2 pb-2 md:px-3 md:pt-3 md:pb-1 flex flex-col gap-0 md:gap-1 antialiased">
-                    <h3 className="text-[16px] md:text-[21px] font-bold text-white truncate leading-tight mb-2.5 md:mb-0.5">
-                      {produto.nome}
-                    </h3>
-
-                    <div className="mt-1 md:mt-3">
-                      <p className="text-rock-red font-extrabold text-lg md:text-[22px] leading-none mb-0.5 md:mb-1">
-                        {produto.preco}
-                      </p>
-                      <p className="text-[10px] md:text-[13px] text-gray-400 font-medium">
-                        {produto.parcelamento.split(" R$")[0]}{" "}
-                        <span className="text-rock-red font-bold">
-                          R${produto.parcelamento.split(" R$")[1]}
-                        </span>{" "}
-                        sem juros
-                      </p>
+                <Link href={`/produtos-individuais/${produto.id}`} className="block h-full">
+                  <div
+                    className="flex flex-col h-auto md:h-full w-full bg-[#121212] rounded-xl overflow-hidden shadow-lg 
+                    p-1
+                    hover:-translate-y-2 hover:shadow-2xl 
+                    transition-all duration-300 transform-gpu will-change-transform group cursor-pointer"
+                  >
+                    <div className="bg-white aspect-square w-full relative overflow-hidden rounded-t-lg md:rounded-t-xl">
+                      <Image
+                        src={produto.imagem}
+                        alt={produto.nome}
+                        fill
+                        className="object-contain p-2 md:p-4 transition-transform duration-300"
+                      />
                     </div>
 
-                    <div className="hidden md:block w-full h-1 bg-rock-red mt-2 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                    <div className="px-2 pt-2 pb-2 md:px-3 md:pt-3 md:pb-1 flex flex-col gap-0 md:gap-1 antialiased">
+                      <h3 className="text-[16px] md:text-[21px] font-bold text-white truncate leading-tight mb-2.5 md:mb-0.5">
+                        {produto.nome}
+                      </h3>
+
+                      <div className="mt-1 md:mt-3">
+                        <p className="text-rock-red font-extrabold text-lg md:text-[22px] leading-none mb-0.5 md:mb-1">
+                          {produto.preco}
+                        </p>
+                        <p className="text-[10px] md:text-[13px] text-gray-400 font-medium">
+                          {produto.parcelamento.split(" R$")[0]}{" "}
+                          <span className="text-rock-red font-bold">
+                            R${produto.parcelamento.split(" R$")[1]}
+                          </span>{" "}
+                          sem juros
+                        </p>
+                      </div>
+
+                      <div className="hidden md:block w-full h-1 bg-rock-red mt-2 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </div>
             ))}
           </div>

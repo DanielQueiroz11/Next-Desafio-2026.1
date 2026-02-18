@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const products = [
   {
@@ -64,20 +65,24 @@ export default function PaginaProdutos() {
               key={product.id}
               className="w-full max-w-[380px] bg-[#121212] border border-white/5 rounded-lg overflow-hidden hover:border-rock-red/50 transition-all duration-300 shadow-lg hover:shadow-rock-red/10"
             >
-              <div className="group relative w-full h-[320px] bg-white flex items-center justify-center overflow-hidden cursor-pointer">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
+              <Link href={`/produtos-individuais/${product.id}`}>
+                <div className="group relative w-full h-[320px] bg-white flex items-center justify-center overflow-hidden cursor-pointer">
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              </Link>
 
               {/* conteúdo do card */}
               <div className="p-6 flex flex-col h-auto">
-                <h3 className="text-white text-xl font-bold mb-2 cursor-pointer hover:text-rock-red transition-colors">
-                  {product.name}
-                </h3>
+                <Link href={`/produtos-individuais/${product.id}`}>
+                  <h3 className="text-white text-xl font-bold mb-2 cursor-pointer hover:text-rock-red transition-colors">
+                    {product.name}
+                  </h3>
+                </Link>
 
                 <p className="text-gray-400 text-sm mb-4 line-clamp-2 min-h-[40px]">
                   {product.description}
@@ -105,9 +110,11 @@ export default function PaginaProdutos() {
                       ))}
                   </span>
 
-                  <button className="w-full bg-rock-red text-white font-bold py-3 rounded-full hover:bg-red-700 hover:scale-[1.03] active:scale-95 transition-all shadow-md cursor-pointer">
-                    Ver mais
-                  </button>
+                  <Link href={`/produtos-individuais/${product.id}`} className="w-full block">
+                    <button className="w-full bg-rock-red text-white font-bold py-3 rounded-full hover:bg-red-700 hover:scale-[1.03] active:scale-95 transition-all shadow-md cursor-pointer">
+                      Ver mais
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
