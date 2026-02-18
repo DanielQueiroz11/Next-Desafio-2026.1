@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Navbar from "../../components/navbar/navbar";
-import Footer from "../../components/footer/footer";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
+import AppProvider from "../providers/app-providers";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Caverna do Rock",
@@ -21,12 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body
-        className={`${inter.variable} ${inter.className} bg-rock-dark text-white antialiased`}
-      >
-        <Navbar />
-        {children}
-        <Footer />
+      <body className={`${inter.className} bg-rock-dark`}>
+        <AppProvider>
+          {children}
+        </AppProvider>
       </body>
     </html>
   );
