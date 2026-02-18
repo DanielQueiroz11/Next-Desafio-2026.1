@@ -47,7 +47,7 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
   };
 
   return (
-    <div className="hidden md:block absolute bottom-75 left-20 z-20 group">
+    <div className="hidden md:block absolute bottom-120 left-5 z-20 group">
       <audio
         ref={audioRef}
         src={isRadio ? RADIO_URL : MP3_URL} 
