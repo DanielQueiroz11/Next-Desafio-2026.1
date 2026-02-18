@@ -62,9 +62,9 @@ export default function PaginaProdutos() {
           {products.map((product) => (
             <div
               key={product.id}
-              className="group w-full max-w-[380px] bg-[#121212] border border-white/5 rounded-lg overflow-hidden hover:border-rock-red/50 transition-all duration-300 shadow-lg hover:shadow-rock-red/10"
+              className="w-full max-w-[380px] bg-[#121212] border border-white/5 rounded-lg overflow-hidden hover:border-rock-red/50 transition-all duration-300 shadow-lg hover:shadow-rock-red/10"
             >
-              <div className="relative w-full h-[320px] bg-white flex items-center justify-center overflow-hidden cursor-pointer">
+              <div className="group relative w-full h-[320px] bg-white flex items-center justify-center overflow-hidden cursor-pointer">
                 <Image
                   src={product.image}
                   alt={product.name}
@@ -84,7 +84,7 @@ export default function PaginaProdutos() {
                 </p>
 
                 <div className="mt-auto">
-                  <span className="block text-rock-red text-2xl font-black mb-1">
+                  <span className="block text-rock-red text-2xl font-extrabold mb-1">
                     {product.price}
                   </span>
 
