@@ -14,7 +14,8 @@ function GlobalPlayer() {
 
 export default function AppProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isLoginPage = pathname === "/login";
+  
+  const hideLayout = pathname === "/login" || pathname === "/esqueceu-senha";
 
   const [isMounted, setIsMounted] = useState(false);
 
@@ -24,10 +25,10 @@ export default function AppProvider({ children }: { children: React.ReactNode })
 
   return (
     <AudioProvider>
-      {!isLoginPage && <Navbar />}
+      {!hideLayout && <Navbar />}
       {children}
-      {isMounted && !isLoginPage && <GlobalPlayer />}
-      {!isLoginPage && <Footer />}
+      {isMounted && !hideLayout && <GlobalPlayer />}
+      {!hideLayout && <Footer />}
     </AudioProvider>
   );
 }
