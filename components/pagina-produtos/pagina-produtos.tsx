@@ -81,7 +81,7 @@ export default function PaginaProdutos() {
   };
 
   return (
-    <section className="w-full min-h-screen bg-rock-dark py-12 px-4 md:px-8">
+    <section className="w-full min-h-screen bg-rock-dark pt-12 pb-7 px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
         
         {/* barra de pesquisa */}
@@ -104,67 +104,98 @@ export default function PaginaProdutos() {
 
         {/* grid de produtos */}
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-items-center">
-            {filteredProducts.map((product) => (
-              <div
-                key={product.id}
-                className="w-full max-w-[380px] bg-[#121212] border border-white/5 rounded-lg overflow-hidden hover:border-rock-red/50 transition-all duration-300 shadow-lg hover:shadow-rock-red/10"
-              >
-                <Link href={`/produtos-individuais/${product.id}`}>
-                  <div className="group relative w-full h-[320px] bg-white flex items-center justify-center overflow-hidden cursor-pointer">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                </Link>
-
-                {/* conteúdo do card */}
-                <div className="p-4 flex flex-col h-auto">
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-items-center">
+              {filteredProducts.map((product) => (
+                <div
+                  key={product.id}
+                  className="w-full max-w-[380px] bg-[#121212] border border-white/5 rounded-lg overflow-hidden hover:border-rock-red/50 transition-all duration-300 shadow-lg hover:shadow-rock-red/10"
+                >
                   <Link href={`/produtos-individuais/${product.id}`}>
-                    <h3 className="text-white text-xl font-bold mb-2 cursor-pointer hover:text-rock-red transition-colors">
-                      {product.name}
-                    </h3>
+                    <div className="group relative w-full h-[320px] bg-white flex items-center justify-center overflow-hidden cursor-pointer">
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        fill
+                        className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
                   </Link>
 
-                  <p className="text-gray-400 text-sm mb-4 line-clamp-2 min-h-[40px]">
-                    {product.description}
-                  </p>
-
-                  <div className="mt-auto">
-                    <span className="block text-rock-red text-2xl font-extrabold mb-1">
-                      {product.price}
-                    </span>
-                    
-                    <span className="block text-gray-400 text-sm mb-6">
-                      {product.installment
-                        .split(/(R\$\d+,\d+)/)
-                        .map((part, index) => (
-                          <span
-                            key={index}
-                            className={
-                              part.startsWith("R$")
-                                ? "text-rock-red font-bold"
-                                : ""
-                            }
-                          >
-                            {part}
-                          </span>
-                        ))}
-                    </span>
-
-                    <Link href={`/produtos-individuais/${product.id}`} className="w-full block">
-                      <button className="w-full bg-rock-red text-white font-bold py-3 rounded-full hover:bg-red-700 hover:scale-[1.03] active:scale-95 transition-all shadow-md cursor-pointer">
-                        Ver mais
-                      </button>
+                  {/* conteúdo do card */}
+                  <div className="p-4 flex flex-col h-auto">
+                    <Link href={`/produtos-individuais/${product.id}`}>
+                      <h3 className="text-white text-xl font-bold mb-2 cursor-pointer hover:text-rock-red transition-colors">
+                        {product.name}
+                      </h3>
                     </Link>
+
+                    <p className="text-gray-400 text-sm mb-4 line-clamp-2 min-h-[40px]">
+                      {product.description}
+                    </p>
+
+                    <div className="mt-auto">
+                      <span className="block text-rock-red text-2xl font-extrabold mb-1">
+                        {product.price}
+                      </span>
+                      
+                      <span className="block text-gray-400 text-sm mb-6">
+                        {product.installment
+                          .split(/(R\$\d+,\d+)/)
+                          .map((part, index) => (
+                            <span
+                              key={index}
+                              className={
+                                part.startsWith("R$")
+                                  ? "text-rock-red font-bold"
+                                  : ""
+                              }
+                            >
+                              {part}
+                            </span>
+                          ))}
+                      </span>
+
+                      <Link href={`/produtos-individuais/${product.id}`} className="w-full block">
+                        <button className="w-full bg-rock-red text-white font-bold py-3 rounded-full hover:bg-red-700 hover:scale-[1.03] active:scale-95 transition-all shadow-md cursor-pointer">
+                          Ver mais
+                        </button>
+                      </Link>
+                    </div>
                   </div>
                 </div>
+              ))}
+            </div>
+
+            {/* paginação */}
+            <div className="flex justify-center items-center gap-3 sm:gap-5 mt-15 mb-8 text-rock-red font-bold text-[18px]">
+              <button className="flex items-center hover:text-white transition-colors cursor-pointer">
+                &larr; Anterior
+              </button>
+              
+              <div className="flex items-center gap-2 sm:gap-3">
+                <button className="bg-rock-red text-white w-11 h-11 flex items-center justify-center rounded-xl font-bold cursor-default">
+                  1
+                </button>
+                <button className="w-11 h-11 flex items-center justify-center rounded-xl hover:bg-zinc-700 transition-colors cursor-pointer">
+                  2
+                </button>
+                <button className="w-11 h-11 flex items-center justify-center rounded-xl hover:bg-zinc-700  transition-colors cursor-pointer">
+                  3
+                </button>
+                <span className="w-11 h-11 flex items-center justify-center">
+                  ...
+                </span>
+                <button className="w-11 h-11 flex items-center justify-center rounded-xl hover:bg-zinc-700  transition-colors cursor-pointer">
+                  56
+                </button>
               </div>
-            ))}
-          </div>
+
+              <button className="flex items-center hover:text-white transition-colors cursor-pointer">
+                Próximo &rarr;
+              </button>
+            </div>
+          </>
         ) : (
           /* mensagem quando não acha*/
           <div className="text-center py-20 animate-pulse">
