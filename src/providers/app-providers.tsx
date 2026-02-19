@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react"; 
 import Navbar from "@/components/navbar/navbar"; 
 import Footer from "@/components/footer/footer";
-import AudioPlayer from "../../components/pagina-inicial/audio-player"; 
+import AudioPlayer from "@/components/audio-player/audio-player"; 
 import { AudioProvider, useAudio } from "./audio-context"; 
 
 function GlobalPlayer() {
