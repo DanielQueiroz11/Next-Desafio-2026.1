@@ -110,7 +110,7 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
       {/* tooltips */}
       {!isPlaying && (
         <span className="absolute left-17 top-1/2 -translate-y-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity pointer-events-none group-hover:opacity-100">
-          {isRadio ? "Ouvir rádio ao vivo 📻" : "Tocar música 🎸"}
+          {isRadio ? "Ouvir rádio 📻" : "Tocar música 🎸"}
         </span>
       )}
 
