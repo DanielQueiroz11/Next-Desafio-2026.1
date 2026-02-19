@@ -58,11 +58,11 @@ export default function Navbar() {
             <Link href="/produtos" className="text-white hover:text-rock-red transition-colors">
               Produtos
             </Link>
+             <Link href="/login" className="text-white hover:text-rock-red transition-colors">
+              Login
+            </Link>
             <Link href="/gerenciamento" className="text-white hover:text-rock-red transition-colors">
               Gerenciamento
-            </Link>
-            <Link href="/login" className="text-white hover:text-rock-red transition-colors">
-              Login
             </Link>
         </div>
 
@@ -109,6 +109,13 @@ export default function Navbar() {
           >
             Produtos
           </Link>
+           <Link 
+            href="/login" 
+            className="w-full text-center py-3 text-white font-bold text-lg hover:bg-white/5 hover:text-rock-red transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Login
+          </Link>
           <Link 
             href="/gerenciamento" 
             className="w-full text-center py-3 text-white font-bold text-lg hover:bg-white/5 hover:text-rock-red transition-colors"
@@ -116,13 +123,7 @@ export default function Navbar() {
           >
             Gerenciamento
           </Link>
-          <Link 
-            href="/login" 
-            className="w-full text-center py-3 text-white font-bold text-lg hover:bg-white/5 hover:text-rock-red transition-colors"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Login
-          </Link>
+         
         </div>
       )}
     </nav>
