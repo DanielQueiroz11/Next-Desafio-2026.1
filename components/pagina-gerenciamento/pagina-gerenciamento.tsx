@@ -163,7 +163,7 @@ export default function PaginaGerenciamento() {
           </div>
 
           {/* paginação */}
-          <div className="hidden md:flex justify-center items-center gap-3 sm:gap-5 mt-12 mb-4 text-rock-red font-bold text-[18px]">
+          <div className="hidden md:flex justify-center items-center gap-3 sm:gap-5 mt-12 mb-4 text-rock-red font-medium text-[18px]">
             <button className="flex items-center hover:text-white transition-colors cursor-pointer">
               &larr; Anterior
             </button>
