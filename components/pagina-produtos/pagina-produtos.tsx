@@ -85,7 +85,7 @@ export default function PaginaProdutos() {
       <div className="max-w-6xl mx-auto">
         
         {/* barra de pesquisa */}
-        <div className="flex justify-start mb-12">
+        <div className="flex justify-center mb-12">
           <div className="relative w-full max-w-sm">
             <input
               type="text"
