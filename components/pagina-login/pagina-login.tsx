@@ -11,7 +11,7 @@ export default function PaginaLogin() {
           src="/imagens/fundo-login.jpg" 
           alt="Fundo Rock Bands"
           fill
-          className="object-cover opacity-40" 
+          className="object-cover opacity-40 object-[center_bottom]"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black/90"></div>
@@ -30,19 +30,19 @@ export default function PaginaLogin() {
           
         {/* campos */}
           <div className="flex flex-col gap-2">
-            <label htmlFor="name" className="text-white font-bold ml-1">
+            <label htmlFor="name" className="text-white font-bold ml-1 text-[18px]">
               Nome
             </label>
             <input
               type="text"
               id="name"
-              placeholder="Seu nome completo"
+              placeholder="Seu nome e sobrenome"
               className="w-full bg-zinc-900/80 text-gray-200 placeholder-gray-500 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-rock-red transition-all border border-white/5"
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label htmlFor="email" className="text-white font-bold ml-1">
+            <label htmlFor="email" className="text-white font-bold ml-1 text-[18px]">
               E-mail
             </label>
             <input
@@ -54,7 +54,7 @@ export default function PaginaLogin() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label htmlFor="password" className="text-white font-bold ml-1">
+            <label htmlFor="password" className="text-white font-bold ml-1 text-[18px]">
               Senha
             </label>
             <input
@@ -68,7 +68,7 @@ export default function PaginaLogin() {
           {/* botão login */}
           <button
             type="submit"
-            className="mt-4 w-full bg-rock-red hover:bg-red-700 text-white font-black text-lg py-3 rounded-full transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-lg shadow-rock-red/20"
+            className="mt-4 w-full bg-rock-red hover:bg-red-700 text-white font-black text-lg py-3 rounded-full transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-lg shadow-rock-red/20 cursor-pointer"
           >
             Login
           </button>
