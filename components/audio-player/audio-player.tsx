@@ -47,7 +47,7 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
   };
 
   return (
-    <div className="hidden md:block absolute bottom-120 left-5 z-20 group">
+    <div className="relative flex items-center justify-center group z-20">
       <audio
         ref={audioRef}
         src={isRadio ? RADIO_URL : MP3_URL} 
@@ -57,7 +57,7 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
 
       <button
         onClick={onToggle}
-        className={`cursor-pointer flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-all duration-300 border-2 ${
+        className={`cursor-pointer flex items-center justify-center w-12 h-12 rounded-full shadow-lg transition-all duration-300 border-2 ${
           isPlaying
             ? "bg-rock-red border-white animate-pulse" 
             : "bg-black/80 border-gray-500 hover:bg-rock-red hover:border-white"
@@ -65,19 +65,8 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
         aria-label={isRadio ? "Tocar rádio" : "Tocar música"}
       >
         {isPlaying ? (
-          // ícone som ligado
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-white"
-          >
+          // ícone som ligado 
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
             <path d="M15.54 8.46a5 5 0 0 1 0 7.07" opacity="0.5">
                <animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite" begin="0s"/>
@@ -88,18 +77,7 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
           </svg>
         ) : (
           // ícone mutar
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-gray-300"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-300">
             <path d="M11 5L6 9H2v6h4l5 4V5z" />
             <line x1="23" y1="9" x2="17" y2="15" />
             <line x1="17" y1="9" x2="23" y2="15" />
@@ -109,13 +87,13 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
       
       {/* tooltips */}
       {!isPlaying && (
-        <span className="absolute left-17 top-1/2 -translate-y-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity pointer-events-none group-hover:opacity-100">
+        <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity pointer-events-none group-hover:opacity-100">
           {isRadio ? "Ouvir rádio 📻" : "Tocar música 🎸"}
         </span>
       )}
 
       {isPlaying && (
-        <span className="absolute left-17 top-1/2 -translate-y-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity pointer-events-none group-hover:opacity-100">
+        <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity pointer-events-none group-hover:opacity-100">
           {isRadio ? "Parar rádio" : "Mutar"}
         </span>
       )}

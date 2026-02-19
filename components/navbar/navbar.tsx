@@ -2,9 +2,13 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import AudioPlayer from "@/components/audio-player/audio-player";
+import { useAudio } from "@/src/providers/audio-context";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  const { isPlaying, toggleAudio } = useAudio();
 
   return (
     <nav className="relative w-full h-20 bg-rock-dark flex items-center justify-between px-4 md:px-8 border-b border-white/10 z-50">
@@ -41,6 +45,10 @@ export default function Navbar() {
         
         {/* links (desktop) */}
         <div className="hidden md:flex items-center gap-8">
+            
+            {/* player de áudio :) */}
+            <AudioPlayer isPlaying={isPlaying} onToggle={toggleAudio} isRadio={true} />
+
             <Link href="/" className="bg-rock-red text-white px-4 py-2 rounded-full hover:bg-red-700 transition-colors font-bold text-[17px]">
               Home
             </Link>
