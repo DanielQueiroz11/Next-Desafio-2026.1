@@ -57,7 +57,7 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
 
       <button
         onClick={onToggle}
-        className={`cursor-pointer flex items-center justify-center w-16 h-16 rounded-full shadow-lg transition-all duration-300 border-2 ${
+        className={`cursor-pointer flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-all duration-300 border-2 ${
           isPlaying
             ? "bg-rock-red border-white animate-pulse" 
             : "bg-black/80 border-gray-500 hover:bg-rock-red hover:border-white"
@@ -68,8 +68,8 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
           // ícone som ligado
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="34"
-            height="34"
+            width="32"
+            height="32"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -90,8 +90,8 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
           // ícone mutar
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="34"
-            height="34"
+            width="32"
+            height="32"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
