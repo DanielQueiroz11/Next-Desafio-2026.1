@@ -122,7 +122,7 @@ export default function PaginaProdutos() {
                 </Link>
 
                 {/* conteúdo do card */}
-                <div className="p-6 flex flex-col h-auto">
+                <div className="p-4 flex flex-col h-auto">
                   <Link href={`/produtos-individuais/${product.id}`}>
                     <h3 className="text-white text-xl font-bold mb-2 cursor-pointer hover:text-rock-red transition-colors">
                       {product.name}
