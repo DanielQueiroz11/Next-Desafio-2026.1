@@ -1,6 +1,6 @@
 export default function PaginaContato() {
   return (
-    <main className="min-h-screen bg-rock-dark text-white py-16 px-4">
+    <main className="min-h-screen bg-rock-dark text-white py-10 px-4">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-[40px] font-extrabold text-center mb-12 text-white">
           Contato
@@ -9,13 +9,13 @@ export default function PaginaContato() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-8 lg:gap-x-12">
           {/* Coluna da esquerda: formulário */}
           <div className="border border-white/10 rounded-lg p-8 bg-[#121212]">
-            <h2 className="text-xl font-bold text-center mb-8">
+            <h2 className="text-xl font-extrabold text-center mb-8">
               Envie uma mensagem
             </h2>
 
             <form className="flex flex-col gap-6">
               <div>
-                <label className="block text-sm font-bold mb-2">Nome</label>
+                <label className="block text-[17px] font-bold mb-2">Nome</label>
                 <input
                   type="text"
                   placeholder="Seu nome e sobrenome"
@@ -24,7 +24,7 @@ export default function PaginaContato() {
               </div>
 
               <div>
-                <label className="block text-sm font-bold mb-2">E-mail</label>
+                <label className="block text-[17px] font-bold mb-2">E-mail</label>
                 <input
                   type="email"
                   placeholder="seuemail@exemplo.com"
@@ -33,7 +33,7 @@ export default function PaginaContato() {
               </div>
 
               <div>
-                <label className="block text-sm font-bold mb-2">Assunto</label>
+                <label className="block text-[17px] font-bold mb-2">Assunto</label>
                 <input
                   type="text"
                   placeholder="Como podemos ajudar?"
@@ -42,7 +42,7 @@ export default function PaginaContato() {
               </div>
 
               <div>
-                <label className="block text-sm font-bold mb-2">Mensagem</label>
+                <label className="block text-[17px] font-bold mb-2">Mensagem</label>
                 <textarea
                   rows={5}
                   placeholder="Escreva sua mensagem aqui..."
@@ -52,7 +52,7 @@ export default function PaginaContato() {
 
               <button
                 type="button"
-                className="w-full bg-rock-red hover:bg-red-700 text-white font-bold py-3 rounded-full mt-2 transition-all duration-300 hover:scale-103"
+                className="text-[17px] w-full bg-rock-red hover:bg-red-700 text-white font-bold py-3 rounded-full mt-2 transition-all duration-300 hover:scale-103"
               >
                 Enviar mensagem
               </button>
@@ -63,7 +63,7 @@ export default function PaginaContato() {
           <div className="flex flex-col gap-8">
             {/* 1° bloco: informações de contato */}
             <div className="border border-white/10 rounded-lg p-8 bg-[#121212] flex-1">
-              <h2 className="text-xl font-bold text-center mb-8">
+              <h2 className="text-xl font-extrabold text-center mb-8">
                 Informações de contato
               </h2>
 
