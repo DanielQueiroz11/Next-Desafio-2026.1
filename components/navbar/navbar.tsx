@@ -28,7 +28,7 @@ export default function Navbar() {
       {/* logo */}
       <Link 
         href="/" 
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:transform-none md:translate-x-0 md:translate-y-0 flex flex-col md:flex-row items-center gap-0.5 md:gap-2 text-[20px] md:text-[28px] font-black tracking-wider uppercase cursor-pointer transition-all duration-300 hover:scale-103 leading-none md:leading-normal"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:transform-none md:translate-x-0 md:translate-y-0 flex flex-col md:flex-row items-center gap-0.5 md:gap-2 text-[20px] md:text-[28px] font-black tracking-wider uppercase cursor-pointer transition-all duration-300 will-change-transform hover:scale-103 leading-none md:leading-normal"
       >
         <span className="text-white">Caverna</span>
         <span className="text-white">
