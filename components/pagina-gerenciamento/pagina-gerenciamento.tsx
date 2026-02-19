@@ -8,13 +8,13 @@ export default function PaginaGerenciamento() {
     <main className="flex min-h-screen bg-rock-dark">
       
       {/* sidebar */}
-      <aside className="hidden md:flex flex-col w-[250px] bg-white min-h-screen shadow-2xl z-10">
+      <aside className="hidden md:flex flex-col w-[250px] bg-rock-dark min-h-screen shadow-2xl z-10">
         
         {/* logo */}
         <div className="pt-8 pb-6 flex justify-center px-4">
           <Link 
             href="/" 
-            className="relative w-full max-w-[180px] h-[80px] hover:scale-105 transition-transform cursor-pointer block"
+            className="relative w-full max-w-[200px] h-[89px] hover:scale-105 transition-transform cursor-pointer block"
           >
             <Image
               src="/imagens/logo-footer.jpg" 
@@ -28,23 +28,23 @@ export default function PaginaGerenciamento() {
 
         {/* título */}
         <div className="px-8 pb-3">
-          <h2 className="text-black font-extrabold text-[18px]">Admin</h2>
+          <h2 className="text-white font-extrabold text-[18px]">Admin</h2>
         </div>
 
         {/* linha preta */}
-        <div className="w-full h-[2px] bg-black mb-8"></div>
+        <div className="w-full h-[2px] bg-rock-red mb-8"></div>
 
         {/* links */}
         <nav className="flex flex-col px-8 gap-6">
           <Link 
             href="/" 
-            className="text-black font-bold text-[16px] hover:text-rock-red transition-colors"
+            className="text-white font-bold text-[16px] hover:text-rock-red transition-colors"
           >
             Home
           </Link>
           <Link 
             href="/gerenciamento" 
-            className="text-black font-bold text-[16px] hover:text-rock-red transition-colors"
+            className="text-white font-bold text-[16px] hover:text-rock-red transition-colors"
           >
             Gerenciar Produtos
           </Link>
@@ -52,7 +52,7 @@ export default function PaginaGerenciamento() {
           {/* Logout*/}
           <Link 
             href="/login" 
-            className="text-black font-bold text-[16px] hover:text-rock-red transition-colors"
+            className="text-white font-bold text-[16px] hover:text-rock-red transition-colors"
           >
             Logout
           </Link>
@@ -80,7 +80,7 @@ export default function PaginaGerenciamento() {
         </header>
 
         {/* área do conteúdo */}
-        <div className="p-8 flex-1">
+        <div className="p-8 flex-1 bg-white">
         </div>
 
       </section>
