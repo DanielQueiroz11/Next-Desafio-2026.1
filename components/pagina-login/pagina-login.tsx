@@ -3,9 +3,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation"; 
 
 export default function PaginaLogin() {
   const [showPassword, setShowPassword] = useState(false);
+  
+  const router = useRouter();
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault(); 
+    
+    router.push("/gerenciamento"); 
+  };
 
   return (
     <main className="relative min-h-screen w-full flex items-center justify-center bg-rock-dark overflow-hidden px-4">
@@ -27,8 +36,8 @@ export default function PaginaLogin() {
           Entrar
         </h2>
 
-        {/* formulário */}
-        <form className="flex flex-col gap-5">
+        <form className="flex flex-col gap-5" onSubmit={handleLogin}>
+          
           {/* campos */}
           <div className="flex flex-col gap-2">
             <label

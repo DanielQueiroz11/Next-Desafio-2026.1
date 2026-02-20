@@ -76,7 +76,7 @@ export default function PaginaGerenciamento() {
 
           {/* Logout*/}
           <Link
-            href="/login"
+            href="/"
             className="text-white font-bold text-[16px] hover:text-rock-red transition-colors"
           >
             Logout
