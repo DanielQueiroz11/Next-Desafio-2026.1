@@ -126,13 +126,23 @@ export default function PaginaLogin() {
             </div>
           </div>
 
-          {/* link esqueceu senha*/}
-          <Link
-            href="/esqueceu-senha"
-            className="text-sm text-gray-400 hover:text-rock-red underline transition-colors"
-          >
-            Esqueceu sua senha?
-          </Link>
+          {/* link esqueceu senha */}
+          <div className="flex justify-between items-center w-full">
+            <Link
+              href="/esqueceu-senha"
+              className="text-sm text-gray-400 hover:text-rock-red underline transition-colors"
+            >
+              Esqueceu sua senha?
+            </Link>
+            
+            {/* link cadastro*/}
+            <Link
+              href="/cadastro"
+              className="text-sm text-gray-400 hover:text-rock-red underline transition-colors"
+            >
+              Cadastre-se
+            </Link>
+          </div>
 
           {/* botão login */}
           <button
