@@ -8,9 +8,17 @@ import { AudioProvider } from "./audio-context";
 export default function AppProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   
-  const hideNavbar = pathname === "/login" || pathname === "/esqueceu-senha" || pathname === "/gerenciamento";
+{/* esconder as "páginas" :) */ }
+  const hideNavbar = 
+    pathname === "/login" || 
+    pathname === "/esqueceu-senha" || 
+    pathname === "/gerenciamento" || 
+    pathname === "/cadastro";
   
-  const hideFooter = pathname === "/login" || pathname === "/esqueceu-senha";
+  const hideFooter = 
+    pathname === "/login" || 
+    pathname === "/esqueceu-senha" || 
+    pathname === "/cadastro";
 
   return (
     <AudioProvider>

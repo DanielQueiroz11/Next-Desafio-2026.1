@@ -30,7 +30,7 @@ export default function PaginaLogin() {
       </div>
 
       {/* card login */}
-      <div className="relative z-10 w-full max-w-[450px] bg-black/70 backdrop-blur-sm p-8 md:p-10 rounded-2xl shadow-2xl border border-white/10">
+      <div className="relative z-10 w-full max-w-[450px] bg-black/70 backdrop-blur-sm p-8 md:p-10 rounded-2xl shadow-2xl border border-white/10 mt-3 md:mt-4">
         {/* título */}
         <h2 className="text-3xl md:text-4xl font-black text-center text-white mb-8 tracking-wide">
           Entrar
