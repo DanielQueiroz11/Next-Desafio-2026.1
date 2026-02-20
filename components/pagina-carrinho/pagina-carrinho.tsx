@@ -11,6 +11,7 @@ const initialCart = [
     name: "Camisa Linkin Park",
     price: 64.90,
     quantity: 1,
+    size: "M",
     image: "/imagens/produto-1.jpg",
   },
   {
@@ -18,12 +19,14 @@ const initialCart = [
     name: "Moletom Metallica",
     price: 139.90,
     quantity: 1,
+    size: "GG",
     image: "/imagens/produto-2.jpg",
   },
 ];
 
 export default function PaginaCarrinho() {
   const [cartItems, setCartItems] = useState(initialCart);
+  const [showModal, setShowModal] = useState(false); 
   
   const router = useRouter();
 
@@ -43,9 +46,12 @@ export default function PaginaCarrinho() {
     setCartItems(cartItems.filter(item => item.id !== id));
   };
 
-  // redirecionamento do "finalizar compra"
   const handleFinalizarCompra = () => {
-    alert("Compra finalizada com sucesso! 🤘");
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
     router.push("/");
   };
 
@@ -54,7 +60,7 @@ export default function PaginaCarrinho() {
   const total = subtotal + frete;
 
   return (
-    <main className="min-h-[75vh] bg-rock-dark pt-12 pb-20 px-4">
+    <main className="min-h-[75vh] bg-rock-dark pt-12 pb-20 px-4 relative">
       <div className="max-w-7xl mx-auto w-full">
         
         {/* título */}
@@ -73,48 +79,47 @@ export default function PaginaCarrinho() {
             </Link>
           </div>
         ) : (
-          // grid: itens // resumo
+          // grid: itens
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
             {/* lista de produtos (esquerda) */}
             <div className="lg:col-span-2 flex flex-col gap-4">
               {cartItems.map((item) => (
-                <div key={item.id} className="flex flex-col sm:flex-row items-center justify-between bg-[#1A1A1A] p-4 sm:p-6 rounded-2xl border border-white/5 shadow-lg gap-6">
+                <div key={item.id} className="flex flex-col sm:flex-row items-center justify-between bg-black/40 backdrop-blur-sm p-5 sm:p-6 rounded-2xl border border-white/10 shadow-xl gap-6">
                   
                   {/* foto e infos*/}
                   <div className="flex items-center gap-6 w-full sm:w-auto">
-                    <div className="relative w-24 h-24 bg-white rounded-xl overflow-hidden shrink-0">
+                    <div className="relative w-24 h-24 sm:w-28 sm:h-28 bg-white rounded-xl overflow-hidden shrink-0 shadow-inner">
                       <Image
                         src={item.image}
                         alt={item.name}
                         fill
-                        className="object-contain p-2"
+                        className="object-contain p-2 hover:scale-110 transition-transform duration-500"
                       />
                     </div>
-                    <div className="flex flex-col">
-                      <h3 className="text-white font-extrabold text-[18px]">{item.name}</h3>
-                      <p className="text-rock-red font-black text-[20px] mt-1">
+                    <div className="flex flex-col gap-1">
+                      <h3 className="text-white font-bold text-[20px] tracking-wide">{item.name}</h3>
+                      <p className="text-gray-400 text-sm font-medium">Tamanho: <span className="text-white">{item.size}</span></p>
+                      <p className="text-rock-red font-black text-2xl mt-1">
                         R$ {item.price.toFixed(2).replace('.', ',')}
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between w-full sm:w-auto gap-8">
+                  <div className="flex items-center justify-between w-full sm:w-auto gap-6 sm:gap-8 border-t border-white/5 sm:border-t-0 pt-4 sm:pt-0 mt-2 sm:mt-0">
                     
                     {/* botões +/- */}
-                    <div className="flex items-center bg-zinc-900 rounded-lg border border-zinc-800 p-1">
+                    <div className="flex items-center gap-4 text-xl font-bold">
                       <button 
                         onClick={() => handleDecrease(item.id)}
-                        className="w-8 h-8 flex items-center justify-center text-white hover:bg-zinc-800 rounded-md transition-colors cursor-pointer"
+                        className="w-10 h-10 rounded-full bg-white/5 hover:bg-rock-red text-white flex items-center justify-center transition-colors cursor-pointer"
                       >
                         -
                       </button>
-                      <span className="w-10 text-center text-white font-bold">
-                        {item.quantity}
-                      </span>
+                      <span className="w-6 text-center text-white">{item.quantity}</span>
                       <button 
                         onClick={() => handleIncrease(item.id)}
-                        className="w-8 h-8 flex items-center justify-center text-white hover:bg-zinc-800 rounded-md transition-colors cursor-pointer"
+                        className="w-10 h-10 rounded-full bg-white/5 hover:bg-rock-red text-white flex items-center justify-center transition-colors cursor-pointer"
                       >
                         +
                       </button>
@@ -123,10 +128,10 @@ export default function PaginaCarrinho() {
                     {/* lixeira */}
                     <button 
                       onClick={() => handleRemove(item.id)}
-                      className="text-gray-500 hover:text-rock-red transition-colors p-2 cursor-pointer"
+                      className="text-gray-500 hover:text-white hover:bg-rock-red transition-all p-3 rounded-full bg-white/5 cursor-pointer"
                       title="Remover produto"
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                     </button>
 
                   </div>
@@ -172,6 +177,30 @@ export default function PaginaCarrinho() {
         )}
 
       </div>
+
+      {/* modal */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4">
+          <div className="bg-[#1A1A1A] border border-white/10 p-8 rounded-3xl shadow-2xl max-w-sm w-full flex flex-col items-center text-center">
+            <div className="w-20 h-20 bg-rock-red/20 text-rock-red rounded-full flex items-center justify-center mb-6 border border-rock-red/30">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            
+            <h3 className="text-3xl font-black text-white mb-3 tracking-wide">Tudo certo!</h3>
+            <p className="text-gray-400 text-[16px] mb-8 leading-relaxed">
+              Seu pedido foi confirmado. Prepare-se para vestir o som que você ama! 🤘
+            </p>
+            
+            <button 
+              onClick={handleCloseModal}
+              className="w-full bg-rock-red hover:bg-red-700 text-white font-bold text-[18px] py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-lg shadow-rock-red/20 cursor-pointer"
+            >
+              Voltar para a Home
+            </button>
+          </div>
+        </div>
+      )}
+
     </main>
   );
 }
