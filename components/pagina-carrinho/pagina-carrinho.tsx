@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const initialCart = [
   {
@@ -23,7 +24,8 @@ const initialCart = [
 
 export default function PaginaCarrinho() {
   const [cartItems, setCartItems] = useState(initialCart);
-
+  
+  const router = useRouter();
 
   const handleIncrease = (id: number) => {
     setCartItems(cartItems.map(item => 
@@ -39,6 +41,12 @@ export default function PaginaCarrinho() {
 
   const handleRemove = (id: number) => {
     setCartItems(cartItems.filter(item => item.id !== id));
+  };
+
+  // redirecionamento do "finalizar compra"
+  const handleFinalizarCompra = () => {
+    alert("Compra finalizada com sucesso! 🤘");
+    router.push("/");
   };
 
   const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
@@ -60,7 +68,7 @@ export default function PaginaCarrinho() {
             <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-gray-500 mb-6"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
             <h2 className="text-2xl font-bold text-white mb-4">Seu carrinho está vazio!</h2>
             <p className="text-gray-400 mb-8 max-w-md">Parece que você ainda não adicionou nenhum item da Caverna do Rock ao seu carrinho.</p>
-            <Link href="/" className="bg-rock-red hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition-all hover:scale-105 active:scale-95 shadow-lg">
+            <Link href="/produtos" className="bg-rock-red hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition-all hover:scale-105 active:scale-95 shadow-lg">
               Continuar Comprando
             </Link>
           </div>
@@ -91,10 +99,9 @@ export default function PaginaCarrinho() {
                     </div>
                   </div>
 
-                  {/* Controles de Quantidade e Excluir */}
                   <div className="flex items-center justify-between w-full sm:w-auto gap-8">
                     
-                    {/* Botões +/- */}
+                    {/* botões +/- */}
                     <div className="flex items-center bg-zinc-900 rounded-lg border border-zinc-800 p-1">
                       <button 
                         onClick={() => handleDecrease(item.id)}
@@ -113,7 +120,7 @@ export default function PaginaCarrinho() {
                       </button>
                     </div>
 
-                    {/* Lixeira */}
+                    {/* lixeira */}
                     <button 
                       onClick={() => handleRemove(item.id)}
                       className="text-gray-500 hover:text-rock-red transition-colors p-2 cursor-pointer"
@@ -127,7 +134,7 @@ export default function PaginaCarrinho() {
               ))}
             </div>
 
-            {/* Resumo do Pedido (Direita) */}
+            {/* resumo do pedido (direita) */}
             <div className="bg-black/40 backdrop-blur-md p-8 rounded-2xl border border-white/10 shadow-2xl h-fit sticky top-28">
               <h2 className="text-2xl font-black text-white mb-6">Resumo do Pedido</h2>
               
@@ -149,11 +156,14 @@ export default function PaginaCarrinho() {
                 <span className="text-rock-red">R$ {total.toFixed(2).replace('.', ',')}</span>
               </div>
 
-              <button className="w-full bg-rock-red hover:bg-red-700 text-white font-extrabold text-[18px] py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-lg shadow-rock-red/20 uppercase tracking-wide cursor-pointer">
+              <button 
+                onClick={handleFinalizarCompra}
+                className="w-full bg-rock-red hover:bg-red-700 text-white font-extrabold text-[18px] py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-lg shadow-rock-red/20 uppercase tracking-wide cursor-pointer"
+              >
                 Finalizar Compra
               </button>
               
-              <Link href="/" className="block text-center mt-6 text-[16px] text-gray-400 hover:text-white underline transition-colors">
+              <Link href="/produtos" className="block text-center mt-6 text-[16px] text-gray-400 hover:text-white underline transition-colors">
                 Continuar comprando
               </Link>
             </div>
