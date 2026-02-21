@@ -161,10 +161,16 @@ export default function PaginaVisualizacao() {
 
       {/* modal de sucesso */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4">
-          <div className="bg-[#1A1A1A] border border-white/10 p-8 pt-10 rounded-3xl shadow-2xl max-w-sm w-full flex flex-col items-center text-center relative">
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4"
+          onClick={handleCloseModal}
+        >
+          <div 
+            className="bg-[#1A1A1A] border border-white/10 p-8 pt-10 rounded-3xl shadow-2xl max-w-sm w-full flex flex-col items-center text-center relative cursor-default"
+            onClick={(e) => e.stopPropagation()}
+          >
             
-            {/* Botão X */}
+            {/* botão X */}
             <button 
               onClick={handleCloseModal}
               className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors cursor-pointer"
