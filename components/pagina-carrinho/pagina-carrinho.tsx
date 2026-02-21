@@ -23,10 +23,11 @@ export default function PaginaCarrinho() {
   };
 
   const handleCloseModal = () => {
-    // zerar quantidade carrinho
-    clearCart();
-    setShowModal(false);
     router.push("/");
+    setTimeout(() => {
+      clearCart();
+      setShowModal(false);
+    }, 2000);
   };
 
   const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
@@ -99,7 +100,7 @@ export default function PaginaCarrinho() {
                       </button>
                     </div>
 
-                    {/* lixeira (usando a função do contexto) */}
+                    {/* lixeira */}
                     <button 
                       onClick={() => removeFromCart(item.id)}
                       className="text-gray-500 hover:text-white hover:bg-rock-red transition-all p-3 rounded-full bg-white/5 cursor-pointer"

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "@/src/providers/cart-context";
 
@@ -143,18 +144,26 @@ export default function PaginaVisualizacao() {
             </div>
           </div>
 
-          {/* botão adicionar */}
-          <button 
-            onClick={handleAddToCart}
-            className="w-full bg-rock-red text-white font-bold text-lg py-4 rounded-xl hover:bg-red-700 hover:scale-[1.02] active:scale-95 transition-all shadow-lg flex items-center justify-center gap-3 mt-4 cursor-pointer"
-          >
-             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="8" cy="21" r="1" />
-                <circle cx="19" cy="21" r="1" />
-                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
-             </svg>
-             Adicionar ao carrinho
-          </button>
+          {/* botões de ação */}
+          <div className="flex flex-col gap-4 mt-2">
+            {/* botão adicionar */}
+            <button 
+              onClick={handleAddToCart}
+              className="w-full bg-rock-red text-white font-bold text-lg py-4 rounded-xl hover:bg-red-700 hover:scale-[1.02] active:scale-95 transition-all shadow-lg flex items-center justify-center gap-3 cursor-pointer"
+            >
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="8" cy="21" r="1" />
+                  <circle cx="19" cy="21" r="1" />
+                  <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+               </svg>
+               Adicionar ao carrinho
+            </button>
+
+            {/* link direto para o carrinho */}
+            <Link href="/carrinho" className="text-center text-gray-400 hover:text-white mt-3 underline transition-colors font-medium">
+              Ir para o carrinho
+            </Link>
+          </div>
 
         </div>
       </div>
