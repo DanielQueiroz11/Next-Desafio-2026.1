@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
+import ModalAdicionarProduto from "@/components/modais/adicionar";
 
 const mockProducts = [
   {
@@ -31,6 +33,8 @@ const mockProducts = [
 ];
 
 export default function PaginaGerenciamento() {
+  const [isModalAdicionarOpen, setIsModalAdicionarOpen] = useState(false);
+
   return (
     <main className="flex min-h-screen bg-rock-dark">
       {/* sidebar */}
@@ -95,7 +99,10 @@ export default function PaginaGerenciamento() {
 
           {/* botão adicionar */}
           <div className="absolute right-8 top-1/2 -translate-y-1/2">
-            <button className="bg-rock-red hover:bg-red-700 text-white font-bold px-6 py-2.5 rounded-md transition-colors shadow-lg cursor-pointer">
+            <button 
+              onClick={() => setIsModalAdicionarOpen(true)}
+              className="bg-rock-red hover:bg-red-700 text-white font-bold px-6 py-2.5 rounded-md transition-colors shadow-lg cursor-pointer"
+            >
               Adicionar produto
             </button>
           </div>
@@ -192,6 +199,10 @@ export default function PaginaGerenciamento() {
           </div>
         </div>
       </section>
+
+      {isModalAdicionarOpen && (
+        <ModalAdicionarProduto onClose={() => setIsModalAdicionarOpen(false)} />
+      )}
     </main>
   );
 }
