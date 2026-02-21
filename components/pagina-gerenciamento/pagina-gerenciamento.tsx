@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import ModalAdicionarProduto from "@/components/modais/adicionar";
+import ModalVisualizarProduto from "@/components/modais/visualizar";
 
 const mockProducts = [
   {
@@ -34,6 +35,7 @@ const mockProducts = [
 
 export default function PaginaGerenciamento() {
   const [isModalAdicionarOpen, setIsModalAdicionarOpen] = useState(false);
+  const [isModalVisualizarOpen, setIsModalVisualizarOpen] = useState(false);
 
   return (
     <main className="flex min-h-screen bg-rock-dark">
@@ -78,7 +80,7 @@ export default function PaginaGerenciamento() {
             Gerenciar Produtos
           </Link>
 
-          {/* Logout*/}
+          {/* logout*/}
           <Link
             href="/"
             className="text-white font-bold text-[16px] hover:text-rock-red transition-colors"
@@ -154,7 +156,10 @@ export default function PaginaGerenciamento() {
 
                   {/* ações */}
                   <div className="w-[15%] flex flex-col items-center gap-4">
-                    <button className="w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer">
+                    <button 
+                      onClick={() => setIsModalVisualizarOpen(true)}
+                      className="w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer"
+                    >
                       Ver
                     </button>
                     <button className="w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer">
@@ -202,6 +207,10 @@ export default function PaginaGerenciamento() {
 
       {isModalAdicionarOpen && (
         <ModalAdicionarProduto onClose={() => setIsModalAdicionarOpen(false)} />
+      )}
+      
+      {isModalVisualizarOpen && (
+        <ModalVisualizarProduto onClose={() => setIsModalVisualizarOpen(false)} />
       )}
     </main>
   );
