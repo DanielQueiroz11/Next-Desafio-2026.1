@@ -1,19 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function ModalAdicionarProduto({ onClose }: { onClose: () => void }) {
   const [preco, setPreco] = useState("");
 
+  // bloqueia o scroll da página de fundo quando o modal tá aberto
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
   const handlePrecoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/\D/g, "");
+    let value = e.target.value.replace(/\D/g, "");
     
     if (!value) {
       setPreco("");
       return;
     }
 
-    // aqui cria a casa decimal e adapta pro BR
+    // limite preço
+    if (value.length > 6) {
+      value = value.slice(0, 6);
+    }
+
+    // adapta pro padrão BR
     const numericValue = parseInt(value, 10) / 100;
     const formatted = numericValue.toLocaleString('pt-BR', {
       minimumFractionDigits: 2,
@@ -29,7 +43,7 @@ export default function ModalAdicionarProduto({ onClose }: { onClose: () => void
       onClick={onClose}
     >
       <div 
-        className="bg-[#1A1A1A] w-full max-w-[450px] rounded-[32px] p-8 flex flex-col gap-5 relative my-auto shadow-2xl border border-white/5"
+        className="bg-[#1A1A1A] w-full max-w-[450px] rounded-[32px] p-8 flex flex-col gap-5 relative my-auto shadow-2xl border border-white/5 cursor-default"
         onClick={(e) => e.stopPropagation()} 
       >
         
@@ -93,7 +107,7 @@ export default function ModalAdicionarProduto({ onClose }: { onClose: () => void
           <div className="flex flex-col items-center gap-4 mt-2">
             {/* fundo quadriculado */}
             <div 
-              className="w-70 h-70 rounded-2xl overflow-hidden border-2 border-dashed border-white/20"
+              className="w-48 h-48 rounded-2xl overflow-hidden border-2 border-dashed border-white/20"
               style={{
                 backgroundColor: "#ffffff",
                 backgroundImage: "linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0), linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0)",
