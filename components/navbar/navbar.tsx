@@ -4,11 +4,14 @@ import { useState } from "react";
 import Link from "next/link";
 import AudioPlayer from "@/components/audio-player/audio-player";
 import { useAudio } from "@/src/providers/audio-context";
+import { useCart } from "@/src/providers/cart-context";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   const { isPlaying, toggleAudio } = useAudio();
+  
+  const { cartCount } = useCart();
 
   return (
     <nav className="relative w-full h-20 bg-rock-dark flex items-center justify-between px-4 md:px-8 border-b border-white/10 z-50">
@@ -87,9 +90,11 @@ export default function Navbar() {
           </svg>
           
           {/* quantidade no carrinho */}
-          <span className="absolute -top-1.5 -right-2 bg-rock-red text-white text-[10px] md:text-[13px] font-bold w-4 h-4 md:w-5 md:h-5 rounded-full flex items-center justify-center border border-rock-dark">
-            2
-          </span>
+          {cartCount > 0 && (
+            <span className="absolute -top-1.5 -right-2 bg-rock-red text-white text-[10px] md:text-[13px] font-bold w-4 h-4 md:w-5 md:h-5 rounded-full flex items-center justify-center border border-rock-dark">
+              {cartCount}
+            </span>
+          )}
         </Link>
       </div>
 

@@ -4,11 +4,12 @@ import { usePathname } from "next/navigation";
 import Navbar from "@/components/navbar/navbar"; 
 import Footer from "@/components/footer/footer";
 import { AudioProvider } from "./audio-context"; 
+import { CartProvider } from "./cart-context"; 
 
 export default function AppProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   
-{/* esconder as "páginas" :) */ }
+  {/* esconder as "páginas" :) */ }
   const hideNavbar = 
     pathname === "/login" || 
     pathname === "/esqueceu-senha" || 
@@ -22,9 +23,11 @@ export default function AppProvider({ children }: { children: React.ReactNode })
 
   return (
     <AudioProvider>
-      {!hideNavbar && <Navbar />}
-      {children}
-      {!hideFooter && <Footer />}
+      <CartProvider>
+        {!hideNavbar && <Navbar />}
+        {children}
+        {!hideFooter && <Footer />}
+      </CartProvider>
     </AudioProvider>
   );
 }

@@ -4,53 +4,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
-const initialCart = [
-  {
-    id: 1,
-    name: "Camisa Linkin Park",
-    price: 64.90,
-    quantity: 1,
-    size: "M",
-    image: "/imagens/produto-1.jpg",
-  },
-  {
-    id: 2,
-    name: "Moletom Metallica",
-    price: 139.90,
-    quantity: 1,
-    size: "GG",
-    image: "/imagens/produto-2.jpg",
-  },
-];
+import { useCart } from "@/src/providers/cart-context";
 
 export default function PaginaCarrinho() {
-  const [cartItems, setCartItems] = useState(initialCart);
   const [showModal, setShowModal] = useState(false); 
-  
   const router = useRouter();
 
-  const handleIncrease = (id: number) => {
-    setCartItems(cartItems.map(item => 
-      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-    ));
-  };
-
-  const handleDecrease = (id: number) => {
-    setCartItems(cartItems.map(item => 
-      item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
-    ));
-  };
-
-  const handleRemove = (id: number) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
-  };
+  const { 
+    cartItems, 
+    increaseQuantity, 
+    decreaseQuantity, 
+    removeFromCart, 
+    clearCart 
+  } = useCart();
 
   const handleFinalizarCompra = () => {
     setShowModal(true);
   };
 
   const handleCloseModal = () => {
+    // zerar quantidade carrinho
+    clearCart();
     setShowModal(false);
     router.push("/");
   };
@@ -111,23 +85,23 @@ export default function PaginaCarrinho() {
                     {/* botões +/- */}
                     <div className="flex items-center gap-4 text-xl font-bold">
                       <button 
-                        onClick={() => handleDecrease(item.id)}
+                        onClick={() => decreaseQuantity(item.id)}
                         className="w-10 h-10 rounded-full bg-white/5 hover:bg-rock-red text-white flex items-center justify-center transition-colors cursor-pointer"
                       >
                         -
                       </button>
                       <span className="w-6 text-center text-white">{item.quantity}</span>
                       <button 
-                        onClick={() => handleIncrease(item.id)}
+                        onClick={() => increaseQuantity(item.id)}
                         className="w-10 h-10 rounded-full bg-white/5 hover:bg-rock-red text-white flex items-center justify-center transition-colors cursor-pointer"
                       >
                         +
                       </button>
                     </div>
 
-                    {/* lixeira */}
+                    {/* lixeira (usando a função do contexto) */}
                     <button 
-                      onClick={() => handleRemove(item.id)}
+                      onClick={() => removeFromCart(item.id)}
                       className="text-gray-500 hover:text-white hover:bg-rock-red transition-all p-3 rounded-full bg-white/5 cursor-pointer"
                       title="Remover produto"
                     >

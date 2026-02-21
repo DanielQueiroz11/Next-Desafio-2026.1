@@ -2,13 +2,13 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useCart } from "@/src/providers/cart-context";
 
 const mockProduct = {
   id: 1,
   name: "Camisa Linkin Park",
-  description:
-    "Camiseta do Linkin Park com estampa inspirada na identidade visual icônica da banda. Confeccionada em 100% algodão de alta qualidade, garantindo conforto, respirabilidade e ótima durabilidade. Design moderno e autêntico, ideal para shows, uso casual e para fãs que querem demonstrar seu estilo no dia a dia.",
-  price: "R$74,99",
+  description: "Camiseta do Linkin Park com estampa inspirada na identidade visual icônica da banda. Confeccionada em 100% algodão de alta qualidade, garantindo conforto, respirabilidade e ótima durabilidade. Design moderno e autêntico, ideal para shows, uso casual e para fãs que querem demonstrar seu estilo no dia a dia.",
+  price: 74.99, 
   installment: "Em até 2x sem juros",
   image: "/imagens/produto-1.jpg", 
   sizes: ["P", "M", "G", "GG"],
@@ -18,12 +18,33 @@ export default function PaginaVisualizacao() {
   const [selectedSize, setSelectedSize] = useState("M");
   const [quantity, setQuantity] = useState(1);
   const [selectedModel, setSelectedModel] = useState("Masculino");
+  
+  const [showModal, setShowModal] = useState(false);
+
+  const { addToCart } = useCart();
 
   const increaseQty = () => setQuantity((prev) => prev + 1);
   const decreaseQty = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
 
+  const handleAddToCart = () => {
+    addToCart({
+      id: mockProduct.id,
+      name: mockProduct.name,
+      price: mockProduct.price,
+      quantity: quantity,
+      size: selectedSize,
+      image: mockProduct.image,
+    });
+    
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
-    <section className="w-full min-h-[calc(100vh-80px)] bg-rock-dark text-white py-12 px-4 md:px-8 flex justify-center">
+    <section className="w-full min-h-[calc(100vh-80px)] bg-rock-dark text-white py-12 px-4 md:px-8 flex justify-center relative">
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-start">
         
         {/* lado esquerdo */}
@@ -32,7 +53,9 @@ export default function PaginaVisualizacao() {
           {/* título e preço */}
           <div>
              <h1 className="text-3xl md:text-4xl font-bold mb-2 tracking-wide">{mockProduct.name}</h1>
-             <p className="text-rock-red text-4xl md:text-4xl font-extrabold mb-1">{mockProduct.price}</p>
+             <p className="text-rock-red text-4xl md:text-4xl font-extrabold mb-1">
+               R$ {mockProduct.price.toFixed(2).replace('.', ',')}
+             </p>
              <p className="text-sm md:text-base text-gray-300 font-medium">{mockProduct.installment}</p>
           </div>
 
@@ -121,7 +144,10 @@ export default function PaginaVisualizacao() {
           </div>
 
           {/* botão adicionar */}
-          <button className="w-full bg-rock-red text-white font-bold text-lg py-4 rounded-xl hover:bg-red-700 hover:scale-[1.02] active:scale-95 transition-all shadow-lg flex items-center justify-center gap-3 mt-4 cursor-pointer">
+          <button 
+            onClick={handleAddToCart}
+            className="w-full bg-rock-red text-white font-bold text-lg py-4 rounded-xl hover:bg-red-700 hover:scale-[1.02] active:scale-95 transition-all shadow-lg flex items-center justify-center gap-3 mt-4 cursor-pointer"
+          >
              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="8" cy="21" r="1" />
                 <circle cx="19" cy="21" r="1" />
@@ -132,6 +158,33 @@ export default function PaginaVisualizacao() {
 
         </div>
       </div>
+
+      {/* modal de sucesso */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4">
+          <div className="bg-[#1A1A1A] border border-white/10 p-8 pt-10 rounded-3xl shadow-2xl max-w-sm w-full flex flex-col items-center text-center relative">
+            
+            {/* Botão X */}
+            <button 
+              onClick={handleCloseModal}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors cursor-pointer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+
+            <div className="w-20 h-20 bg-rock-red/20 text-rock-red rounded-full flex items-center justify-center mb-6 border border-rock-red/30">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            
+            <h3 className="text-3xl font-black text-white mb-3 tracking-wide">Tudo certo!</h3>
+            <p className="text-gray-400 text-[16px] leading-relaxed">
+              O produto foi adicionado ao seu carrinho.
+            </p>
+            
+          </div>
+        </div>
+      )}
+
     </section>
   );
 }
