@@ -6,6 +6,7 @@ import { useState } from "react";
 import ModalAdicionarProduto from "@/components/modais/adicionar";
 import ModalVisualizarProduto from "@/components/modais/visualizar";
 import ModalEditarProduto from "@/components/modais/editar";
+import ModalExcluirProduto from "@/components/modais/excluir";
 
 const mockProducts = [
   {
@@ -38,6 +39,7 @@ export default function PaginaGerenciamento() {
   const [isModalAdicionarOpen, setIsModalAdicionarOpen] = useState(false);
   const [isModalVisualizarOpen, setIsModalVisualizarOpen] = useState(false);
   const [isModalEditarOpen, setIsModalEditarOpen] = useState(false);
+  const [isModalExcluirOpen, setIsModalExcluirOpen] = useState(false);
 
   return (
     <main className="flex min-h-screen bg-rock-dark">
@@ -170,7 +172,10 @@ export default function PaginaGerenciamento() {
                     >
                       Editar
                     </button>
-                    <button className="w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer">
+                    <button 
+                      onClick={() => setIsModalExcluirOpen(true)}
+                      className="w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer"
+                    >
                       Excluir
                     </button>
                   </div>
@@ -220,6 +225,10 @@ export default function PaginaGerenciamento() {
 
       {isModalEditarOpen && (
         <ModalEditarProduto onClose={() => setIsModalEditarOpen(false)} />
+      )}
+
+      {isModalExcluirOpen && (
+        <ModalExcluirProduto onClose={() => setIsModalExcluirOpen(false)} />
       )}
     </main>
   );
