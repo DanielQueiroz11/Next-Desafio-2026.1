@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import ModalAdicionarProduto from "@/components/modais/adicionar";
 import ModalVisualizarProduto from "@/components/modais/visualizar";
+import ModalEditarProduto from "@/components/modais/editar";
 
 const mockProducts = [
   {
@@ -36,6 +37,7 @@ const mockProducts = [
 export default function PaginaGerenciamento() {
   const [isModalAdicionarOpen, setIsModalAdicionarOpen] = useState(false);
   const [isModalVisualizarOpen, setIsModalVisualizarOpen] = useState(false);
+  const [isModalEditarOpen, setIsModalEditarOpen] = useState(false);
 
   return (
     <main className="flex min-h-screen bg-rock-dark">
@@ -162,7 +164,10 @@ export default function PaginaGerenciamento() {
                     >
                       Ver
                     </button>
-                    <button className="w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer">
+                    <button 
+                      onClick={() => setIsModalEditarOpen(true)}
+                      className="w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer"
+                    >
                       Editar
                     </button>
                     <button className="w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer">
@@ -211,6 +216,10 @@ export default function PaginaGerenciamento() {
       
       {isModalVisualizarOpen && (
         <ModalVisualizarProduto onClose={() => setIsModalVisualizarOpen(false)} />
+      )}
+
+      {isModalEditarOpen && (
+        <ModalEditarProduto onClose={() => setIsModalEditarOpen(false)} />
       )}
     </main>
   );

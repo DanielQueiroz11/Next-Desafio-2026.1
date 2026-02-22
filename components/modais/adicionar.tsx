@@ -105,9 +105,8 @@ export default function ModalAdicionarProduto({ onClose }: { onClose: () => void
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">Imagem</label>
           <div className="flex flex-col items-center gap-4 mt-2">
-            {/* fundo quadriculado */}
             <div 
-              className="w-48 h-48 rounded-2xl overflow-hidden border-2 border-dashed border-white/20"
+              className="w-60 h-60 rounded-2xl overflow-hidden border-2 border-dashed border-white/20"
               style={{
                 backgroundColor: "#ffffff",
                 backgroundImage: "linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0), linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0)",
