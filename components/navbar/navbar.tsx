@@ -14,12 +14,12 @@ export default function Navbar() {
   const { cartCount } = useCart();
 
   return (
-    <nav className="relative w-full h-20 bg-rock-dark flex items-center justify-between px-4 md:px-8 border-b border-white/10 z-50">
+    <nav className="relative w-full h-20 bg-rock-dark flex items-center justify-between px-6 md:px-8 border-b border-white/10 z-50">
       
-      {/* menu hambúrguer (mobile) */}
+      {/* menu hambúrguer (mobile e tablet) */}
       <button 
         onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className="text-white md:hidden hover:text-rock-red transition-colors"
+        className="text-white lg:hidden hover:text-rock-red transition-colors"
       >
         {isMenuOpen ? (
            <svg xmlns="http://www.w3.org/2000/svg" className="w-9 h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -32,39 +32,47 @@ export default function Navbar() {
         )}
       </button>
 
-      {/* logo */}
-      <Link 
-        href="/" 
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:transform-none md:translate-x-0 md:translate-y-0 flex flex-col md:flex-row items-center gap-0.5 md:gap-2 text-[20px] md:text-[28px] font-black tracking-wider uppercase cursor-pointer transition-all duration-300 will-change-transform hover:scale-103 leading-none md:leading-normal"
-      >
-        <span className="text-white">Caverna</span>
-        <span className="text-white">
-          do <span className="text-rock-red">Rock</span>
-        </span>
-      </Link>
+      {/* centro: player + logo */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 lg:static lg:transform-none lg:translate-x-0 lg:translate-y-0 flex items-center">
+        
+        {/* logo */}
+        <Link 
+          href="/" 
+          className="relative flex flex-col md:flex-row items-center gap-0.5 md:gap-2 text-[20px] md:text-[22px] lg:text-[28px] min-[1920px]:text-[34px] font-black tracking-wider uppercase cursor-pointer transition-all duration-300 will-change-transform hover:scale-103 leading-none md:leading-normal"
+        >
+          <div className="lg:hidden absolute top-1/2 -translate-y-1/2 -left-10 md:-left-20 flex items-center">
+            <AudioPlayer isPlaying={isPlaying} onToggle={toggleAudio} isRadio={true} />
+          </div>
+
+          <span className="text-white">Caverna</span>
+          <span className="text-white">
+            do <span className="text-rock-red">Rock</span>
+          </span>
+        </Link>
+      </div>
 
       {/* área direita - campos + carrinho */}
-      <div className="flex items-center gap-8 font-medium">
+      <div className="flex items-center gap-6 md:gap-4 lg:gap-8 min-[1920px]:gap-12 font-medium">
         
-        {/* links (desktop) */}
-        <div className="hidden md:flex items-center gap-8">
+        {/* links (apenas desktop) */}
+        <div className="hidden lg:flex items-center gap-3 lg:gap-8 min-[1920px]:gap-12">
             
-            {/* player de áudio :) */}
+            {/* player de áudio :) (não é visível no mobile) */}
             <AudioPlayer isPlaying={isPlaying} onToggle={toggleAudio} isRadio={true} />
 
-            <Link href="/" className="bg-rock-red text-white px-4 py-2 rounded-full hover:bg-red-700 transition-colors font-bold text-[17px]">
+            <Link href="/" className="bg-rock-red text-white px-3 py-1.5 lg:px-4 lg:py-2 rounded-full hover:bg-red-700 transition-colors font-bold text-sm lg:text-[17px] min-[1920px]:text-[20px] min-[1920px]:px-6 min-[1920px]:py-2.5">
               Home
             </Link>
-            <Link href="/contato" className="text-white hover:text-rock-red transition-colors">
+            <Link href="/contato" className="text-white hover:text-rock-red transition-colors text-sm lg:text-[16px] min-[1920px]:text-[18px]">
               Contato
             </Link>
-            <Link href="/produtos" className="text-white hover:text-rock-red transition-colors">
+            <Link href="/produtos" className="text-white hover:text-rock-red transition-colors text-sm lg:text-[16px] min-[1920px]:text-[18px]">
               Produtos
             </Link>
-             <Link href="/login" className="text-white hover:text-rock-red transition-colors">
+             <Link href="/login" className="text-white hover:text-rock-red transition-colors text-sm lg:text-[16px] min-[1920px]:text-[18px]">
               Login
             </Link>
-            <Link href="/gerenciamento" className="text-white hover:text-rock-red transition-colors">
+            <Link href="/gerenciamento" className="text-white hover:text-rock-red transition-colors text-sm lg:text-[16px] min-[1920px]:text-[18px]">
               Gerenciamento
             </Link>
         </div>
@@ -82,7 +90,7 @@ export default function Navbar() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="w-7 h-7 md:w-8 md:h-8" 
+            className="w-7 h-7 md:w-8 md:h-8 lg:w-8 lg:h-8 min-[1920px]:w-10 min-[1920px]:h-10" 
           >
             <circle cx="8" cy="21" r="1" />
             <circle cx="19" cy="21" r="1" />
@@ -91,16 +99,16 @@ export default function Navbar() {
           
           {/* quantidade no carrinho */}
           {cartCount > 0 && (
-            <span className="absolute -top-1.5 -right-2 bg-rock-red text-white text-[10px] md:text-[13px] font-bold w-4 h-4 md:w-5 md:h-5 rounded-full flex items-center justify-center border border-rock-dark">
+            <span className="absolute -top-1.5 -right-2 bg-rock-red text-white text-[10px] md:text-[12px] lg:text-[13px] min-[1920px]:text-[15px] font-bold w-4 h-4 md:w-5 md:h-5 lg:w-5 lg:h-5 min-[1920px]:w-6 min-[1920px]:h-6 rounded-full flex items-center justify-center border border-rock-dark">
               {cartCount}
             </span>
           )}
         </Link>
       </div>
 
-      {/* menu mobile */}
+      {/* menu mobile e tablet */}
       {isMenuOpen && (
-        <div className="absolute top-20 left-0 w-full bg-rock-dark border-b border-white/10 md:hidden flex flex-col items-center py-2 shadow-xl animate-in slide-in-from-top-5 duration-200">
+        <div className="absolute top-20 left-0 w-full bg-rock-dark border-b border-white/10 lg:hidden flex flex-col items-center py-2 shadow-xl animate-in slide-in-from-top-5 duration-200">
           <Link 
             href="/" 
            className="w-full text-center py-3 text-rock-red font-bold text-lg hover:bg-white/5 hover:text-rock-red transition-colors"
@@ -136,7 +144,6 @@ export default function Navbar() {
           >
             Gerenciamento
           </Link>
-         
         </div>
       )}
     </nav>
