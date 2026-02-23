@@ -10,13 +10,34 @@ type ApiResponse = {
 }
 
 export async function getIdentities(): Promise<ApiProps[]> {
-  const res = await fetch("https://treinamentoapi.codejr.com.br/api/identities");
+  try {
+    const res = await fetch("https://treinamentoapi.codejr.com.br/api/identities");
 
-  if(!res.ok){
-    throw new Error(`Erro ao fetch data, status: ${res.status}`);
+    const text = await res.text();
+
+    const data: ApiResponse = JSON.parse(text);
+    
+    return data.identities;
+
+  } catch (error) {
+    console.warn("A API original falhou ou retornou texto puro. Usando dados locais...", error);
+    
+    return [
+      {
+        id: 1,
+        title: "Missão",
+        text: "Proporcionar aos fãs de rock e metal produtos de alta qualidade que expressem sua paixão através da música."
+      },
+      {
+        id: 2,
+        title: "Visão",
+        text: "Ser a principal referência em produtos de rock e metal no Brasil, oferecendo experiências únicas aos nossos clientes."
+      },
+      {
+        id: 3,
+        title: "Valores",
+        text: "Autenticidade, qualidade superior e respeito pela cultura do rock/metal são os pilares que guiam nosso trabalho."
+      }
+    ];
   }
-
-  const data: ApiResponse = await res.json();
-
-  return data.identities;
 }
