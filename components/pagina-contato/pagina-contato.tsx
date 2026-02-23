@@ -1,14 +1,15 @@
 export default function PaginaContato() {
   return (
-    <main className="min-h-screen bg-rock-dark text-white py-10 px-4">
+    <main className="min-h-screen bg-rock-dark text-white py-10 px-4 md:px-8">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-[40px] font-extrabold text-center mb-12 text-white">
           Contato
         </h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-8 lg:gap-x-12">
-          {/* Coluna da esquerda: formulário */}
-          <div className="border border-white/10 rounded-lg p-8 bg-[#121212]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-8 lg:gap-x-12 md:max-w-xl md:mx-auto lg:max-w-none">
+          
+          {/* coluna da esquerda: formulário */}
+          <div className="border border-white/10 rounded-lg p-6 md:p-10 lg:p-8 bg-[#121212]">
             <h2 className="text-xl font-extrabold text-center mb-8">
               Envie uma mensagem
             </h2>
@@ -52,17 +53,18 @@ export default function PaginaContato() {
 
               <button
                 type="button"
-                className="text-[17px] w-full bg-rock-red hover:bg-red-700 text-white font-bold py-3 rounded-full mt-2 transition-all duration-300 hover:scale-103"
+                className="text-[17px] w-full bg-rock-red hover:bg-red-700 text-white font-bold py-3 rounded-full mt-2 transition-all duration-300 hover:scale-103 cursor-pointer"
               >
                 Enviar mensagem
               </button>
             </form>
           </div>
 
-          {/* Coluna da direita*/}
+          {/* coluna da direita*/}
           <div className="flex flex-col gap-8">
+            
             {/* 1° bloco: informações de contato */}
-            <div className="border border-white/10 rounded-lg p-8 bg-[#121212] flex-1">
+            <div className="border border-white/10 rounded-lg p-6 md:p-10 lg:p-8 bg-[#121212] flex-1">
               <h2 className="text-xl font-extrabold text-center mb-8">
                 Informações de contato
               </h2>
@@ -118,17 +120,17 @@ export default function PaginaContato() {
 
                 <div className="flex items-start gap-4">
                   <div className="mt-1">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    fill="currentColor" 
-    className="bi bi-geo-alt-fill"
-    viewBox="0 0 16 16" 
-  >
-    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
-  </svg>
-</div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="currentColor" 
+                      className="bi bi-geo-alt-fill"
+                      viewBox="0 0 16 16" 
+                    >
+                      <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                    </svg>
+                  </div>
                   <div>
                     <h3 className="font-bold text-lg mb-1">Endereço</h3>
                     <p className="text-sm text-gray-300">
@@ -143,11 +145,11 @@ export default function PaginaContato() {
             </div>
 
             {/* 2° bloco: redes sociais */}
-            <div className="border border-white/10 rounded-lg p-8 bg-[#121212] flex-1">
+            <div className="border border-white/10 rounded-lg p-6 md:p-10 lg:p-8 bg-[#121212] flex-1">
               <h2 className="text-xl font-bold text-center mb-4">
                 Redes sociais
               </h2>
-              <p className="text-sm text-gray-300 mb-8">
+              <p className="text-sm text-gray-300 mb-8 text-center md:text-left lg:text-center">
                 Siga-nos nas redes sociais para ficar por dentro das{" "}
                 <span className="text-rock-red font-bold">
                   novidades e promoções
@@ -155,7 +157,7 @@ export default function PaginaContato() {
                 .
               </p>
 
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 gap-6 justify-items-center md:justify-items-start lg:justify-items-start">
                 <div className="flex items-center gap-3 cursor-pointer hover:text-rock-red transition-colors">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
