@@ -143,7 +143,7 @@ export default function PaginaCadastro() {
         </form>
 
         {/* botão home */}
-        <div className="mt-8 flex justify-center">
+        <div className="mt-10 flex justify-center">
           <Link
             href="/"
             className="group flex items-center gap-2 bg-white text-rock-red font-bold px-6 py-2 rounded-full transition-all hover:bg-gray-100 hover:shadow-md active:scale-95"
