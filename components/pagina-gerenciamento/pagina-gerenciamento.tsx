@@ -43,8 +43,8 @@ export default function PaginaGerenciamento() {
 
   return (
     <main className="flex min-h-screen bg-rock-dark">
-      {/* sidebar */}
-      <aside className="hidden md:flex flex-col w-[250px] bg-rock-dark min-h-screen shadow-2xl z-10">
+      {/* sidebar (ocula no mobile e tablet) */}
+      <aside className="hidden lg:flex flex-col w-[250px] shrink-0 bg-rock-dark min-h-screen shadow-2xl z-10 border-r border-white/10">
         {/* logo */}
         <div className="pt-8 pb-6 flex justify-center px-4">
           <Link
@@ -96,18 +96,25 @@ export default function PaginaGerenciamento() {
 
       {/* parte da direita */}
       <section className="flex-1 flex flex-col min-w-0">
-        {/* topbar */}
-        <header className="relative w-full h-24 bg-[#2A2A2A] flex items-center justify-center px-8 shadow-md z-0">
+        
+        {/* topbar (empilhada no celular, em linha no PC) */}
+        <header className="relative w-full py-6 lg:py-0 lg:h-24 bg-[#2A2A2A] flex flex-col lg:flex-row items-center justify-center lg:justify-between px-4 lg:px-8 shadow-md z-0 gap-4 lg:gap-0 border-b border-white/5">
+          
+          {/* link voltar para mobile/tablet */}
+          <Link href="/" className="lg:hidden absolute left-4 top-6 text-rock-red font-bold underline text-[15px] md:text-[18px]">
+            &larr; Voltar
+          </Link>
+
           {/* título */}
-          <h1 className="text-white text-2xl md:text-[28px] font-black tracking-wider uppercase">
-            Gerenciamento de Produtos
+          <h1 className="text-white text-xl md:text-2xl lg:text-[28px] font-black tracking-wider uppercase text-center mt-6 lg:mt-0">
+            Gerenciamento
           </h1>
 
           {/* botão adicionar */}
-          <div className="absolute right-8 top-1/2 -translate-y-1/2">
+          <div className="w-full lg:w-auto lg:absolute right-8 top-1/2 lg:-translate-y-1/2 mt-2 lg:mt-0">
             <button 
               onClick={() => setIsModalAdicionarOpen(true)}
-              className="bg-rock-red hover:bg-red-700 text-white font-bold px-6 py-2.5 rounded-md transition-colors shadow-lg cursor-pointer"
+              className="w-full lg:w-auto bg-rock-red hover:bg-red-700 text-white font-bold px-6 py-3 lg:py-2.5 rounded-md transition-colors shadow-lg cursor-pointer"
             >
               Adicionar produto
             </button>
@@ -115,16 +122,16 @@ export default function PaginaGerenciamento() {
         </header>
 
         {/* área do conteúdo  */}
-        <div className="p-8 flex-1 flex flex-col max-w-6xl mx-auto w-full bg-[#1A1A1A]">
+        <div className="p-4 md:p-8 flex-1 flex flex-col max-w-7xl mx-auto w-full bg-[#1A1A1A]">
           {/* lista dos cards */}
-          <div className="flex flex-col gap-8 flex-1">
+          <div className="flex flex-col gap-6 lg:gap-8 flex-1">
             {mockProducts.map((product) => (
               <div
                 key={product.id}
                 className="w-full bg-[#F5F5F5] rounded-xl overflow-hidden shadow-xl"
               >
-                {/* cabeçalho vermelho */}
-                <div className="w-full bg-rock-red text-white flex items-center py-3 px-4 font-bold text-[15px]">
+                {/* cabeçalho vermelho  */}
+                <div className="hidden lg:flex w-full bg-rock-red text-white items-center py-3 px-4 font-bold text-[15px]">
                   <div className="w-[15%] text-center">Imagem</div>
                   <div className="w-[20%] text-center">Nome</div>
                   <div className="w-[15%] text-center">Preço</div>
@@ -133,10 +140,11 @@ export default function PaginaGerenciamento() {
                 </div>
 
                 {/* corpo (branco) do card */}
-                <div className="w-full flex items-center py-6 px-4 text-black">
+                <div className="w-full flex flex-col lg:flex-row items-center py-6 px-4 text-black gap-4 lg:gap-0">
+                  
                   {/* imagem */}
-                  <div className="w-[15%] flex justify-center">
-                    <div className="relative w-34 h-34 bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                  <div className="w-full lg:w-[15%] flex justify-center">
+                    <div className="relative w-50 h-50 lg:w-34 lg:h-34 bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden shrink-0">
                       <Image
                         src={product.image}
                         alt={product.name}
@@ -146,35 +154,38 @@ export default function PaginaGerenciamento() {
                     </div>
                   </div>
 
-                  <div className="w-[20%] font-extrabold text-[16px] text-center px-4">
+                  {/* nome */}
+                  <div className="w-full lg:w-[20%] font-extrabold text-[20px] lg:text-[16px] text-center lg:px-4">
                     {product.name}
                   </div>
 
-                  <div className="w-[15%] font-extrabold text-[16px] text-center">
+                  {/* preço */}
+                  <div className="w-full lg:w-[15%] font-black text-2xl lg:text-[16px] text-rock-red lg:text-black text-center">
                     {product.price}
                   </div>
 
-                  <div className="w-[35%] text-[14px] font-medium text-center px-6 leading-relaxed text-gray-800 flex items-center justify-center">
+                  {/* descrição */}
+                  <div className="w-full lg:w-[35%] text-[15px] lg:text-[14px] font-medium text-center px-2 lg:px-6 leading-relaxed text-gray-700 lg:text-gray-800">
                     {product.description}
                   </div>
 
-                  {/* ações */}
-                  <div className="w-[15%] flex flex-col items-center gap-4">
+                  {/* ações (linha no mobile, empilhado no PC) */}
+                  <div className="w-full lg:w-[15%] flex flex-row lg:flex-col items-center justify-center gap-2 lg:gap-4 mt-4 lg:mt-0 border-t border-gray-200 lg:border-t-0 pt-4 lg:pt-0">
                     <button 
                       onClick={() => setIsModalVisualizarOpen(true)}
-                      className="w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer"
+                      className="flex-1 lg:flex-none lg:w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-2 lg:py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer text-sm"
                     >
                       Ver
                     </button>
                     <button 
                       onClick={() => setIsModalEditarOpen(true)}
-                      className="w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer"
+                      className="flex-1 lg:flex-none lg:w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-2 lg:py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer text-sm"
                     >
                       Editar
                     </button>
                     <button 
                       onClick={() => setIsModalExcluirOpen(true)}
-                      className="w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer"
+                      className="flex-1 lg:flex-none lg:w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-2 lg:py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer text-sm lg:bg-rock-red lg:hover:bg-red-700"
                     >
                       Excluir
                     </button>
@@ -185,36 +196,47 @@ export default function PaginaGerenciamento() {
           </div>
 
           {/* paginação */}
-          <div className="hidden md:flex justify-center items-center gap-3 sm:gap-5 mt-12 mb-4 text-rock-red font-medium text-[18px]">
-            <button className="flex items-center hover:text-white transition-colors cursor-pointer">
-              &larr; Anterior
+          <div className="flex justify-center items-center gap-2 md:gap-5 mt-12 mb-4 text-rock-red font-medium text-sm md:text-[18px]">
+            
+            {/* botão anterior */}
+            <button className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer text-xs md:text-base">
+              <span>&larr;</span>
+              <span className="md:hidden">Ant.</span>
+              <span className="hidden md:inline">Anterior</span>
             </button>
 
-            <div className="flex items-center gap-2 sm:gap-3">
-              <button className="bg-rock-red text-white w-11 h-11 flex items-center justify-center rounded-xl font-bold cursor-default">
+            {/* números */}
+            <div className="flex items-center gap-1 md:gap-3 text-gray-300">
+              <button className="bg-rock-red text-white w-8 h-8 md:w-11 md:h-11 flex items-center justify-center rounded-xl font-bold cursor-default">
                 1
               </button>
-              <button className="w-11 h-11 flex items-center justify-center rounded-xl hover:bg-zinc-700 transition-colors cursor-pointer">
+              <button className="w-8 h-8 md:w-11 md:h-11 flex items-center justify-center rounded-xl hover:bg-zinc-700 transition-colors cursor-pointer">
                 2
               </button>
-              <button className="w-11 h-11 flex items-center justify-center rounded-xl hover:bg-zinc-700 transition-colors cursor-pointer">
+              <button className="hidden sm:flex md:w-11 md:h-11 items-center justify-center rounded-xl hover:bg-zinc-700 transition-colors cursor-pointer">
                 3
               </button>
-              <span className="w-11 h-11 flex items-center justify-center">
+              <span className="w-8 h-8 md:w-11 md:h-11 flex items-center justify-center text-gray-400">
                 ...
               </span>
-              <button className="w-11 h-11 flex items-center justify-center rounded-xl hover:bg-zinc-700 transition-colors cursor-pointer">
+              {/* última página (visível apenas a partir do tablet) */}
+              <button className="hidden md:flex w-11 h-11 items-center justify-center rounded-xl hover:bg-zinc-700 transition-colors cursor-pointer">
                 56
               </button>
             </div>
 
-            <button className="flex items-center hover:text-white transition-colors cursor-pointer">
-              Próximo &rarr;
+            {/* botão próximo */}
+            <button className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer text-xs md:text-base">
+              <span className="md:hidden">Próx.</span>
+              <span className="hidden md:inline">Próximo</span>
+              <span>&rarr;</span>
             </button>
+            
           </div>
         </div>
       </section>
 
+      {/* modais */}
       {isModalAdicionarOpen && (
         <ModalAdicionarProduto onClose={() => setIsModalAdicionarOpen(false)} />
       )}
