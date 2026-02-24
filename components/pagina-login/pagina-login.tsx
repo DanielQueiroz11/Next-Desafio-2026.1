@@ -33,7 +33,7 @@ export default function PaginaLogin() {
       <div className="relative z-10 w-full max-w-[450px] bg-black/70 backdrop-blur-md p-8 md:p-10 rounded-2xl shadow-2xl border border-white/10">
         
         {/* título */}
-        <h2 className="text-[28px] md:text-[36px] lg:text-[40px] font-black text-center text-white mb-8 tracking-wide uppercase">
+        <h2 className="text-[28px] md:text-[32px] lg:text-[35px] xl:text-[38px] 2xl:text-[42px] font-black text-center text-white mb-8 tracking-wide uppercase">
           Entrar
         </h2>
 
