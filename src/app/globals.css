@@ -7,6 +7,9 @@
   --color-rock-white: #FFFFFF;
 
   /* RESPONSIVIDADE*
+
+   /* celular grande/tablet pequeno (426px a 767px) */
+  --breakpoint-sm: 426px; 
   
   /* tablet / notebook pequeno (768px a 1023px) */
   --breakpoint-md: 768px;
@@ -19,7 +22,4 @@
 
   /* monitor ultra wide / TV (1920px pra cima) */
   --breakpoint-2xl: 1920px;
-  
-  /* celular grande/tablet pequeno */
-  --breakpoint-sm: 426px; 
 }
