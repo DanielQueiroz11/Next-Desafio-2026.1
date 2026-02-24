@@ -10,7 +10,6 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   const { isPlaying, toggleAudio } = useAudio();
-  
   const { cartCount } = useCart();
 
   return (
@@ -32,7 +31,7 @@ export default function Navbar() {
         )}
       </button>
 
-      {/* centro: player + logo */}
+      {/* centro: logo */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 lg:static lg:transform-none lg:translate-x-0 lg:translate-y-0 flex items-center">
         
         {/* logo */}
@@ -40,10 +39,6 @@ export default function Navbar() {
           href="/" 
           className="relative flex flex-col md:flex-row items-center gap-0.5 md:gap-2 text-[22px] md:text-[26px] lg:text-[28px] min-[1920px]:text-[34px] font-black tracking-wider uppercase cursor-pointer transition-all duration-300 will-change-transform hover:scale-103 leading-none md:leading-normal"
         >
-          <div className="hidden md:flex lg:hidden absolute top-1/2 -translate-y-1/2 -left-16 items-center">
-            <AudioPlayer isPlaying={isPlaying} onToggle={toggleAudio} isRadio={true} />
-          </div>
-
           <span className="text-white">Caverna</span>
           <span className="text-white">
             do <span className="text-rock-red">Rock</span>
@@ -54,10 +49,10 @@ export default function Navbar() {
       {/* área direita - campos + carrinho */}
       <div className="flex items-center gap-6 md:gap-4 lg:gap-8 min-[1920px]:gap-12 font-medium">
         
-        {/* links (apenas desktop) */}
+        {/* links (apenas desktop a partir de lg: 1024px) */}
         <div className="hidden lg:flex items-center gap-3 lg:gap-8 min-[1920px]:gap-12">
             
-            {/* player de áudio :) (não é visível no mobile) */}
+            {/* player visível a partir de 1024px :) */}
             <AudioPlayer isPlaying={isPlaying} onToggle={toggleAudio} isRadio={true} />
 
             <Link href="/" className="bg-rock-red text-white px-3 py-1.5 lg:px-4 lg:py-2 rounded-full hover:bg-red-700 transition-colors font-bold text-sm lg:text-[17px] min-[1920px]:text-[20px] min-[1920px]:px-6 min-[1920px]:py-2.5">
@@ -111,7 +106,7 @@ export default function Navbar() {
         <div className="absolute top-20 left-0 w-full bg-rock-dark border-b border-white/10 lg:hidden flex flex-col items-center py-2 shadow-xl animate-in slide-in-from-top-5 duration-200">
           <Link 
             href="/" 
-           className="w-full text-center py-3 text-rock-red font-bold text-lg hover:bg-white/5 hover:text-rock-red transition-colors"
+            className="w-full text-center py-3 text-rock-red font-bold text-lg hover:bg-white/5 hover:text-rock-red transition-colors"
             onClick={() => setIsMenuOpen(false)}
           >
             Home
