@@ -59,13 +59,14 @@ export default function ModalExcluirProduto({
         </p>
 
         {/* botões de ação */}
-        <div className="flex justify-center gap-6 mt-4">
-          <button className="bg-white hover:bg-gray-200 text-rock-dark font-extrabold py-3.5 px-8 rounded-full transition-all hover:scale-105 active:scale-95 text-[16px] cursor-pointer">
+        <div className="flex flex-col sm:flex-row items-center justify-center w-full gap-6 sm:gap-6 mt-4">
+          <button className="w-40 bg-white hover:bg-gray-200 text-rock-dark font-extrabold py-3.5 rounded-full transition-all hover:scale-105 active:scale-95 text-[15px] md:text-[16px] lg:text-[18px] cursor-pointer">
             Excluir
           </button>
+
           <button
             onClick={onClose}
-            className="bg-rock-red hover:bg-red-700 text-white font-extrabold py-3.5 px-8 rounded-full transition-all hover:scale-105 active:scale-95 shadow-lg shadow-rock-red/20 text-[16px] cursor-pointer"
+            className="w-40 bg-rock-red hover:bg-red-700 text-white font-extrabold py-3.5 rounded-full transition-all hover:scale-105 active:scale-95 shadow-lg shadow-rock-red/20 text-[15px] md:text-[16px] lg:text-[18px] cursor-pointer"
           >
             Cancelar
           </button>
