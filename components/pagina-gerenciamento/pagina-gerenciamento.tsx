@@ -97,24 +97,23 @@ export default function PaginaGerenciamento() {
       {/* parte da direita */}
       <section className="flex-1 flex flex-col min-w-0">
         
-        {/* topbar (empilhada no celular, em linha no PC) */}
-        <header className="relative w-full py-6 lg:py-0 lg:h-24 bg-[#2A2A2A] flex flex-col lg:flex-row items-center justify-center lg:justify-between px-4 lg:px-8 shadow-md z-0 gap-4 lg:gap-0 border-b border-white/5">
+       {/* topbar */}
+        <header className="relative w-full py-6 md:py-0 md:h-24 bg-[#2A2A2A] flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-8 shadow-md z-0 border-b border-white/5">
           
-          {/* link voltar para mobile/tablet */}
-          <Link href="/" className="lg:hidden absolute left-4 top-6 text-rock-red font-bold underline text-[15px] md:text-[18px]">
-            &larr; Voltar
-          </Link>
+          <div className="w-full md:flex-1 flex justify-start">
+            <Link href="/" className="absolute md:static left-4 top-6 text-rock-red font-bold underline text-[15px] md:text-[18px] lg:hidden">
+              &larr; Voltar
+            </Link>
+          </div>
 
-          {/* título */}
-          <h1 className="text-white text-xl md:text-2xl lg:text-[28px] font-black tracking-wider uppercase text-center mt-6 lg:mt-0">
+          <h1 className="text-white text-xl md:text-2xl lg:text-[28px] font-black tracking-wider uppercase text-center mt-10 md:mt-0">
             Gerenciamento
           </h1>
 
-          {/* botão adicionar */}
-          <div className="w-full lg:w-auto lg:absolute right-8 top-1/2 lg:-translate-y-1/2 mt-2 lg:mt-0">
+          <div className="w-full md:flex-1 flex justify-end mt-6 md:mt-0">
             <button 
               onClick={() => setIsModalAdicionarOpen(true)}
-              className="w-full lg:w-auto bg-rock-red hover:bg-red-700 text-white font-bold px-6 py-3 lg:py-2.5 rounded-md transition-colors shadow-lg cursor-pointer"
+              className="w-full md:w-auto bg-rock-red hover:bg-red-700 text-white font-bold px-6 py-3 md:py-2.5 rounded-md transition-colors shadow-lg cursor-pointer"
             >
               Adicionar produto
             </button>
@@ -128,7 +127,7 @@ export default function PaginaGerenciamento() {
             {mockProducts.map((product) => (
               <div
                 key={product.id}
-                className="w-full bg-[#F5F5F5] rounded-xl overflow-hidden shadow-xl"
+                className="w-full bg-[#F5F5F5] rounded-xl overflow-hidden shadow-xl md:max-w-xl md:mx-auto lg:max-w-none"
               >
                 {/* cabeçalho vermelho  */}
                 <div className="hidden lg:flex w-full bg-rock-red text-white items-center py-3 px-4 font-bold text-[15px]">
