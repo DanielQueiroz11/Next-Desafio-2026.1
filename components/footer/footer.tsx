@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="w-full bg-rock-dark text-white py-5 border-t border-white/10">
-      <div className="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto px-6 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 lg:gap-8 min-[1920px]:gap-20 items-center text-center md:text-left">
+      <div className="w-full max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 md:px-10 lg:px-12 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 lg:gap-8 min-[1920px]:gap-20 items-center text-center md:text-left">
         
         {/* logo */}
         <div className="flex justify-center md:order-2 pb-2">
@@ -61,21 +61,25 @@ export default function Footer() {
           </div>
           
           {/* copyright PC */}
-          <div className="hidden md:block text-xs md:text-[10px] lg:text-xs min-[1920px]:text-sm text-gray-400 mt-4 min-[1920px]:mt-6 font-mono text-left">
-            <p>© 2026 Caverna do Rock</p>
-            <p>Todos os direitos reservados.</p>
+          <div className="hidden md:flex flex-col text-xs md:text-[10px] lg:text-xs min-[1920px]:text-sm text-gray-400 mt-4 min-[1920px]:mt-6 font-mono text-left">
+            <p>© 2026 Caverna do Rock. Todos os direitos reservados.</p>
+            <div className="flex gap-3 mt-1">
+              <Link href="#" className="hover:text-white transition-colors">Termos de Uso</Link>
+              <span>|</span>
+              <Link href="#" className="hover:text-white transition-colors">Política de Privacidade</Link>
+            </div>
           </div>
         </div>
 
         {/* contato */}
         <div className="flex flex-col items-center md:items-end gap-4 md:order-3">
-          <Link href="/contato" className="w-full text-center md:text-right md:pr-4 lg:pr-12 min-[1920px]:pr-16">
+          <Link href="/contato" className="w-full text-center md:text-right">
             <h3 className="font-bold text-lg md:text-base lg:text-lg min-[1920px]:text-xl tracking-wider hover:text-rock-red transition-colors cursor-pointer">
               Contato
             </h3>
           </Link>
           
-          <div className="flex flex-col gap-3 min-[1920px]:gap-4 text-sm md:text-xs lg:text-sm min-[1920px]:text-base text-center md:text-right w-full md:pr-4 lg:pr-12 min-[1920px]:pr-16">
+          <div className="flex flex-col gap-3 min-[1920px]:gap-4 text-sm md:text-xs lg:text-sm min-[1920px]:text-base text-center md:text-right w-full">
             <div className="flex items-center justify-center md:justify-end gap-2 min-[1920px]:gap-3">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 md:w-3.5 md:h-3.5 lg:w-4 lg:h-4 min-[1920px]:w-5 min-[1920px]:h-5">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
@@ -101,9 +105,13 @@ export default function Footer() {
 
       {/* copyright mobile */}
       <div className="md:hidden max-w-7xl mx-auto px-6 mt-10 pt-6 border-t border-white/5">
-        <div className="text-xs text-gray-500 font-mono text-center">
-          <p>© 2026 Caverna do Rock</p>
-          <p>Todos os direitos reservados.</p>
+        <div className="flex flex-col items-center text-xs text-gray-500 font-mono text-center">
+          <p>© 2026 Caverna do Rock. Todos os direitos reservados.</p>
+          <div className="flex gap-2 mt-2">
+            <Link href="#" className="hover:text-white transition-colors">Termos de Uso</Link>
+            <span>|</span>
+            <Link href="#" className="hover:text-white transition-colors">Política de Privacidade</Link>
+          </div>
         </div>
       </div>
       
