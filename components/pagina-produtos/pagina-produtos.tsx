@@ -109,10 +109,10 @@ export default function PaginaProdutos() {
               {filteredProducts.map((product) => (
                 <div
                   key={product.id}
-                  className="w-full max-w-[380px] bg-[#121212] border border-white/5 rounded-lg overflow-hidden hover:border-rock-red/50 transition-all duration-300 shadow-lg hover:shadow-rock-red/10"
+                  className="w-full max-w-[380px] bg-[#121212] border border-white/5 rounded-lg overflow-hidden hover:border-rock-red/50 transition-all duration-300 shadow-lg hover:shadow-rock-red/10 flex flex-col h-full"
                 >
                   <Link href={`/produtos-individuais/${product.id}`}>
-                    <div className="group relative w-full h-[320px] bg-white flex items-center justify-center overflow-hidden cursor-pointer">
+                    <div className="group relative w-full h-[280px] sm:h-[320px] bg-white flex items-center justify-center overflow-hidden cursor-pointer">
                       <Image
                         src={product.image}
                         alt={product.name}
@@ -123,23 +123,25 @@ export default function PaginaProdutos() {
                   </Link>
 
                   {/* conteúdo do card */}
-                  <div className="p-4 flex flex-col h-auto">
-                    <Link href={`/produtos-individuais/${product.id}`}>
-                      <h3 className="text-white text-xl font-bold mb-2 cursor-pointer hover:text-rock-red transition-colors">
-                        {product.name}
-                      </h3>
-                    </Link>
+                  <div className="p-5 md:p-6 flex flex-col flex-grow">
+                    <div>
+                      <Link href={`/produtos-individuais/${product.id}`}>
+                        <h3 className="text-white text-[18px] md:text-xl font-bold mb-2 cursor-pointer hover:text-rock-red transition-colors line-clamp-2">
+                          {product.name}
+                        </h3>
+                      </Link>
 
-                    <p className="text-gray-400 text-sm mb-4 line-clamp-2 min-h-[40px]">
-                      {product.description}
-                    </p>
+                      <p className="text-gray-400 text-[13px] md:text-sm mb-4 line-clamp-2 min-h-[40px]">
+                        {product.description}
+                      </p>
+                    </div>
 
-                    <div className="mt-auto">
-                      <span className="block text-rock-red text-2xl font-extrabold mb-1">
+                    <div className="mt-auto pt-2">
+                      <span className="block text-rock-red text-[22px] md:text-2xl font-extrabold mb-0.5">
                         {product.price}
                       </span>
                       
-                      <span className="block text-gray-400 text-sm mb-6">
+                      <span className="block text-gray-400 text-[13px] md:text-sm mb-5">
                         {product.installment
                           .split(/(R\$\d+,\d+)/)
                           .map((part, index) => (
@@ -157,7 +159,7 @@ export default function PaginaProdutos() {
                       </span>
 
                       <Link href={`/produtos-individuais/${product.id}`} className="w-full block">
-                        <button className="w-full bg-rock-red text-white font-bold py-3 rounded-full hover:bg-red-700 hover:scale-[1.03] active:scale-95 transition-all shadow-md cursor-pointer">
+                        <button className="w-full bg-rock-red text-white font-bold text-[15px] md:text-[16px] py-3 rounded-full hover:bg-red-700 hover:scale-[1.03] active:scale-95 transition-all shadow-md cursor-pointer">
                           Ver mais
                         </button>
                       </Link>
@@ -167,33 +169,43 @@ export default function PaginaProdutos() {
               ))}
             </div>
 
-            {/* paginação */}
-            <div className="hidden md:flex justify-center items-center gap-3 sm:gap-5 mt-15 mb-8 text-rock-red font-medium text-[18px]">
-              <button className="flex items-center hover:text-white transition-colors cursor-pointer">
-                &larr; Anterior
-              </button>
+           {/* paginação */}
+            <div className="flex justify-center items-center gap-2 md:gap-5 mt-8 md:mt-12 mb-8 text-rock-red font-medium text-[15px] md:text-[18px]">
               
-              <div className="flex items-center gap-2 sm:gap-3">
-                <button className="bg-rock-red text-white w-11 h-11 flex items-center justify-center rounded-xl font-bold cursor-default">
+              {/* botão anterior */}
+              <button className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer text-[14px] md:text-base">
+                <span>&larr;</span>
+                <span className="md:hidden">Ant.</span>
+                <span className="hidden md:inline">Anterior</span>
+              </button>
+
+              {/* números */}
+              <div className="flex items-center gap-2 md:gap-3 text-gray-300">
+                <button className="bg-rock-red text-white w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-xl font-bold cursor-default">
                   1
                 </button>
-                <button className="w-11 h-11 flex items-center justify-center rounded-xl hover:bg-zinc-700 transition-colors cursor-pointer">
+                <button className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-xl hover:bg-zinc-700 transition-colors cursor-pointer">
                   2
                 </button>
-                <button className="w-11 h-11 flex items-center justify-center rounded-xl hover:bg-zinc-700  transition-colors cursor-pointer">
+                <button className="hidden sm:flex md:w-11 md:h-11 items-center justify-center rounded-xl hover:bg-zinc-700 transition-colors cursor-pointer">
                   3
                 </button>
-                <span className="w-11 h-11 flex items-center justify-center">
+                <span className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center text-gray-400">
                   ...
                 </span>
-                <button className="w-11 h-11 flex items-center justify-center rounded-xl hover:bg-zinc-700  transition-colors cursor-pointer">
+                {/* última página (visível apenas a partir do tablet) */}
+                <button className="hidden md:flex w-11 h-11 items-center justify-center rounded-xl hover:bg-zinc-700 transition-colors cursor-pointer">
                   56
                 </button>
               </div>
 
-              <button className="flex items-center hover:text-white transition-colors cursor-pointer">
-                Próximo &rarr;
+              {/* botão próximo */}
+              <button className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer text-[14px] md:text-base">
+                <span className="md:hidden">Próx.</span>
+                <span className="hidden md:inline">Próximo</span>
+                <span>&rarr;</span>
               </button>
+              
             </div>
           </>
         ) : (
