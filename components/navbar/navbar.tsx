@@ -38,7 +38,7 @@ export default function Navbar() {
         {/* logo */}
         <Link 
           href="/" 
-          className="relative flex flex-col md:flex-row items-center gap-0.5 md:gap-2 text-[20px] md:text-[22px] lg:text-[28px] min-[1920px]:text-[34px] font-black tracking-wider uppercase cursor-pointer transition-all duration-300 will-change-transform hover:scale-103 leading-none md:leading-normal"
+          className="relative flex flex-col md:flex-row items-center gap-0.5 md:gap-2 text-[22px] md:text-[26px] lg:text-[28px] min-[1920px]:text-[34px] font-black tracking-wider uppercase cursor-pointer transition-all duration-300 will-change-transform hover:scale-103 leading-none md:leading-normal"
         >
           <div className="hidden md:flex lg:hidden absolute top-1/2 -translate-y-1/2 -left-16 items-center">
             <AudioPlayer isPlaying={isPlaying} onToggle={toggleAudio} isRadio={true} />
