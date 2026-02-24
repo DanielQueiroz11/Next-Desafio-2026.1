@@ -48,10 +48,10 @@ export default function ModalVisualizarProduto({ onClose }: { onClose: () => voi
           Visualizar produto
         </h2>
 
-        {/* imagem */}
+       {/* imagem */}
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">Imagem</label>
-          <div className="relative w-70 h-70 mx-auto bg-white rounded-2xl overflow-hidden shadow-inner mt-2">
+          <div className="relative w-full max-w-[280px] aspect-square mx-auto bg-white rounded-2xl overflow-hidden shadow-inner mt-2">
             <Image
               src={mockProduct.image}
               alt={mockProduct.name}
