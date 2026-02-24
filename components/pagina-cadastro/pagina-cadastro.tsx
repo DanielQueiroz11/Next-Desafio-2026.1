@@ -17,33 +17,34 @@ export default function PaginaCadastro() {
   };
 
   return (
-    <main className="relative min-h-screen w-full flex items-center justify-center bg-rock-dark overflow-hidden px-4">
+    <main className="relative min-h-screen w-full flex items-start md:items-center justify-center bg-rock-dark overflow-x-hidden overflow-y-auto px-4 pt-6 md:py-12">
+      
       {/* fundo */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/imagens/fundo-login.jpg"
           alt="Fundo Rock Bands"
           fill
-          className="object-cover opacity-40 object-[center_bottom]"
+          className="object-cover opacity-40 object-center md:object-[center_bottom]"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black/90"></div>
       </div>
 
       {/* card */}
-      <div className="relative z-10 w-full max-w-[450px] bg-black/70 backdrop-blur-sm p-8 md:p-10 rounded-2xl shadow-2xl border border-white/10 mt-6 md:mt-4">
+      <div className="relative z-10 w-full max-w-[450px] bg-black/70 backdrop-blur-md p-6 md:p-10 rounded-2xl shadow-2xl border border-white/10">
         
-        {/* título */}
-        <h2 className="text-3xl md:text-4xl font-black text-center text-white mb-8 tracking-wide">
+        {/* título  */}
+        <h2 className="text-[28px] md:text-[36px] lg:text-[40px] font-black text-center text-white mb-8 tracking-wide uppercase">
           Cadastre-se
         </h2>
 
-        {/* formulário*/}
+        {/* formulário */}
         <form className="flex flex-col gap-5" onSubmit={handleRegister}>
           
           {/* campo nome */}
           <div className="flex flex-col gap-2">
-            <label htmlFor="name" className="text-white font-bold ml-1 text-[18px]">
+            <label htmlFor="name" className="text-white font-bold ml-1 text-[16px] md:text-[18px]">
               Nome
             </label>
             <input
@@ -57,7 +58,7 @@ export default function PaginaCadastro() {
 
           {/* campo e-mail */}
           <div className="flex flex-col gap-2">
-            <label htmlFor="email" className="text-white font-bold ml-1 text-[18px]">
+            <label htmlFor="email" className="text-white font-bold ml-1 text-[16px] md:text-[18px]">
               E-mail
             </label>
             <input
@@ -71,7 +72,7 @@ export default function PaginaCadastro() {
 
           {/* campo senha */}
           <div className="flex flex-col gap-2">
-            <label htmlFor="password" className="text-white font-bold ml-1 text-[18px]">
+            <label htmlFor="password" className="text-white font-bold ml-1 text-[16px] md:text-[18px]">
               Senha
             </label>
             <div className="relative w-full">
@@ -86,6 +87,7 @@ export default function PaginaCadastro() {
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors p-1 cursor-pointer focus:outline-none"
+                aria-label={showPassword ? "Esconder senha" : "Mostrar senha"}
               >
                 {showPassword ? (
                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -98,7 +100,7 @@ export default function PaginaCadastro() {
 
           {/* campo confirmar senha */}
           <div className="flex flex-col gap-2">
-            <label htmlFor="confirm-password" className="text-white font-bold ml-1 text-[18px]">
+            <label htmlFor="confirm-password" className="text-white font-bold ml-1 text-[16px] md:text-[18px]">
               Confirmar Senha
             </label>
             <div className="relative w-full">
@@ -113,6 +115,7 @@ export default function PaginaCadastro() {
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors p-1 cursor-pointer focus:outline-none"
+                aria-label={showConfirmPassword ? "Esconder senha" : "Mostrar senha"}
               >
                 {showConfirmPassword ? (
                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -123,11 +126,11 @@ export default function PaginaCadastro() {
             </div>
           </div>
 
-          {/* link login*/}
+          {/* link login  */}
           <div className="flex justify-center w-full mt-2">
             <Link
               href="/login"
-              className="text-sm text-gray-400 hover:text-rock-red underline transition-colors"
+              className="text-[13px] md:text-sm text-gray-400 hover:text-rock-red underline transition-colors"
             >
               Já tem uma conta? Faça login
             </Link>
@@ -136,19 +139,19 @@ export default function PaginaCadastro() {
           {/* botão cadastro */}
           <button
             type="submit"
-            className="mt-2 w-full bg-rock-red hover:bg-red-700 text-white font-extrabold text-[20px] py-3 rounded-full transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-lg shadow-rock-red/20 cursor-pointer"
+            className="mt-2 w-full bg-rock-red hover:bg-red-700 text-white font-extrabold text-[18px] md:text-[20px] py-3.5 rounded-full transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-lg shadow-rock-red/20 cursor-pointer"
           >
             Criar Conta
           </button>
         </form>
 
         {/* botão home */}
-        <div className="mt-10 flex justify-center">
+        <div className="mt-8 flex justify-center">
           <Link
             href="/"
-            className="group flex items-center gap-2 bg-white text-rock-red font-bold px-6 py-2 rounded-full transition-all hover:bg-gray-100 hover:shadow-md active:scale-95"
+            className="group flex items-center gap-2 bg-white text-rock-red font-bold px-6 py-2.5 rounded-full transition-all hover:bg-gray-100 hover:shadow-md active:scale-95 text-sm md:text-base"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:-translate-x-1"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:-translate-x-1"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
             Voltar para Home
           </Link>
         </div>
