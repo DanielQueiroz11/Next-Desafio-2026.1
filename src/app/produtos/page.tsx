@@ -1,5 +1,12 @@
-import PaginaProdutos from "../../../components/pagina-produtos/pagina-produtos"; 
+import db from "../../lib/db";
+import PaginaProdutos from "@/components/pagina-produtos/pagina-produtos";
 
-export default function ProdutosPage() {
-  return <PaginaProdutos />;
+export const revalidate = 0; 
+
+export default async function ProdutosPage() {
+  const produtosDoBanco = await db.product.findMany({
+    orderBy: { createdAt: "desc" }
+  });
+
+  return <PaginaProdutos produtos={produtosDoBanco} />;
 }
