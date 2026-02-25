@@ -1,67 +1,58 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 async function main() {
+  // limpar os produtos antigos :)
+  await prisma.product.deleteMany();
+
   const products = [
     {
-      title: 'Wireless Mouse',
-      description: 'A smooth and responsive wireless mouse.',
+      title: "Camisa Linkin Park",
+      description:
+        "Tecido 100% algodão: macia, leve e confortável para o dia a dia.",
+      price: 64.99,
+      image: "/imagens/produto-1.jpg",
+      createdAt: new Date(),
+    },
+    {
+      title: "Moletom Metallica",
+      description:
+        "Modelo unissex com toque macio e elegante, perfeito para dias frios.",
+      price: 139.99,
+      image: "/imagens/produto-2.jpg",
+      createdAt: new Date(),
+    },
+    {
+      title: "Colar Guns N' Roses",
+      description:
+        "Colar temático do Guns N' Roses com pingente estilizado de caveira.",
       price: 29.99,
+      image: "/imagens/produto-3.jpg",
       createdAt: new Date(),
     },
     {
-      title: 'Mechanical Keyboard',
-      description: 'A durable mechanical keyboard with RGB lighting.',
-      price: 89.99,
+      title: "Camiseta Iron Maiden",
+      description:
+        "Estampa exclusiva The Trooper com alta durabilidade e cores vivas.",
+      price: 69.9,
+      image: "/imagens/produto-4.jpg",
       createdAt: new Date(),
     },
     {
-      title: 'Noise Cancelling Headphones',
-      description: 'Comfortable headphones with active noise cancelling.',
-      price: 199.99,
+      title: "Caneca Rock N'Roll",
+      description:
+        "Caneca com estampa temática de rock, design moderno e altamente resistente.",
+      price: 39.9,
+      image: "/imagens/produto-5.jpg",
       createdAt: new Date(),
     },
     {
-      title: '4K Monitor',
-      description: 'A high-resolution 4K monitor for professional use.',
-      price: 399.99,
-      createdAt: new Date(),
-    },
-    {
-      title: 'USB-C Hub',
-      description: 'A versatile USB-C hub with multiple ports.',
-      price: 49.99,
-      createdAt: new Date(),
-    },
-    {
-      title: 'Portable SSD',
-      description: 'A fast and portable SSD with 1TB capacity.',
-      price: 129.99,
-      createdAt: new Date(),
-    },
-    {
-      title: 'Bluetooth Speaker',
-      description: 'A compact Bluetooth speaker with excellent sound quality.',
-      price: 59.99,
-      createdAt: new Date(),
-    },
-    {
-      title: 'Smartwatch',
-      description: 'A stylish smartwatch with fitness tracking features.',
+      title: "Moletom Red Hot Chili Peppers",
+      description:
+        "Moletom com estampa da logo da banda, muito confortável e versátil.",
       price: 149.99,
-      createdAt: new Date(),
-    },
-    {
-      title: 'Gaming Chair',
-      description: 'An ergonomic gaming chair with lumbar support.',
-      price: 249.99,
-      createdAt: new Date(),
-    },
-    {
-      title: 'Webcam',
-      description: 'A high-definition webcam for video conferencing.',
-      price: 79.99,
+      image: "/imagens/produto-6.jpg",
       createdAt: new Date(),
     },
   ];
@@ -71,6 +62,9 @@ async function main() {
       data: product,
     });
   }
+
+  // pra saber se deu certo!!
+  console.log("Banco de dados semeado com produtos de Rock com sucesso! 🤘");
 }
 
 main()

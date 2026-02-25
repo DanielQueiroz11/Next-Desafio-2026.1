@@ -41,9 +41,25 @@ export default function PaginaProdutos({ produtos }: { produtos: Produto[] }) {
     return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   };
 
-  const formatarParcela = (valor: number) => {
-    return `3x de ${(valor / 3).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} sem juros`;
-  };
+const formatadorMoeda = new Intl.NumberFormat("pt-BR", {
+  style: "currency",
+  currency: "BRL",
+});
+
+const formatarParcela = (valor: number) => {
+  // a cada 20 reais, pode parcelar em mais 1 vez
+  let parcelas = Math.ceil(valor / 20);
+
+  // garante que o mínimo seja 1x e o máximo trave em 6x
+  parcelas = Math.max(1, Math.min(6, parcelas));
+
+  if (parcelas === 1) {
+    return `À vista por ${formatadorMoeda.format(valor)}`;
+  }
+
+  const valorParcela = valor / parcelas;
+  return `${parcelas}x de ${formatadorMoeda.format(valorParcela)} sem juros`;
+};
 
   return (
     <section className="w-full min-h-screen bg-rock-dark pt-12 pb-7 px-4 md:px-8">
