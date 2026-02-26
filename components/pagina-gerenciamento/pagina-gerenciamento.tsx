@@ -17,17 +17,13 @@ type Produto = {
   image: string | null;
 };
 
-export default function PaginaGerenciamento({
-  produtos = [],
-}: {
-  produtos: Produto[];
-}) {
+export default function PaginaGerenciamento({ produtos = [] }: { produtos: Produto[] }) {
   const [isModalAdicionarOpen, setIsModalAdicionarOpen] = useState(false);
-  const [produtoVisualizar, setProdutoVisualizar] = useState<Produto | null>(
-    null,
-  );
+  
+  const [produtoVisualizar, setProdutoVisualizar] = useState<Produto | null>(null);
+  const [produtoExcluir, setProdutoExcluir] = useState<Produto | null>(null);
+  
   const [isModalEditarOpen, setIsModalEditarOpen] = useState(false);
-  const [isModalExcluirOpen, setIsModalExcluirOpen] = useState(false);
 
   const formatarPreco = (valor: number) => {
     return new Intl.NumberFormat("pt-BR", {
@@ -91,13 +87,12 @@ export default function PaginaGerenciamento({
 
       {/* parte da direita */}
       <section className="flex-1 flex flex-col min-w-0">
-        {/* topbar */}
+        
+       {/* topbar */}
         <header className="relative w-full py-6 md:py-0 md:h-24 bg-[#2A2A2A] flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-8 shadow-md z-0 border-b border-white/5">
+          
           <div className="w-full md:flex-1 flex justify-start">
-            <Link
-              href="/"
-              className="absolute md:static left-4 top-6 text-rock-red font-bold underline text-[15px] md:text-[18px] lg:hidden"
-            >
+            <Link href="/" className="absolute md:static left-4 top-6 text-rock-red font-bold underline text-[15px] md:text-[18px] lg:hidden">
               &larr; Voltar
             </Link>
           </div>
@@ -107,7 +102,7 @@ export default function PaginaGerenciamento({
           </h1>
 
           <div className="w-full md:flex-1 flex justify-end mt-6 md:mt-0">
-            <button
+            <button 
               onClick={() => setIsModalAdicionarOpen(true)}
               className="w-full md:w-auto bg-rock-red hover:bg-red-700 text-white font-bold px-6 py-3 md:py-2.5 rounded-md transition-colors shadow-lg cursor-pointer"
             >
@@ -136,6 +131,7 @@ export default function PaginaGerenciamento({
 
                 {/* corpo (branco) do card */}
                 <div className="w-full flex flex-col lg:flex-row items-center py-6 px-4 text-black gap-4 lg:gap-0">
+                  
                   {/* imagem */}
                   <div className="w-full lg:w-[15%] flex justify-center">
                     <div className="relative w-50 h-50 lg:w-34 lg:h-34 bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden shrink-0">
@@ -158,27 +154,27 @@ export default function PaginaGerenciamento({
                     {formatarPreco(produto.price)}
                   </div>
 
-                  {/* descrição com limite de linhas */}
+                  {/* descrição com limitador de linhas */}
                   <div className="w-full lg:w-[35%] text-[15px] lg:text-[14px] font-medium text-center px-2 lg:px-6 leading-relaxed text-gray-700 lg:text-gray-800 line-clamp-3">
                     {produto.description}
                   </div>
 
                   {/* ações (linha no mobile, empilhado no PC) */}
                   <div className="w-full lg:w-[15%] flex flex-row lg:flex-col items-center justify-center gap-2 lg:gap-4 mt-4 lg:mt-0 border-t border-gray-200 lg:border-t-0 pt-4 lg:pt-0">
-                    <button
+                    <button 
                       onClick={() => setProdutoVisualizar(produto)}
                       className="flex-1 lg:flex-none lg:w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-2 lg:py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer text-sm"
                     >
                       Ver
                     </button>
-                    <button
+                    <button 
                       onClick={() => setIsModalEditarOpen(true)}
                       className="flex-1 lg:flex-none lg:w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-2 lg:py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer text-sm"
                     >
                       Editar
                     </button>
-                    <button
-                      onClick={() => setIsModalExcluirOpen(true)}
+                    <button 
+                      onClick={() => setProdutoExcluir(produto)}
                       className="flex-1 lg:flex-none lg:w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-2 lg:py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer text-sm lg:bg-rock-red lg:hover:bg-red-700"
                     >
                       Excluir
@@ -212,7 +208,6 @@ export default function PaginaGerenciamento({
               <span className="w-8 h-8 md:w-11 md:h-11 flex items-center justify-center text-gray-400">
                 ...
               </span>
-              {/* última página (visível apenas a partir do tablet) */}
               <button className="hidden md:flex w-11 h-11 items-center justify-center rounded-xl hover:bg-zinc-700 transition-colors cursor-pointer">
                 56
               </button>
@@ -232,11 +227,11 @@ export default function PaginaGerenciamento({
       {isModalAdicionarOpen && (
         <ModalAdicionarProduto onClose={() => setIsModalAdicionarOpen(false)} />
       )}
-
+      
       {produtoVisualizar && (
-        <ModalVisualizarProduto
-          produto={produtoVisualizar}
-          onClose={() => setProdutoVisualizar(null)}
+        <ModalVisualizarProduto 
+          produto={produtoVisualizar} 
+          onClose={() => setProdutoVisualizar(null)} 
         />
       )}
 
@@ -244,8 +239,11 @@ export default function PaginaGerenciamento({
         <ModalEditarProduto onClose={() => setIsModalEditarOpen(false)} />
       )}
 
-      {isModalExcluirOpen && (
-        <ModalExcluirProduto onClose={() => setIsModalExcluirOpen(false)} />
+      {produtoExcluir && (
+        <ModalExcluirProduto 
+          produto={produtoExcluir} 
+          onClose={() => setProdutoExcluir(null)} 
+        />
       )}
     </main>
   );

@@ -45,3 +45,20 @@ export async function adicionarProduto(formData: FormData) {
   
   return { success: true };
 }
+
+export async function excluirProduto(id: number) {
+  try {
+    await db.product.delete({
+      where: { id },
+    });
+    
+    revalidatePath("/gerenciamento");
+    revalidatePath("/");
+    revalidatePath("/produtos");
+    
+    return { success: true };
+  } catch (error) {
+    console.error("Erro ao excluir produto:", error);
+    return { success: false, error: "Erro ao excluir o produto." };
+  }
+}
