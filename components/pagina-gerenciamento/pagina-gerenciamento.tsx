@@ -8,42 +8,33 @@ import ModalVisualizarProduto from "@/components/modais/visualizar";
 import ModalEditarProduto from "@/components/modais/editar";
 import ModalExcluirProduto from "@/components/modais/excluir";
 
-const mockProducts = [
-  {
-    id: 1,
-    name: "Camisa Linkin Park",
-    price: "R$64,99",
-    description:
-      "Tecido 100% algodão: macia, leve e confortável para o dia a dia.",
-    image: "/imagens/produto-1.jpg",
-  },
-  {
-    id: 2,
-    name: "Moletom Metallica",
-    price: "R$139,99",
-    description:
-      "Modelo unissex com toque macio e elegante, perfeito para dias frios.",
-    image: "/imagens/produto-2.jpg",
-  },
-  {
-    id: 3,
-    name: "Colar Guns N' Roses",
-    price: "R$29,99",
-    description:
-      "Colar temático Guns N' Roses com pingente de caveira estilizada.",
-    image: "/imagens/produto-3.jpg",
-  },
-];
+// 1. Tipagem exata dos dados que vêm do Prisma
+type Produto = {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  image: string | null;
+};
 
-export default function PaginaGerenciamento() {
+// 2. Avisamos que o componente agora RECEBE os produtos como propriedade
+export default function PaginaGerenciamento({ produtos = [] }: { produtos: Produto[] }) {
   const [isModalAdicionarOpen, setIsModalAdicionarOpen] = useState(false);
   const [isModalVisualizarOpen, setIsModalVisualizarOpen] = useState(false);
   const [isModalEditarOpen, setIsModalEditarOpen] = useState(false);
   const [isModalExcluirOpen, setIsModalExcluirOpen] = useState(false);
 
+  // 3. Formatador de preço (converte o número do banco para formato de moeda)
+  const formatarPreco = (valor: number) => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(valor);
+  };
+
   return (
     <main className="flex min-h-screen bg-rock-dark">
-      {/* sidebar (ocula no mobile e tablet) */}
+      {/* sidebar (oculta no mobile e tablet) */}
       <aside className="hidden lg:flex flex-col w-[250px] shrink-0 bg-rock-dark min-h-screen shadow-2xl z-10 border-r border-white/10">
         {/* logo */}
         <div className="pt-8 pb-6 flex justify-center px-4">
@@ -122,11 +113,11 @@ export default function PaginaGerenciamento() {
 
         {/* área do conteúdo  */}
         <div className="p-4 md:p-8 flex-1 flex flex-col max-w-7xl mx-auto w-full bg-[#1A1A1A]">
-          {/* lista dos cards */}
+          {/* lista dos cards vindo do BANCO DE DADOS */}
           <div className="flex flex-col gap-6 lg:gap-8 flex-1">
-            {mockProducts.map((product) => (
+            {produtos.map((produto) => (
               <div
-                key={product.id}
+                key={produto.id}
                 className="w-full bg-[#F5F5F5] rounded-xl overflow-hidden shadow-xl md:max-w-xl md:mx-auto lg:max-w-none"
               >
                 {/* cabeçalho vermelho  */}
@@ -145,8 +136,8 @@ export default function PaginaGerenciamento() {
                   <div className="w-full lg:w-[15%] flex justify-center">
                     <div className="relative w-50 h-50 lg:w-34 lg:h-34 bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden shrink-0">
                       <Image
-                        src={product.image}
-                        alt={product.name}
+                        src={produto.image || "/imagens/produto-padrao.jpg"}
+                        alt={produto.title}
                         fill
                         className="object-contain p-2"
                       />
@@ -155,17 +146,17 @@ export default function PaginaGerenciamento() {
 
                   {/* nome */}
                   <div className="w-full lg:w-[20%] font-extrabold text-[20px] lg:text-[16px] text-center lg:px-4">
-                    {product.name}
+                    {produto.title}
                   </div>
 
                   {/* preço */}
                   <div className="w-full lg:w-[15%] font-black text-2xl lg:text-[16px] text-rock-red lg:text-black text-center">
-                    {product.price}
+                    {formatarPreco(produto.price)}
                   </div>
 
-                  {/* descrição */}
-                  <div className="w-full lg:w-[35%] text-[15px] lg:text-[14px] font-medium text-center px-2 lg:px-6 leading-relaxed text-gray-700 lg:text-gray-800">
-                    {product.description}
+                  {/* descrição com limitador de linhas (line-clamp) */}
+                  <div className="w-full lg:w-[35%] text-[15px] lg:text-[14px] font-medium text-center px-2 lg:px-6 leading-relaxed text-gray-700 lg:text-gray-800 line-clamp-3">
+                    {produto.description}
                   </div>
 
                   {/* ações (linha no mobile, empilhado no PC) */}

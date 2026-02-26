@@ -5,7 +5,7 @@ export const revalidate = 0;
 
 export default async function ProdutosPage() {
   const produtosDoBanco = await db.product.findMany({
-    orderBy: { id: "asc" } 
+    orderBy: { id: "desc" } 
   });
 
   return <PaginaProdutos produtos={produtosDoBanco} />;
