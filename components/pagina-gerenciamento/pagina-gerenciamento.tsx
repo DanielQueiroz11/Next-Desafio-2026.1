@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import ModalAdicionarProduto from "@/components/modais/adicionar";
 import ModalVisualizarProduto from "@/components/modais/visualizar";
 import ModalEditarProduto from "@/components/modais/editar";
@@ -17,12 +18,27 @@ type Produto = {
   image: string | null;
 };
 
-export default function PaginaGerenciamento({ produtos = [] }: { produtos: Produto[] }) {
+export default function PaginaGerenciamento({ 
+  produtos = [],
+  paginaAtual = 1,
+  totalPaginas = 1
+}: { 
+  produtos: Produto[];
+  paginaAtual?: number;
+  totalPaginas?: number;
+}) {
+  const router = useRouter();
   const [isModalAdicionarOpen, setIsModalAdicionarOpen] = useState(false);
   
   const [produtoVisualizar, setProdutoVisualizar] = useState<Produto | null>(null);
   const [produtoExcluir, setProdutoExcluir] = useState<Produto | null>(null);
   const [produtoEditar, setProdutoEditar] = useState<Produto | null>(null); 
+
+  const mudarPagina = (novaPagina: number) => {
+    if (novaPagina >= 1 && novaPagina <= totalPaginas) {
+      router.push(`/gerenciamento?page=${novaPagina}`);
+    }
+  };
 
   const formatarPreco = (valor: number) => {
     return new Intl.NumberFormat("pt-BR", {
@@ -33,7 +49,7 @@ export default function PaginaGerenciamento({ produtos = [] }: { produtos: Produ
 
   return (
     <main className="flex min-h-screen bg-rock-dark">
-      {/* sidebar (ocula no mobile e tablet) */}
+      {/* sidebar (oculta no mobile e tablet) */}
       <aside className="hidden lg:flex flex-col w-[250px] shrink-0 bg-rock-dark min-h-screen shadow-2xl z-10 border-r border-white/10">
         {/* logo */}
         <div className="pt-8 pb-6 flex justify-center px-4">
@@ -185,43 +201,58 @@ export default function PaginaGerenciamento({ produtos = [] }: { produtos: Produ
           </div>
 
           {/* paginação */}
-          <div className="flex justify-center items-center gap-2 md:gap-5 mt-12 mb-4 text-rock-red font-medium text-sm md:text-[18px]">
-            
-            {/* botão anterior */}
-            <button className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer text-xs md:text-base">
-              <span>&larr;</span>
-              <span className="md:hidden">Ant.</span>
-              <span className="hidden md:inline">Anterior</span>
-            </button>
+          {totalPaginas > 1 && (
+            <div className="flex justify-center items-center gap-2 md:gap-5 mt-12 mb-4 text-rock-red font-medium text-sm md:text-[18px]">
+              
+              {/* botão anterior */}
+              <button 
+                onClick={() => mudarPagina(paginaAtual - 1)}
+                disabled={paginaAtual === 1}
+                className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer text-xs md:text-base disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-rock-red"
+              >
+                <span>&larr;</span>
+                <span className="md:hidden">Ant.</span>
+                <span className="hidden md:inline">Anterior</span>
+              </button>
 
-            {/* números */}
-            <div className="flex items-center gap-1 md:gap-3 text-gray-300">
-              <button className="bg-rock-red text-white w-8 h-8 md:w-11 md:h-11 flex items-center justify-center rounded-xl font-bold cursor-default">
-                1
+              {/* números */}
+              <div className="flex items-center gap-1 md:gap-3 text-gray-300">
+                {Array.from({ length: totalPaginas }, (_, i) => i + 1).map((p) => {
+                  if (p === 1 || p === totalPaginas || Math.abs(paginaAtual - p) <= 1) {
+                    return (
+                      <button 
+                        key={p}
+                        onClick={() => mudarPagina(p)}
+                        className={`w-8 h-8 md:w-11 md:h-11 flex items-center justify-center rounded-xl transition-colors ${
+                          paginaAtual === p 
+                            ? "bg-rock-red text-white font-bold cursor-default" 
+                            : "hover:bg-zinc-700 cursor-pointer"
+                        }`}
+                      >
+                        {p}
+                      </button>
+                    );
+                  }
+                  if (p === paginaAtual - 2 || p === paginaAtual + 2) {
+                    return <span key={p} className="w-8 h-8 md:w-11 md:h-11 flex items-center justify-center text-gray-400">...</span>;
+                  }
+                  return null;
+                })}
+              </div>
+
+              {/* botão próximo */}
+              <button 
+                onClick={() => mudarPagina(paginaAtual + 1)}
+                disabled={paginaAtual === totalPaginas}
+                className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer text-xs md:text-base disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-rock-red"
+              >
+                <span className="md:hidden">Próx.</span>
+                <span className="hidden md:inline">Próximo</span>
+                <span>&rarr;</span>
               </button>
-              <button className="w-8 h-8 md:w-11 md:h-11 flex items-center justify-center rounded-xl hover:bg-zinc-700 transition-colors cursor-pointer">
-                2
-              </button>
-              <button className="hidden sm:flex md:w-11 md:h-11 items-center justify-center rounded-xl hover:bg-zinc-700 transition-colors cursor-pointer">
-                3
-              </button>
-              <span className="w-8 h-8 md:w-11 md:h-11 flex items-center justify-center text-gray-400">
-                ...
-              </span>
-              {/* última página (visível apenas a partir do tablet) */}
-              <button className="hidden md:flex w-11 h-11 items-center justify-center rounded-xl hover:bg-zinc-700 transition-colors cursor-pointer">
-                56
-              </button>
+              
             </div>
-
-            {/* botão próximo */}
-            <button className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer text-xs md:text-base">
-              <span className="md:hidden">Próx.</span>
-              <span className="hidden md:inline">Próximo</span>
-              <span>&rarr;</span>
-            </button>
-            
-          </div>
+          )}
         </div>
       </section>
 

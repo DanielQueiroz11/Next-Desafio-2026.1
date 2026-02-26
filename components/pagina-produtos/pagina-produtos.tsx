@@ -13,7 +13,15 @@ type Produto = {
   image: string | null;
 };
 
-export default function PaginaProdutos({ produtos }: { produtos: Produto[] }) {
+export default function PaginaProdutos({ 
+  produtos = [],
+  paginaAtual = 1,
+  totalPaginas = 1
+}: { 
+  produtos: Produto[];
+  paginaAtual?: number;
+  totalPaginas?: number;
+}) {
   const searchParams = useSearchParams();
   const router = useRouter();
   
@@ -34,32 +42,40 @@ export default function PaginaProdutos({ produtos }: { produtos: Produto[] }) {
       params.delete("search");
     }
     
+    params.set("page", "1"); 
+    
     router.replace(`/produtos?${params.toString()}`);
+  };
+
+  // função para mudar de página mantendo a busca atual
+  const mudarPagina = (novaPagina: number) => {
+    if (novaPagina >= 1 && novaPagina <= totalPaginas) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("page", novaPagina.toString());
+      router.push(`/produtos?${params.toString()}`);
+    }
   };
 
   const formatarPreco = (valor: number) => {
     return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   };
 
-const formatadorMoeda = new Intl.NumberFormat("pt-BR", {
-  style: "currency",
-  currency: "BRL",
-});
+  const formatadorMoeda = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
 
-const formatarParcela = (valor: number) => {
-  // a cada 20 reais, pode parcelar em mais 1 vez
-  let parcelas = Math.ceil(valor / 20);
+  const formatarParcela = (valor: number) => {
+    let parcelas = Math.ceil(valor / 20);
+    parcelas = Math.max(1, Math.min(6, parcelas));
 
-  // garante que o mínimo seja 1x e o máximo trave em 6x
-  parcelas = Math.max(1, Math.min(6, parcelas));
+    if (parcelas === 1) {
+      return `À vista por ${formatadorMoeda.format(valor)}`;
+    }
 
-  if (parcelas === 1) {
-    return `À vista por ${formatadorMoeda.format(valor)}`;
-  }
-
-  const valorParcela = valor / parcelas;
-  return `${parcelas}x de ${formatadorMoeda.format(valorParcela)} sem juros`;
-};
+    const valorParcela = valor / parcelas;
+    return `${parcelas}x de ${formatadorMoeda.format(valorParcela)} sem juros`;
+  };
 
   return (
     <section className="w-full min-h-screen bg-rock-dark pt-12 pb-7 px-4 md:px-8">
@@ -146,32 +162,53 @@ const formatarParcela = (valor: number) => {
             </div>
 
             {/* paginação */}
-            <div className="flex justify-center items-center gap-2 md:gap-5 mt-8 md:mt-12 mb-8 text-rock-red font-medium text-[15px] md:text-[18px]">
-              <button className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer text-[14px] md:text-base">
-                <span>&larr;</span>
-                <span className="md:hidden">Ant.</span>
-                <span className="hidden md:inline">Anterior</span>
-              </button>
-              <div className="flex items-center gap-2 md:gap-3 text-gray-300">
-                <button className="bg-rock-red text-white w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-xl font-bold cursor-default">
-                  1
+            {totalPaginas > 1 && (
+              <div className="flex justify-center items-center gap-2 md:gap-5 mt-8 md:mt-12 mb-8 text-rock-red font-medium text-[15px] md:text-[18px]">
+                <button 
+                  onClick={() => mudarPagina(paginaAtual - 1)}
+                  disabled={paginaAtual === 1}
+                  className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer text-[14px] md:text-base disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-rock-red"
+                >
+                  <span>&larr;</span>
+                  <span className="md:hidden">Ant.</span>
+                  <span className="hidden md:inline">Anterior</span>
                 </button>
-                <button className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-xl hover:bg-zinc-700 transition-colors cursor-pointer">
-                  2
+                
+                <div className="flex items-center gap-2 md:gap-3 text-gray-300">
+                  {Array.from({ length: totalPaginas }, (_, i) => i + 1).map((p) => {
+                    if (p === 1 || p === totalPaginas || Math.abs(paginaAtual - p) <= 1) {
+                      return (
+                        <button 
+                          key={p}
+                          onClick={() => mudarPagina(p)}
+                          className={`w-10 h-10 md:w-11 md:h-11 flex items-center justify-center rounded-xl transition-colors ${
+                            paginaAtual === p 
+                              ? "bg-rock-red text-white font-bold cursor-default" 
+                              : "hover:bg-zinc-700 cursor-pointer"
+                          }`}
+                        >
+                          {p}
+                        </button>
+                      );
+                    }
+                    if (p === paginaAtual - 2 || p === paginaAtual + 2) {
+                      return <span key={p} className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center text-gray-400">...</span>;
+                    }
+                    return null;
+                  })}
+                </div>
+
+                <button 
+                  onClick={() => mudarPagina(paginaAtual + 1)}
+                  disabled={paginaAtual === totalPaginas}
+                  className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer text-[14px] md:text-base disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-rock-red"
+                >
+                  <span className="md:hidden">Próx.</span>
+                  <span className="hidden md:inline">Próximo</span>
+                  <span>&rarr;</span>
                 </button>
-                <button className="hidden sm:flex md:w-11 md:h-11 items-center justify-center rounded-xl hover:bg-zinc-700 transition-colors cursor-pointer">
-                  3
-                </button>
-                <span className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center text-gray-400">
-                  ...
-                </span>
               </div>
-              <button className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer text-[14px] md:text-base">
-                <span className="md:hidden">Próx.</span>
-                <span className="hidden md:inline">Próximo</span>
-                <span>&rarr;</span>
-              </button>
-            </div>
+            )}
           </>
         ) : (
           <div className="text-center py-20 animate-pulse">
