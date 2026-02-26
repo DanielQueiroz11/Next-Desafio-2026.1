@@ -6,6 +6,12 @@ type SobreNosProps = {
 
 export default function SobreNos({ identities = [] }: SobreNosProps) {
   
+  // DEFESA: Filtra a lista para garantir que não haja títulos duplicados
+  const identidadesUnicas = identities.filter(
+    (item, index, self) => 
+      index === self.findIndex((t) => t.title.toLowerCase() === item.title.toLowerCase())
+  );
+
   const renderIcon = (title: string) => {
     const titleLower = title.toLowerCase();
     
@@ -53,9 +59,10 @@ export default function SobreNos({ identities = [] }: SobreNosProps) {
           Sobre Nós
         </h2>
 
-        {identities.length > 0 ? (
+        {identidadesUnicas.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {identities.map((item) => (
+            {/* Agora fazemos o map em 'identidadesUnicas' em vez de 'identities' */}
+            {identidadesUnicas.map((item) => (
               <div 
                 key={item.id} 
                 className="bg-rock-red p-8 rounded-lg flex flex-col items-center text-center h-full hover:scale-105 transition-transform duration-300"
