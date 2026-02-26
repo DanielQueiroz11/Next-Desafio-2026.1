@@ -3,28 +3,48 @@
 import Image from "next/image";
 import { useEffect } from "react";
 
-const mockProduct = {
-  id: 1,
-  name: "Camisa Linkin Park",
-  price: "R$64,99",
-  installment_prefix: "2x de ",
-  installment_value: "32,50",
-  installment_suffix: " sem juros",
-  descriptionGeral: "Tecido 100% algodão: macia, leve e confortável para o dia a dia.",
-  descriptionIndividual: "Camiseta do Linkin Park com estampa inspirada na identidade visual icônica da banda. Confeccionada em 100% algodão de alta qualidade, garantindo conforto, respirabilidade e ótima durabilidade. Design moderno e autêntico, ideal para shows, uso casual e para fãs que querem demonstrar seu estilo no dia a dia.",
-  image: "/imagens/produto-1.jpg",
+type Produto = {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  fullDescription: string | null;
+  image: string | null;
 };
 
-export default function ModalVisualizarProduto({ onClose }: { onClose: () => void }) {
+export default function ModalVisualizarProduto({ 
+  produto, 
+  onClose 
+}: { 
+  produto: Produto; 
+  onClose: () => void;
+}) {
   
-  // bloquear scroll
   useEffect(() => {
     document.body.style.overflow = 'hidden';
-
     return () => {
       document.body.style.overflow = 'unset';
     };
   }, []);
+
+  const formatarPreco = (valor: number) => {
+    return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(valor);
+  };
+
+  const calcularParcela = (valor: number) => {
+    let parcelas = Math.ceil(valor / 20);
+    parcelas = Math.max(1, Math.min(6, parcelas)); 
+    
+    if (parcelas === 1) return { prefix: "À vista", value: "", suffix: "" };
+    
+    return {
+      prefix: `${parcelas}x de `,
+      value: formatarPreco(valor / parcelas),
+      suffix: " sem juros"
+    };
+  };
+
+  const parcela = calcularParcela(produto.price);
 
   return (
     <div 
@@ -32,7 +52,7 @@ export default function ModalVisualizarProduto({ onClose }: { onClose: () => voi
       onClick={onClose}
     >
       <div 
-        className="bg-[#1A1A1A] w-full max-w-[450px] rounded-[32px] p-8 flex flex-col gap-7 relative my-auto shadow-2xl border border-white/5 cursor-default"
+        className="bg-[#1A1A1A] w-full max-w-[450px] rounded-[32px] p-8 flex flex-col gap-7 relative my-auto shadow-2xl border border-white/5 cursor-default mt-20 md:mt-auto"
         onClick={(e) => e.stopPropagation()} 
       >
         
@@ -48,34 +68,34 @@ export default function ModalVisualizarProduto({ onClose }: { onClose: () => voi
           Visualizar produto
         </h2>
 
+        {/* nome */}
+        <div className="flex flex-col gap-1">
+          <label className="text-white font-bold text-sm">Nome</label>
+          <p className="text-gray-300 text-sm">{produto.title}</p>
+        </div>
+
        {/* imagem */}
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">Imagem</label>
           <div className="relative w-full max-w-[280px] aspect-square mx-auto bg-white rounded-2xl overflow-hidden shadow-inner mt-2">
             <Image
-              src={mockProduct.image}
-              alt={mockProduct.name}
+              src={produto.image || "/imagens/produto-padrao.jpg"}
+              alt={produto.title}
               fill
               className="object-contain p-2"
             />
           </div>
         </div>
 
-        {/* nome */}
-        <div className="flex flex-col gap-1">
-          <label className="text-white font-bold text-sm">Nome</label>
-          <p className="text-gray-300 text-sm">{mockProduct.name}</p>
-        </div>
-
         {/* preço */}
         <div className="flex flex-col gap-1">
           <label className="text-white font-bold text-sm">Preço</label>
           <div>
-            <p className="text-rock-red font-black text-lg">{mockProduct.price}</p>
+            <p className="text-rock-red font-black text-lg">{formatarPreco(produto.price)}</p>
             <p className="text-gray-400 text-[11px]">
-              {mockProduct.installment_prefix}
-              <span className="text-rock-red font-bold">{mockProduct.installment_value}</span>
-              {mockProduct.installment_suffix}
+              {parcela.prefix}
+              {parcela.value && <span className="text-rock-red font-bold">{parcela.value}</span>}
+              {parcela.suffix}
             </p>
           </div>
         </div>
@@ -84,7 +104,7 @@ export default function ModalVisualizarProduto({ onClose }: { onClose: () => voi
         <div className="flex flex-col gap-1">
           <label className="text-white font-bold text-sm">Descrição (geral)</label>
           <p className="text-gray-300 text-sm leading-relaxed text-justify">
-            {mockProduct.descriptionGeral}
+            {produto.description}
           </p>
         </div>
 
@@ -92,7 +112,7 @@ export default function ModalVisualizarProduto({ onClose }: { onClose: () => voi
         <div className="flex flex-col gap-1">
           <label className="text-white font-bold text-sm">Descrição (visualização individual)</label>
           <p className="text-gray-300 text-sm leading-relaxed text-justify">
-            {mockProduct.descriptionIndividual}
+            {produto.fullDescription || "Nenhuma descrição detalhada informada."}
           </p>
         </div>
 
