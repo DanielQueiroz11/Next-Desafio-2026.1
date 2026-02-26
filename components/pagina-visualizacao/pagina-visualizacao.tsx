@@ -10,6 +10,7 @@ interface ProdutoProps {
     id: number;
     title: string;
     description: string | null;
+    fullDescription: string | null;
     price: number;
     image: string | null;
   };
@@ -101,7 +102,9 @@ export default function PaginaVisualizacao({ produto }: ProdutoProps) {
               Descrição
             </h3>
             <p className="text-gray-300 text-[15px] md:text-base leading-relaxed text-justify">
-              {produto.description ||
+              {/* tenta usar a grande, se não tiver, usa a curtinha. */}
+              {produto.fullDescription ||
+                produto.description ||
                 "Descrição não disponível para este produto."}
             </p>
           </div>
@@ -255,7 +258,7 @@ export default function PaginaVisualizacao({ produto }: ProdutoProps) {
               </svg>
             </div>
 
-            <h3 className="text-2xl md:text-3xl font-black text-white mb-3 tracking-wide uppercase">
+            <h3 className="text-2xl md:text-3xl font-black text-white mb-3 tracking-wide">
               Tudo certo!
             </h3>
             <p className="text-gray-400 text-[15px] md:text-[16px] leading-relaxed">
