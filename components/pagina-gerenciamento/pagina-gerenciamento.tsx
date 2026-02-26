@@ -22,8 +22,7 @@ export default function PaginaGerenciamento({ produtos = [] }: { produtos: Produ
   
   const [produtoVisualizar, setProdutoVisualizar] = useState<Produto | null>(null);
   const [produtoExcluir, setProdutoExcluir] = useState<Produto | null>(null);
-  
-  const [isModalEditarOpen, setIsModalEditarOpen] = useState(false);
+  const [produtoEditar, setProdutoEditar] = useState<Produto | null>(null); 
 
   const formatarPreco = (valor: number) => {
     return new Intl.NumberFormat("pt-BR", {
@@ -34,7 +33,7 @@ export default function PaginaGerenciamento({ produtos = [] }: { produtos: Produ
 
   return (
     <main className="flex min-h-screen bg-rock-dark">
-      {/* sidebar (oculta no mobile e tablet) */}
+      {/* sidebar (ocula no mobile e tablet) */}
       <aside className="hidden lg:flex flex-col w-[250px] shrink-0 bg-rock-dark min-h-screen shadow-2xl z-10 border-r border-white/10">
         {/* logo */}
         <div className="pt-8 pb-6 flex justify-center px-4">
@@ -154,7 +153,7 @@ export default function PaginaGerenciamento({ produtos = [] }: { produtos: Produ
                     {formatarPreco(produto.price)}
                   </div>
 
-                  {/* descrição com limitador de linhas */}
+                  {/* descrição */}
                   <div className="w-full lg:w-[35%] text-[15px] lg:text-[14px] font-medium text-center px-2 lg:px-6 leading-relaxed text-gray-700 lg:text-gray-800 line-clamp-3">
                     {produto.description}
                   </div>
@@ -168,7 +167,7 @@ export default function PaginaGerenciamento({ produtos = [] }: { produtos: Produ
                       Ver
                     </button>
                     <button 
-                      onClick={() => setIsModalEditarOpen(true)}
+                      onClick={() => setProdutoEditar(produto)}
                       className="flex-1 lg:flex-none lg:w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-2 lg:py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer text-sm"
                     >
                       Editar
@@ -187,6 +186,7 @@ export default function PaginaGerenciamento({ produtos = [] }: { produtos: Produ
 
           {/* paginação */}
           <div className="flex justify-center items-center gap-2 md:gap-5 mt-12 mb-4 text-rock-red font-medium text-sm md:text-[18px]">
+            
             {/* botão anterior */}
             <button className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer text-xs md:text-base">
               <span>&larr;</span>
@@ -208,6 +208,7 @@ export default function PaginaGerenciamento({ produtos = [] }: { produtos: Produ
               <span className="w-8 h-8 md:w-11 md:h-11 flex items-center justify-center text-gray-400">
                 ...
               </span>
+              {/* última página (visível apenas a partir do tablet) */}
               <button className="hidden md:flex w-11 h-11 items-center justify-center rounded-xl hover:bg-zinc-700 transition-colors cursor-pointer">
                 56
               </button>
@@ -219,6 +220,7 @@ export default function PaginaGerenciamento({ produtos = [] }: { produtos: Produ
               <span className="hidden md:inline">Próximo</span>
               <span>&rarr;</span>
             </button>
+            
           </div>
         </div>
       </section>
@@ -235,8 +237,11 @@ export default function PaginaGerenciamento({ produtos = [] }: { produtos: Produ
         />
       )}
 
-      {isModalEditarOpen && (
-        <ModalEditarProduto onClose={() => setIsModalEditarOpen(false)} />
+      {produtoEditar && (
+        <ModalEditarProduto 
+          produto={produtoEditar} 
+          onClose={() => setProdutoEditar(null)} 
+        />
       )}
 
       {produtoExcluir && (
