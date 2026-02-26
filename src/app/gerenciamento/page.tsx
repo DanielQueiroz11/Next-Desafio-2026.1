@@ -9,7 +9,7 @@ export default async function GerenciamentoPage(props: {
   // achar qual página está (baseado na URL)
   const searchParams = await props.searchParams;
   const paginaAtual = Number(searchParams.page) || 1;
-  const ITENS_POR_PAGINA = 8; 
+  const ITENS_POR_PAGINA = 6; 
 
   const [produtosDoBanco, totalDeProdutos] = await Promise.all([
     db.product.findMany({
