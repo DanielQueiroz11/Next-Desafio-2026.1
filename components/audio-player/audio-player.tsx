@@ -10,14 +10,16 @@ interface AudioPlayerProps {
 
 export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const MP3_URL = "/audios/led-zep.mp3";
   const RADIO_URL = "https://s2-webradio.antenne.de/heavy-metal";
 
+  // funciona apenas para PC e androids, o iOS ignora isso, rs
+  const MAX_VOLUME = 0.5; 
+
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = 0.3;
-
       if (!isRadio) {
         const savedTime = sessionStorage.getItem("musicTime");
         if (savedTime) {
@@ -28,16 +30,48 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
   }, [isRadio]);
 
   useEffect(() => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        const playPromise = audioRef.current.play();
-        if (playPromise !== undefined) {
-          playPromise.catch((e) => console.log("Erro/Autoplay:", e));
-        }
-      } else {
-        audioRef.current.pause();
-      }
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (fadeIntervalRef.current) {
+      clearInterval(fadeIntervalRef.current);
     }
+
+    if (isPlaying) {
+      // fade-in
+      audio.volume = 0; 
+      const playPromise = audio.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            fadeIntervalRef.current = setInterval(() => {
+              if (audio.volume < MAX_VOLUME - 0.05) {
+                audio.volume = Math.min(MAX_VOLUME, audio.volume + 0.05);
+              } else {
+                audio.volume = MAX_VOLUME; 
+                if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+              }
+            }, 500); //pra começar
+          })
+          .catch((e) => console.log("Erro/Autoplay:", e));
+      }
+    } else {
+      // fade-out
+      fadeIntervalRef.current = setInterval(() => {
+        if (audio.volume > 0.05) {
+          audio.volume = Math.max(0, audio.volume - 0.05);
+        } else {
+          audio.volume = 0;
+          audio.pause(); 
+          if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+        }
+      }, 30); //pra pausar
+    }
+
+    return () => {
+      if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+    };
   }, [isPlaying]);
 
   const handleTimeUpdate = () => {
