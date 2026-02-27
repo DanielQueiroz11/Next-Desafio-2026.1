@@ -16,7 +16,7 @@ export default async function Home() {
     const produtosRecentes = await db.product.findMany({
       take: 8,
       orderBy: {
-        id: "desc", // "desc" garante que os recém-adicionados apareçam primeiro
+        id: "asc", 
       },
     });
 

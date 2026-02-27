@@ -13,7 +13,7 @@ export default async function GerenciamentoPage(props: {
 
   const [produtosDoBanco, totalDeProdutos] = await Promise.all([
     db.product.findMany({
-      orderBy: { id: "desc" },
+      orderBy: { id: "asc" },
       take: ITENS_POR_PAGINA, // 8
       skip: (paginaAtual - 1) * ITENS_POR_PAGINA, // pula os das páginas anteriores
     }),
