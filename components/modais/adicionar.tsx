@@ -61,7 +61,9 @@ export default function ModalAdicionarProduto({
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4 py-6 overflow-y-auto"
-      onClick={onClose}
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
     >
       <form
         onSubmit={handleSubmit}
@@ -104,7 +106,7 @@ export default function ModalAdicionarProduto({
           />
         </div>
 
-        {/*  imagem */}
+        {/* imagem */}
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">Imagem</label>
           <div className="flex flex-col items-center gap-4 mt-2">

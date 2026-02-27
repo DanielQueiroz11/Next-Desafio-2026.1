@@ -85,7 +85,12 @@ export default function ModalEditarProduto({
   const parcela = getParcelaInfo();
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4 py-6 overflow-y-auto" onClick={onClose}>
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4 py-6 overflow-y-auto" 
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
       <form onSubmit={handleSubmit} className="bg-[#1A1A1A] w-full max-w-[450px] rounded-[32px] p-8 flex flex-col gap-5 relative my-auto shadow-2xl border border-white/5 cursor-default mt-20 md:mt-auto" onClick={(e) => e.stopPropagation()}>
         
         <input type="hidden" name="id" value={produto.id} />
@@ -96,13 +101,13 @@ export default function ModalEditarProduto({
 
         <h2 className="text-[22px] font-black text-white text-center mb-2">Editar produto</h2>
 
-        {/* Nome */}
+        {/* nome */}
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">Nome</label>
           <input type="text" name="nome" value={nome} onChange={(e) => setNome(e.target.value)} required className="bg-[#0D0D0D] border border-transparent focus:border-rock-red rounded-xl p-3.5 text-white outline-none transition-colors shadow-inner" />
         </div>
 
-        {/* Imagem */}
+        {/* imagem */}
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">Imagem</label>
           <div className="flex flex-col items-center gap-4 mt-2">
