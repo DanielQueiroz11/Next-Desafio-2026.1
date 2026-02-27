@@ -13,7 +13,10 @@ export default async function ProdutosPage(props: {
   // busca os produtos e o total ao mesmo tempo
   const [produtosDoBanco, totalDeProdutos] = await Promise.all([
     db.product.findMany({
-      orderBy: { id: "asc" },
+      orderBy: [
+        { ordem: "asc" }, 
+        { id: "desc" }    
+      ],
       take: ITENS_POR_PAGINA,
       skip: (paginaAtual - 1) * ITENS_POR_PAGINA,
     }),

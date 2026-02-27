@@ -12,6 +12,9 @@ export async function adicionarProduto(formData: FormData) {
   const descricaoGeral = formData.get("descricaoGeral") as string;
   const descricaoIndividual = formData.get("descricaoIndividual") as string;
   const imagemFile = formData.get("imagem") as File | null;
+  
+  // pega o valor do campo "ordem" do formulário (se não tiver nada, vira 0)
+  const ordem = parseInt(formData.get("ordem") as string) || 0;
 
   const precoLimpo = precoString.replace(/\./g, "").replace(",", ".");
   const precoFormatado = parseFloat(precoLimpo);
@@ -33,7 +36,6 @@ export async function adicionarProduto(formData: FormData) {
     caminhoImagem = `/imagens/${nomeArquivo}`;
   }
 
-  // VISUALIZAR
   await db.product.create({
     data: {
       title: nome,
@@ -41,6 +43,7 @@ export async function adicionarProduto(formData: FormData) {
       description: descricaoGeral,
       fullDescription: descricaoIndividual,
       image: caminhoImagem,
+      ordem: ordem, // salva a ordem no banco de dados
     },
   });
 
@@ -79,6 +82,9 @@ export async function editarProduto(formData: FormData) {
     const descricaoIndividual = formData.get("descricaoIndividual") as string;
     const imagemFile = formData.get("imagem") as File | null;
 
+    // pega o valor da "ordem" do formulário
+    const ordem = parseInt(formData.get("ordem") as string) || 0;
+
     const precoLimpo = precoString.replace(/\./g, "").replace(",", ".");
     const precoFormatado = parseFloat(precoLimpo);
 
@@ -87,6 +93,7 @@ export async function editarProduto(formData: FormData) {
       price: number;
       description: string;
       fullDescription: string;
+      ordem: number; 
       image?: string; // imagem é opcional
     };
 
@@ -95,6 +102,7 @@ export async function editarProduto(formData: FormData) {
       price: precoFormatado,
       description: descricaoGeral,
       fullDescription: descricaoIndividual,
+      ordem: ordem, // coloca a ordem nos dados que serão atualizados
     };
 
     // se o usuário mandou uma imagem nova, salva e adiciona na att
@@ -127,4 +135,19 @@ export async function editarProduto(formData: FormData) {
     console.error("Erro ao editar produto:", error);
     return { success: false, error: "Erro ao editar o produto." };
   }
+}
+
+// verificar ordem (checa se alguém já ocupa a posição e devolve nome e ID)
+export async function verificarOrdem(ordem: number, idIgnorado?: number) {
+  if (!ordem || ordem === 0) return null;
+
+  const produtoExistente = await db.product.findFirst({
+    where: {
+      ordem: ordem,
+      ...(idIgnorado && { id: { not: idIgnorado } }),
+    },
+    select: { title: true, id: true }, 
+  });
+
+  return produtoExistente ? { title: produtoExistente.title, id: produtoExistente.id } : null;
 }

@@ -4,7 +4,7 @@ import SobreNos from "../../components/pagina-inicial/sobre-nos";
 import { getIdentities } from "../lib/api/get-mvv";
 import db from "../lib/db"; 
 
-// buscar os produtos mais novos
+// buscar os produtos
 export const revalidate = 0; 
 
 export default async function Home() {
@@ -12,12 +12,13 @@ export default async function Home() {
     // busca o MVV da API
     const data = await getIdentities();
 
-    // busca os 10 produtos mais recentes no banco de dados
+    // busca os 10 produtos no banco de dados, ordenando pela coluna "ordem"
     const produtosRecentes = await db.product.findMany({
       take: 10,
-      orderBy: {
-        id: "asc", 
-      },
+      orderBy: [
+        { ordem: "asc" }, // menores números vêm primeiro
+        { id: "desc" }    // 2° prioridade mostra os recém-adicionados
+      ],
     });
 
     return (

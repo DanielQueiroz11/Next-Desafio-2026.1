@@ -16,6 +16,7 @@ type Produto = {
   description: string;
   fullDescription: string | null;
   image: string | null;
+  ordem: number; 
 };
 
 export default function PaginaGerenciamento({ 
@@ -227,7 +228,7 @@ export default function PaginaGerenciamento({
         </div>
       </section>
 
-      {isModalAdicionarOpen && <ModalAdicionarProduto onClose={() => setIsModalAdicionarOpen(false)} />}
+      {isModalAdicionarOpen && <ModalAdicionarProduto onClose={() => setIsModalAdicionarOpen(false)} totalProdutos={estoqueTotal} />}
       {produtoVisualizar && <ModalVisualizarProduto produto={produtoVisualizar} onClose={() => setProdutoVisualizar(null)} />}
       {produtoEditar && <ModalEditarProduto produto={produtoEditar} onClose={() => setProdutoEditar(null)} />}
       {produtoExcluir && <ModalExcluirProduto produto={produtoExcluir} onClose={() => setProdutoExcluir(null)} />}

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { editarProduto } from "@/src/app/actions/produto-actions";
+import { editarProduto, verificarOrdem } from "@/src/app/actions/produto-actions";
 
 type Produto = {
   id: number;
@@ -11,6 +11,7 @@ type Produto = {
   description: string;
   fullDescription: string | null;
   image: string | null;
+  ordem: number; // A tipagem da ordem
 };
 
 export default function ModalEditarProduto({ 
@@ -30,7 +31,38 @@ export default function ModalEditarProduto({
   const [descGeral, setDescGeral] = useState(produto.description);
   const [descIndiv, setDescIndiv] = useState(produto.fullDescription || "");
   const [imagePreview, setImagePreview] = useState<string | null>(produto.image);
+  
+  const [ordem, setOrdem] = useState(produto.ordem === 0 ? "" : produto.ordem.toString());
+  const [avisoOrdem, setAvisoOrdem] = useState<string | null>(null);
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // checar em tempo real se a posição está ocupada
+  useEffect(() => {
+    const checarPosicao = async () => {
+      const numeroDigitado = parseInt(ordem);
+      
+      if (numeroDigitado && numeroDigitado > 0) {
+        const ocupante = await verificarOrdem(numeroDigitado, produto.id);
+        
+        if (ocupante) {
+          // compara os IDs para saber quem é o mais recente (ID maior = mais novo)
+          if (produto.id > ocupante.id) {
+            setAvisoOrdem(`A posição ${numeroDigitado} já é do(a) "${ocupante.title}". Se salvar, o(a) "${produto.title}" assumirá a frente por ser mais recente.`);
+          } else {
+            setAvisoOrdem(`A posição ${numeroDigitado} já é do(a) "${ocupante.title}". Se salvar, o(a) "${produto.title}" ficará logo atrás por ser mais antigo.`);
+          }
+        } else {
+          setAvisoOrdem(null);
+        }
+      } else {
+        setAvisoOrdem(null); // limpa o aviso se apagar ou colocar 0
+      }
+    };
+
+    const timeoutId = setTimeout(checarPosicao, 500);
+    return () => clearTimeout(timeoutId);
+  }, [ordem, produto.id, produto.title]);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -105,6 +137,34 @@ export default function ModalEditarProduto({
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">Nome</label>
           <input type="text" name="nome" value={nome} onChange={(e) => setNome(e.target.value)} required className="bg-[#0D0D0D] border border-transparent focus:border-rock-red rounded-xl p-3.5 text-white outline-none transition-colors shadow-inner" />
+        </div>
+
+        {/* ordem na vitrine */}
+        <div className="flex flex-col gap-1.5">
+          <label className="text-white font-bold text-sm">Posição na vitrine</label>
+          <input 
+            type="number" 
+            name="ordem" 
+            value={ordem}
+            min="0" 
+            onKeyDown={(e) => {
+              // bloqueia a digitação do sinal de menos (-) e da letra (e)
+              if (e.key === '-' || e.key === 'e') {
+                e.preventDefault();
+              }
+            }}
+            onWheel={(e) => {
+              (e.target as HTMLInputElement).blur();
+            }}
+            onChange={(e) => setOrdem(e.target.value)}
+            className={`bg-[#0D0D0D] border rounded-xl p-3.5 text-white outline-none transition-colors shadow-inner ${avisoOrdem ? "border-yellow-500/50 focus:border-yellow-500" : "border-transparent focus:border-rock-red"}`} 
+            placeholder="Ex: 1"
+          />
+          {avisoOrdem ? (
+            <p className="text-yellow-500 text-[11px] px-1 font-medium leading-tight mt-1">{avisoOrdem}</p>
+          ) : (
+            <p className="text-gray-400 text-[11px] px-1 mt-1">Números menores aparecem primeiro (Ex: 1, 2, 3...)</p>
+          )}
         </div>
 
         {/* imagem */}

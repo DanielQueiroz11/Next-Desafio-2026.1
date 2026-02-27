@@ -5,8 +5,10 @@ import { adicionarProduto } from "@/src/app/actions/produto-actions";
 
 export default function ModalAdicionarProduto({
   onClose,
+  totalProdutos, 
 }: {
   onClose: () => void;
+  totalProdutos: number; 
 }) {
   const [preco, setPreco] = useState("");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -36,7 +38,6 @@ export default function ModalAdicionarProduto({
     setPreco(formatted);
   };
 
-  // função para mostrar a prévia da imagem escolhida
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -46,7 +47,6 @@ export default function ModalAdicionarProduto({
     }
   };
 
-  // função que envia os dados para o servidor
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -55,7 +55,7 @@ export default function ModalAdicionarProduto({
     await adicionarProduto(formData);
 
     setIsSubmitting(false);
-    onClose(); // fecha o modal após salvar
+    onClose(); 
   };
 
   return (
@@ -119,7 +119,7 @@ export default function ModalAdicionarProduto({
                   : "linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0), linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0)",
                 backgroundSize: imagePreview ? "contain" : "20px 20px",
                 backgroundPosition: imagePreview ? "center" : "0 0, 10px 10px",
-                backgroundRepeat: imagePreview ? "no-repeat" : "repeat", // A MÁGICA ACONTECE AQUI!
+                backgroundRepeat: imagePreview ? "no-repeat" : "repeat",
               }}
             ></div>
 
@@ -151,6 +151,30 @@ export default function ModalAdicionarProduto({
               placeholder="0,00"
             />
           </div>
+        </div>
+
+        {/* ordem na vitrine */}
+        <div className="flex flex-col gap-1.5">
+          <label className="text-white font-bold text-sm">Posição na vitrine (0 é prioridade, aparece primeiro)</label>
+          <input
+            type="number"
+            name="ordem"
+            defaultValue="0"
+            min="0"
+            onKeyDown={(e) => {
+              if (e.key === '-' || e.key === 'e') {
+                e.preventDefault();
+              }
+            }}
+            onWheel={(e) => {
+              (e.target as HTMLInputElement).blur();
+            }}
+            className="bg-[#0D0D0D] border border-transparent focus:border-rock-red rounded-xl p-3.5 text-white outline-none transition-colors shadow-inner"
+            placeholder="Ex: 1 (Para ser o primeiro)"
+          />
+          <p className="text-gray-400 text-[12px] px-1 mt-1 font-medium">
+            💡 Atualmente, há <span className="text-white font-bold">{totalProdutos}</span> {totalProdutos === 1 ? 'produto cadastrado' : 'produtos cadastrados'}. 
+          </p>
         </div>
 
         {/* descrição geral */}
