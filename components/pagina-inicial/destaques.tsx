@@ -244,7 +244,7 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
       <div className="flex justify-center mt-12">
         <Link
           href="/produtos"
-          className="bg-rock-red hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hover:scale-105 text-[18px] md:text-[23px]"
+          className="bg-rock-red hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hover:scale-105 text-[20px] md:text-[21px] xl:text-[23px] 2xl:text-[26px]"
         >
           Explorar produtos
         </Link>
