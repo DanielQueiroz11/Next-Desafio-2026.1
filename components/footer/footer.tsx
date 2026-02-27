@@ -12,7 +12,7 @@ export default function Footer() {
             className="cursor-pointer transition-all duration-300 hover:scale-105 will-change-transform"
           >
             <Image
-              src="/imagens/logo-footer-sem-fundo2.pngsem-fundo.png"
+              src="/imagens/logo.png"
               alt="Logo Caverna do Rock"
               width={275}
               height={150}

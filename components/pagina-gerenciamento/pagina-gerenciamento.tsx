@@ -87,7 +87,7 @@ export default function PaginaGerenciamento({
             className="relative w-full max-w-[200px] h-[89px] hover:scale-105 will-change-transform transition-transform cursor-pointer block"
           >
             <Image
-              src="/imagens/logo-footer-sem-fundo2.pngsem-fundo.png"
+              src="/imagens/logo.png"
               alt="Logo Caverna do Rock"
               fill
               className="object-contain"
