@@ -16,6 +16,8 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
+  const [isLargeDesktop, setIsLargeDesktop] = useState(false);
+  const [isUltrawide, setIsUltrawide] = useState(false); 
 
   const formatadorMoeda = new Intl.NumberFormat("pt-BR", {
     style: "currency",
@@ -40,20 +42,23 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
+      const width = window.innerWidth;
+      setIsMobile(width < 768);
+      setIsTablet(width >= 768 && width < 1024);
+      setIsLargeDesktop(width >= 1600 && width < 1999);
+      setIsUltrawide(width >= 2000); 
     };
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // 6 no celular e 8 em telas maiores
-  const displayProdutos = isMobile
+  // mobile e tablet com 6 cards
+  const displayProdutos = (isMobile || isTablet)
     ? produtos.slice(0, 6)
-    : produtos.slice(0, 8);
+    : produtos.slice(0, 10); 
 
-  const itemsPerPage = isMobile ? 1 : isTablet ? 2 : 3;
+  const itemsPerPage = isMobile ? 1 : isTablet ? 2 : isUltrawide ? 5 : isLargeDesktop ? 4 : 3;
   const maxIndex = Math.max(0, displayProdutos.length - itemsPerPage);
 
   const nextSlide = () => {
@@ -83,16 +88,17 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
   const getTranslateX = () => {
     if (isMobile) return 100;
     if (isTablet) return 50;
+    if (isUltrawide) return 20; 
+    if (isLargeDesktop) return 25; 
     return 33.333333;
   };
 
   if (displayProdutos.length === 0) return null;
 
   return (
-    <section className="w-full max-w-[1300px] mx-auto px-4 py-16 overflow-hidden">
+    <section className="w-full max-w-[1300px] min-[1600px]:max-w-[1600px] min-[2000px]:max-w-[1800px] mx-auto px-4 py-16 overflow-hidden">
       {/* título */}
       <div className="flex items-center justify-center gap-4 mb-12">
-        {/* raio esquerdo */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -110,7 +116,6 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
           Destaques
         </h2>
 
-        {/* raio direito */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -126,7 +131,7 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
       </div>
 
       <div className="relative w-full md:px-12 lg:px-16">
-        {/* seta esquerda (aparece no tablet e no PC) */}
+        {/* seta esquerda */}
         <button
           onClick={prevSlide}
           className="absolute left-0 z-20 top-1/2 -translate-y-1/2 p-2 bg-white text-black rounded-full hover:bg-gray-200 transition hidden md:flex items-center justify-center cursor-pointer shadow-lg"
@@ -156,7 +161,7 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
             {displayProdutos.map((produto) => (
               <div
                 key={produto.id}
-                className="w-full md:w-1/2 lg:w-1/3 flex-none px-2 box-border"
+                className="w-full md:w-1/2 lg:w-1/3 min-[1600px]:w-1/4 min-[2000px]:w-1/5 flex-none px-3 min-[1600px]:px-4 min-[2000px]:px-5 box-border"
               >
                 <Link
                   href={`/produtos-individuais/${produto.id}`}
@@ -178,7 +183,6 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
                         {produto.title}
                       </h3>
 
-                      {/* descrição */}
                       <p className="text-gray-400 text-[12px] md:text-[14px] leading-snug line-clamp-2 min-h-[34px] md:min-h-[40px] mb-2">
                         {produto.description}
                       </p>
@@ -203,7 +207,7 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
           </div>
         </div>
 
-        {/* seta direita (aparece no tablet e PC) */}
+        {/* seta direita */}
         <button
           onClick={nextSlide}
           className="absolute right-0 z-20 top-1/2 -translate-y-1/2 p-2 bg-white text-black rounded-full hover:bg-gray-200 transition hidden md:flex items-center justify-center cursor-pointer shadow-lg"
@@ -224,7 +228,7 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
         </button>
       </div>
 
-      {/* labels (aparecem no celular e tablet) */}
+      {/* labels */}
       <div className="flex lg:hidden justify-center items-center gap-2 mt-6">
         {Array.from({ length: maxIndex + 1 }).map((_, index) => (
           <button
