@@ -16,7 +16,7 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
   const RADIO_URL = "https://s2-webradio.antenne.de/heavy-metal";
 
   // funciona apenas para PC e androids, o iOS ignora isso, rs
-  const MAX_VOLUME = 0.5; 
+  const MAX_VOLUME = 0.3; 
 
   useEffect(() => {
     if (audioRef.current) {
