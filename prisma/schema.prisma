@@ -13,11 +13,12 @@ model Profile {
 }
 
 model Product {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
+  id              Int      @id @default(autoincrement())
+  title           String
+  description     String
   fullDescription String?
-  price       Float
-  image       String?   
-  createdAt   DateTime @default(now())
+  price           Float
+  image           String?   
+  ordem           Int @default(0)
+  createdAt       DateTime @default(now())
 }

@@ -54,9 +54,9 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
   }, []);
 
   // mobile e tablet com 6 cards
-  const displayProdutos = (isMobile || isTablet)
-    ? produtos.slice(0, 6)
-    : produtos.slice(0, 10); 
+  const displayProdutos = (isMobile || isTablet) ? produtos.slice(0, 6)
+    : isUltrawide ? produtos.slice(0, 10)
+    : produtos.slice(0, 8);
 
   const itemsPerPage = isMobile ? 1 : isTablet ? 2 : isUltrawide ? 5 : isLargeDesktop ? 4 : 3;
   const maxIndex = Math.max(0, displayProdutos.length - itemsPerPage);

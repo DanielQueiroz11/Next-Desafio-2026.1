@@ -12,9 +12,9 @@ export default async function Home() {
     // busca o MVV da API
     const data = await getIdentities();
 
-    // busca os 6 produtos mais recentes no banco de dados
+    // busca os 10 produtos mais recentes no banco de dados
     const produtosRecentes = await db.product.findMany({
-      take: 8,
+      take: 10,
       orderBy: {
         id: "asc", 
       },
