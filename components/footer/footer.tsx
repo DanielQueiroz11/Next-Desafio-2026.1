@@ -36,6 +36,8 @@ export default function Footer() {
           <div className="flex gap-4 md:gap-3 lg:gap-4 min-[1920px]:gap-6">
             <Link
               href="https://www.instagram.com/codejr"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-rock-red transition-colors md:scale-90 lg:scale-100 min-[1920px]:scale-125"
             >
               <svg
@@ -56,6 +58,8 @@ export default function Footer() {
             </Link>
             <a
               href="https://www.codejr.com.br/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-rock-red transition-colors md:scale-90 lg:scale-100 min-[1920px]:scale-125"
             >
               <span className="sr-only">WhatsApp</span>
@@ -72,6 +76,8 @@ export default function Footer() {
             </a>
             <Link
               href="https://www.facebook.com/codeempresajunior"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-rock-red transition-colors md:scale-90 lg:scale-100 min-[1920px]:scale-125"
             >
               <svg
@@ -90,6 +96,8 @@ export default function Footer() {
             </Link>
             <Link
               href="https://www.linkedin.com/company/codejr"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-rock-red transition-colors md:scale-90 lg:scale-100 min-[1920px]:scale-125"
             >
               <svg
@@ -111,6 +119,8 @@ export default function Footer() {
             <div className="flex gap-3 mt-1">
               <Link
                 href="https://help.instagram.com/581066165581870/?locale=pt_BR"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-white transition-colors"
               >
                 Termos de Uso
@@ -118,6 +128,8 @@ export default function Footer() {
               <span>|</span>
               <Link
                 href="https://help.instagram.com/155833707900388"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-white transition-colors"
               >
                 Política de Dados
@@ -190,11 +202,21 @@ export default function Footer() {
         <div className="flex flex-col items-center text-xs text-gray-500 font-mono text-center">
           <p>© 2026 Caverna do Rock. Todos os direitos reservados.</p>
           <div className="flex gap-2 mt-2">
-            <Link href="#" className="hover:text-white transition-colors">
+            <Link 
+              href="https://help.instagram.com/581066165581870/?locale=pt_BR" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+            >
               Termos de Uso
             </Link>
             <span>|</span>
-            <Link href="#" className="hover:text-white transition-colors">
+            <Link 
+              href="https://help.instagram.com/155833707900388" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+            >
               Política de Privacidade
             </Link>
           </div>
