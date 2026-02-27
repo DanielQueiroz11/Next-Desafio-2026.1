@@ -14,7 +14,7 @@ export default async function Home() {
 
     // busca os 6 produtos mais recentes no banco de dados
     const produtosRecentes = await db.product.findMany({
-      take: 6,
+      take: 8,
       orderBy: {
         id: "desc", // "desc" garante que os recém-adicionados apareçam primeiro
       },
