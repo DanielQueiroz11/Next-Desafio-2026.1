@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="w-full max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 md:px-10 lg:px-12 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 lg:gap-8 min-[1920px]:gap-20 items-center text-center md:text-left">
         
         {/* logo */}
-        <div className="flex justify-center md:order-2 pb-2">
+        <div className="flex justify-center md:order-2 pb-2 will-change-transform">
           <Link
             href="/"
             className="cursor-pointer transition-all duration-300 hover:scale-105"
