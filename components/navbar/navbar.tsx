@@ -86,7 +86,7 @@ export default function Navbar() {
 
           <Link
             href="/"
-            className="bg-rock-red text-white px-3 py-1.5 lg:px-4 lg:py-2 rounded-full hover:bg-red-700 transition-colors font-bold text-sm lg:text-[17px] min-[1920px]:text-[20px] min-[1920px]:px-6 min-[1920px]:py-2.5"
+            className="bg-rock-red text-white px-3 py-1.5 lg:px-4 lg:py-2 rounded-full font-bold text-sm lg:text-[17px] min-[1920px]:text-[20px] min-[1920px]:px-6 min-[1920px]:py-2.5 transition-transform duration-300 hover:scale-[1.05] active:scale-95 will-change-transform"
           >
             Home
           </Link>
