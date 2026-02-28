@@ -179,20 +179,20 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
                     </div>
 
                     <div className="px-2 pt-2 pb-2 md:px-3 md:pt-3 md:pb-1 flex flex-col gap-0 md:gap-1 antialiased">
-                      <h3 className="text-[16px] md:text-[21px] font-bold text-white truncate leading-tight mb-2.5 md:mb-0.5">
+                      <h3 className="text-[18px] md:text-[21px] font-bold text-white truncate leading-tight mb-2.5 md:mb-0.5">
                         {produto.title}
                       </h3>
 
-                      <p className="text-gray-400 text-[12px] md:text-[14px] leading-snug line-clamp-2 min-h-[34px] md:min-h-[40px] mb-2">
+                      <p className="text-gray-400 text-[14px] xl:text-[16px] leading-snug line-clamp-2 min-h-[34px] md:min-h-[40px] mb-2">
                         {produto.description}
                       </p>
 
                       <div className="mt-1 md:mt-3">
-                        <p className="text-rock-red font-extrabold text-lg md:text-[22px] leading-none mb-0.5 md:mb-1">
+                        <p className="text-rock-red font-extrabold text-[20px] md:text-[22px] lg:text-[24px] leading-none mb-0.5 md:mb-1">
                           {formatarPreco(produto.price)}
                         </p>
                         
-                        <p className="text-[10px] md:text-[13px] text-gray-400 font-medium">
+                        <p className="text-[11px] md:text-[13px] lg:text-[14px] text-gray-400 font-medium">
                           {renderParcelamento(produto.price)}
                         </p>
                       </div>
