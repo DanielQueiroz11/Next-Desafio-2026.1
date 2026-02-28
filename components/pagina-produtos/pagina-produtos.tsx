@@ -82,7 +82,7 @@ export default function PaginaProdutos({
       <div className="max-w-6xl mx-auto">
         
         {/* barra de pesquisa */}
-        <div className="flex justify-center mb-12">
+        <div className="flex flex-col items-center mb-12">
           <div className="relative w-full max-w-sm">
             <input
               type="text"
@@ -97,6 +97,19 @@ export default function PaginaProdutos({
                </svg>
             </div>
           </div>
+
+          {/* mensagem de resultados da busca */}
+          {searchTerm && (
+            <div className="w-full max-w-sm mt-3 px-3 text-center text-gray-400 text-[14px] lg:text-[15px] xl:text-[16px] 2xl:text-[17px] font-medium">
+              {searchTerm !== query ? (
+                <span className="animate-pulse">Buscando...</span>
+              ) : filteredProducts.length === 1 ? (
+                "1 produto encontrado"
+              ) : (
+                `${filteredProducts.length} produtos encontrados`
+              )}
+            </div>
+          )}
         </div>
 
         {/* grid de produtos */}
