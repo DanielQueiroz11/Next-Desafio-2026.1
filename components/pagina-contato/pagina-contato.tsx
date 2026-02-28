@@ -37,13 +37,13 @@ export default function PaginaContato() {
           
           {/* coluna da esquerda: formulário */}
           <div className="border border-white/10 rounded-lg p-6 md:p-10 lg:p-8 bg-[#121212]">
-            <h2 className="text-xl font-extrabold text-center mb-8">
+            <h2 className="text-[22px] md:text-[23px] lg:text-[24px] xl:text-[25px] 2xl:text-[27px] font-extrabold text-center mb-8">
               Envie uma mensagem
             </h2>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-6">
               <div>
-                <label className="block text-[17px] font-bold mb-2">Nome</label>
+                <label className="block text-[17px] md:text-[18px] xl:text-[20px] 2xl:text-[22px] font-bold mb-2">Nome</label>
                 <input
                   type="text"
                   name="nome"
@@ -54,7 +54,7 @@ export default function PaginaContato() {
               </div>
 
               <div>
-                <label className="block text-[17px] font-bold mb-2">E-mail</label>
+                <label className="block text-[17px] md:text-[18px] xl:text-[20px] 2xl:text-[22px] font-bold mb-2">E-mail</label>
                 <input
                   type="email"
                   name="email"
@@ -65,7 +65,7 @@ export default function PaginaContato() {
               </div>
 
               <div>
-                <label className="block text-[17px] font-bold mb-2">Assunto</label>
+                <label className="block text-[17px] md:text-[18px] xl:text-[20px] 2xl:text-[22px] font-bold mb-2">Assunto</label>
                 <input
                   type="text"
                   name="assunto"
@@ -76,7 +76,7 @@ export default function PaginaContato() {
               </div>
 
               <div>
-                <label className="block text-[17px] font-bold mb-2">Mensagem</label>
+                <label className="block text-[17px] md:text-[18px] xl:text-[20px] 2xl:text-[22px] font-bold mb-2">Mensagem</label>
                 <textarea
                   rows={5}
                   name="mensagem"
@@ -109,7 +109,7 @@ export default function PaginaContato() {
           <div className="flex flex-col gap-8">
             {/* 1° bloco: informações de contato */}
             <div className="border border-white/10 rounded-lg p-6 md:p-10 lg:p-8 bg-[#121212] flex-1">
-              <h2 className="text-xl font-extrabold text-center mb-8">Informações de contato</h2>
+              <h2 className="text-[22px] md:text-[23px] lg:text-[24px] xl:text-[25px] 2xl:text-[27px] font-extrabold text-center mb-8">Informações de contato</h2>
               <div className="flex flex-col gap-8">
                 <div className="flex items-start gap-4">
                   <div className="mt-1">
@@ -158,7 +158,7 @@ export default function PaginaContato() {
 
             {/* 2° bloco: redes sociais */}
             <div className="border border-white/10 rounded-lg p-6 md:p-10 lg:p-8 bg-[#121212] flex-1">
-              <h2 className="text-xl font-bold text-center mb-4">Redes sociais</h2>
+             <h2 className="text-[22px] md:text-[23px] lg:text-[24px] xl:text-[25px] 2xl:text-[27px] font-extrabold text-center mb-6">Redes sociais</h2>
               <p className="text-sm text-gray-300 mb-8 text-center md:text-left lg:text-center">
                 Siga-nos nas redes sociais para ficar por dentro das <span className="text-rock-red font-bold">novidades e promoções</span>.
               </p>
