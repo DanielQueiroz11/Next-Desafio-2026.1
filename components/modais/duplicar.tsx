@@ -65,7 +65,7 @@ export default function ModalDuplicarProduto({
 
         <div className="mb-8">
           <label className="block text-white font-bold mb-2 text-sm">
-            Quantidade de Cópias
+            Quantidade de cópias
           </label>
           <input
             type="number"
