@@ -1,8 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { useAudio } from "@/src/providers/audio-context";
 
 export default function HeroSection() {
+  const { isPlaying, toggleAudio } = useAudio();
+
   return (
     <section className="relative w-full min-h-[450px] flex flex-col items-center justify-center text-center overflow-hidden bg-rock-dark">
       {/* imagem de fundo */}
@@ -20,7 +23,13 @@ export default function HeroSection() {
       <div className="relative z-10 px-4 max-w-[1300px] mx-auto w-full">
         <h1 className="text-[35px] md:text-[42px] lg:text-[52px] xl:text-[56px] 2xl:text-[62px] font-black mb-6 tracking-normal text-white drop-shadow-lg uppercase transition-all duration-300">
           Vista o{" "}
-          <span className="text-rock-red">
+          <span
+            onClick={toggleAudio}
+            title="Clique para ligar/desligar a rádio"
+            className={`cursor-pointer inline-block transition-all duration-300 hover:scale-[1.03] active:scale-95 text-rock-red ${
+              isPlaying ? "animate-grave drop-shadow-lg" : ""
+            }`}
+          >
             som
           </span>{" "}
           que você <span className="text-rock-red">ama</span>
