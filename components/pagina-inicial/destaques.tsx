@@ -192,7 +192,7 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
                           {formatarPreco(produto.price)}
                         </p>
                         
-                        <p className="text-[11px] md:text-[13px] lg:text-[14px] text-gray-400 font-medium">
+                        <p className="text-[11.5px] md:text-[13px] lg:text-[14px] text-gray-400 font-medium">
                           {renderParcelamento(produto.price)}
                         </p>
                       </div>

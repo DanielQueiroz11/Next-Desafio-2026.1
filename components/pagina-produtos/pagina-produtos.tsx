@@ -122,22 +122,22 @@ export default function PaginaProdutos({
                   <div className="p-5 md:p-6 flex flex-col flex-grow">
                     <div>
                       <Link href={`/produtos-individuais/${product.id}`}>
-                        <h3 className="text-white text-[18px] md:text-xl font-bold mb-2 cursor-pointer hover:text-rock-red transition-colors line-clamp-2">
+                         <h3 className="text-[18px] md:text-[21px] font-bold text-white truncate leading-tight mb-2.5 md:mb-0.5">
                           {product.title}
                         </h3>
                       </Link>
 
-                      <p className="text-gray-400 text-[13px] md:text-sm mb-4 line-clamp-2 min-h-[40px]">
+                      <p className="text-gray-400 text-[14px] xl:text-[16px] leading-snug line-clamp-2 min-h-[34px] md:min-h-[40px] mb-2">
                         {product.description}
                       </p>
                     </div>
 
                     <div className="mt-auto pt-2">
-                      <span className="block text-rock-red text-[22px] md:text-2xl font-extrabold mb-0.5">
+                      <span className="text-rock-red font-extrabold text-[20px] md:text-[22px] lg:text-[24px] leading-none mb-0.5 md:mb-1">
                         {formatarPreco(product.price)}
                       </span>
                       
-                      <span className="block text-gray-400 text-[13px] md:text-sm mb-5">
+                      <span className="block text-gray-400 text-[11.5px] md:text-[13px] lg:text-[14px] md:text-sm mb-5">
                         {formatarParcela(product.price)
                           .split(/(R\$\s?[\d.,]+)/)
                           .map((part, index) => (
