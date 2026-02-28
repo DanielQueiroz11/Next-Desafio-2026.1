@@ -8,6 +8,7 @@ import ModalAdicionarProduto from "@/components/modais/adicionar";
 import ModalVisualizarProduto from "@/components/modais/visualizar";
 import ModalEditarProduto from "@/components/modais/editar";
 import ModalExcluirProduto from "@/components/modais/excluir";
+import ModalDuplicarProduto from "@/components/modais/duplicar";
 
 type Produto = {
   id: number;
@@ -38,11 +39,10 @@ export default function PaginaGerenciamento({
   const searchParams = useSearchParams();
 
   const [isModalAdicionarOpen, setIsModalAdicionarOpen] = useState(false);
-  const [produtoVisualizar, setProdutoVisualizar] = useState<Produto | null>(
-    null,
-  );
+  const [produtoVisualizar, setProdutoVisualizar] = useState<Produto | null>(null);
   const [produtoExcluir, setProdutoExcluir] = useState<Produto | null>(null);
   const [produtoEditar, setProdutoEditar] = useState<Produto | null>(null);
+  const [produtoDuplicar, setProdutoDuplicar] = useState<Produto | null>(null); // Novo estado
 
   const [searchTerm, setSearchTerm] = useState(searchTermProp);
 
@@ -221,7 +221,7 @@ export default function PaginaGerenciamento({
                   {/* corpo (branco) do card */}
                   <div className="w-full flex flex-col lg:flex-row items-center py-6 px-4 text-black gap-4 lg:gap-0">
                     <div className="w-full lg:w-[15%] flex justify-center">
-                      <div className="relative w-50 h-50 lg:w-34 lg:h-34 bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden shrink-0">
+                      <div className="relative w-50 h-50 lg:w-36 lg:h-36 bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden shrink-0">
                         <Image
                           src={produto.image || "/imagens/produto-padrao.jpg"}
                           alt={produto.title}
@@ -239,7 +239,9 @@ export default function PaginaGerenciamento({
                     <div className="w-full lg:w-[35%] text-[15px] lg:text-[14px] font-medium text-center px-2 lg:px-6 leading-relaxed text-gray-700 lg:text-gray-800 line-clamp-3">
                       {produto.description}
                     </div>
-                    <div className="w-full lg:w-[15%] flex flex-row lg:flex-col items-center justify-center gap-2 lg:gap-4 mt-4 lg:mt-0 border-t border-gray-200 lg:border-t-0 pt-4 lg:pt-0">
+                    
+                    {/* botões de ação */}
+                    <div className="w-full lg:w-[15%] flex flex-row lg:flex-col flex-wrap items-center justify-center gap-2 lg:gap-3 mt-4 lg:mt-0 border-t border-gray-200 lg:border-t-0 pt-4 lg:pt-0">
                       <button
                         onClick={() => setProdutoVisualizar(produto)}
                         className="flex-1 lg:flex-none lg:w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-2 lg:py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer text-sm"
@@ -254,9 +256,15 @@ export default function PaginaGerenciamento({
                       </button>
                       <button
                         onClick={() => setProdutoExcluir(produto)}
-                        className="flex-1 lg:flex-none lg:w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-2 lg:py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer text-sm lg:bg-rock-red lg:hover:bg-red-700"
+                        className="flex-1 lg:flex-none lg:w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-2 lg:py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer text-sm"
                       >
                         Excluir
+                      </button>
+                       <button
+                        onClick={() => setProdutoDuplicar(produto)}
+                        className="flex-1 lg:flex-none lg:w-24 bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 lg:py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer text-sm"
+                      >
+                        Duplicar
                       </button>
                     </div>
                   </div>
@@ -331,6 +339,7 @@ export default function PaginaGerenciamento({
         </div>
       </section>
 
+      {/* renderização dos modais */}
       {isModalAdicionarOpen && (
         <ModalAdicionarProduto
           onClose={() => setIsModalAdicionarOpen(false)}
@@ -353,6 +362,12 @@ export default function PaginaGerenciamento({
         <ModalExcluirProduto
           produto={produtoExcluir}
           onClose={() => setProdutoExcluir(null)}
+        />
+      )}
+      {produtoDuplicar && (
+        <ModalDuplicarProduto
+          produto={produtoDuplicar}
+          onClose={() => setProdutoDuplicar(null)}
         />
       )}
     </main>
