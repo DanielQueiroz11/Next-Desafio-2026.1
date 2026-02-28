@@ -42,9 +42,12 @@ export default function PaginaGerenciamento({
   const [produtoVisualizar, setProdutoVisualizar] = useState<Produto | null>(null);
   const [produtoExcluir, setProdutoExcluir] = useState<Produto | null>(null);
   const [produtoEditar, setProdutoEditar] = useState<Produto | null>(null);
-  const [produtoDuplicar, setProdutoDuplicar] = useState<Produto | null>(null); // Novo estado
+  const [produtoDuplicar, setProdutoDuplicar] = useState<Produto | null>(null);
 
   const [searchTerm, setSearchTerm] = useState(searchTermProp);
+  
+  // controle da Sidebar no mobile
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const isSearching = searchTerm !== searchTermProp;
 
@@ -79,11 +82,32 @@ export default function PaginaGerenciamento({
 
   return (
     <main className="flex min-h-screen bg-rock-dark">
+      
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden transition-opacity"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
       {/* sidebar */}
-      <aside className="hidden lg:flex flex-col w-[250px] shrink-0 bg-rock-dark min-h-screen shadow-2xl z-10 border-r border-white/10">
-        <div className="pt-8 pb-6 flex justify-center px-4">
+      <aside 
+        className={`fixed inset-y-0 left-0 z-50 flex flex-col w-[250px] shrink-0 bg-rock-dark min-h-screen shadow-2xl border-r border-white/10 transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        {/*botão "X" (mobile) */}
+        <button 
+          onClick={() => setIsSidebarOpen(false)}
+          className="absolute top-4 right-4 text-gray-400 hover:text-white lg:hidden cursor-pointer"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+
+        <div className="pt-8 pb-6 flex justify-center px-4 mt-6 lg:mt-0">
           <Link
             href="/"
+            onClick={() => setIsSidebarOpen(false)}
             className="relative w-full max-w-[200px] h-[89px] hover:scale-105 will-change-transform transition-transform cursor-pointer block"
           >
             <Image
@@ -102,18 +126,21 @@ export default function PaginaGerenciamento({
         <nav className="flex flex-col px-8 gap-6">
           <Link
             href="/"
+            onClick={() => setIsSidebarOpen(false)}
             className="text-white font-bold text-[16px] hover:text-rock-red transition-colors"
           >
             Home
           </Link>
           <Link
             href="/gerenciamento"
+            onClick={() => setIsSidebarOpen(false)} 
             className="text-white font-bold text-[16px] hover:text-rock-red transition-colors"
           >
             Gerenciar Produtos
           </Link>
           <Link
             href="/"
+            onClick={() => setIsSidebarOpen(false)}
             className="text-white font-bold text-[16px] hover:text-rock-red transition-colors"
           >
             Logout
@@ -126,16 +153,21 @@ export default function PaginaGerenciamento({
         {/* topbar */}
         <header className="relative w-full py-6 md:py-0 md:h-24 bg-[#2A2A2A] flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-8 shadow-md z-0 border-b border-white/5">
           <div className="w-full md:flex-1 flex justify-start">
-            <Link
-              href="/"
-              className="absolute md:static left-4 top-6 text-rock-red font-bold underline text-[15px] md:text-[18px] lg:hidden"
+            {/* menu hambúrguer */}
+            <button
+              onClick={() => setIsSidebarOpen(true)}
+              className="absolute md:static left-4 top-6 lg:hidden text-white hover:text-rock-red transition-colors cursor-pointer flex items-center justify-center"
             >
-              &larr; Voltar
-            </Link>
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="4" x2="20" y1="12" y2="12" />
+                <line x1="4" x2="20" y1="6" y2="6" />
+                <line x1="4" x2="20" y1="18" y2="18" />
+              </svg>
+            </button>
           </div>
 
           {/* título com a quantidade total de produtos do site */}
-          <div className="flex flex-col items-center mt-10 md:mt-0">
+          <div className="flex flex-col items-center mt-8 md:mt-0">
             <h1 className="text-white text-xl md:text-2xl lg:text-[28px] font-black tracking-wider uppercase text-center leading-tight">
               Gerenciamento
             </h1>

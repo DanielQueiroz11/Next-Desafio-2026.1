@@ -26,7 +26,7 @@ export default function ModalDuplicarProduto({
 
   const handleDuplicar = async () => {
     setIsLoading(true);
-    
+
     try {
       const response = await fetch("/api/produtos/duplicar", {
         method: "POST",
@@ -40,7 +40,7 @@ export default function ModalDuplicarProduto({
       });
 
       if (response.ok) {
-        router.refresh(); 
+        router.refresh();
         onClose();
       } else {
         alert("Erro ao duplicar produto.");
@@ -60,7 +60,9 @@ export default function ModalDuplicarProduto({
           Duplicar Produto
         </h2>
         <p className="text-gray-300 mb-6 text-sm">
-          Quantas cópias de <span className="font-bold text-rock-red">{produto.title}</span> você deseja criar?
+          Quantas cópias de{" "}
+          <span className="font-bold text-rock-red">{produto.title}</span> você
+          deseja criar?
         </p>
 
         <div className="mb-8">
@@ -81,14 +83,14 @@ export default function ModalDuplicarProduto({
           <button
             onClick={onClose}
             disabled={isLoading}
-            className="px-5 py-2.5 rounded-lg font-bold text-white bg-transparent hover:bg-white/10 transition-colors"
+            className="px-5 py-2.5 rounded-lg font-bold text-white bg-transparent hover:bg-white/10 transition-colors cursor-pointer"
           >
             Cancelar
           </button>
           <button
             onClick={handleDuplicar}
             disabled={isLoading || quantidade < 1}
-            className="px-5 py-2.5 rounded-lg font-bold text-white bg-rock-red hover:bg-red-700 transition-colors shadow-lg disabled:opacity-50 flex items-center gap-2"
+            className="px-5 py-2.5 rounded-lg font-bold text-white bg-rock-red hover:bg-red-700 transition-colors shadow-lg disabled:opacity-50 flex items-center gap-2 cursor-pointer"
           >
             {isLoading ? "Duplicando..." : "Confirmar"}
           </button>
