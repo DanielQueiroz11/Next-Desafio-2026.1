@@ -21,11 +21,14 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  // função que inverte o estado atual da música e salva a preferência no navegador
+// função que inverte o estado atual da música e salva a preferência no navegador
   const toggleAudio = () => {
-    const newState = !isPlaying;
-    setIsPlaying(newState);
-    sessionStorage.setItem("musicStatus", newState ? "playing" : "paused");
+    
+    setIsPlaying((prev) => {
+      const newState = !prev;
+      sessionStorage.setItem("musicStatus", newState ? "playing" : "paused");
+      return newState;
+    });
   };
 
   return (
@@ -34,6 +37,5 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     </AudioContext.Provider>
   );
 }
-
 // hook para facilitar a importação e o uso do contexto em outras páginas do site
 export const useAudio = () => useContext(AudioContext);

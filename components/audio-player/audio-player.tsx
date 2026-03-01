@@ -9,7 +9,7 @@ interface AudioPlayerProps {
 }
 
 export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: AudioPlayerProps) {
-  // useRef aqui para acessar o elemento de áudio e o intervalo sem causar renderizações desnecessárias
+  // useRef aqui para acessar o elemento de áudio 
   const audioRef = useRef<HTMLAudioElement>(null);
   const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -42,41 +42,55 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
     }
 
     if (isPlaying) {
-      // configuração de fade-in 
-      audio.volume = 0; 
-      const playPromise = audio.play();
+      // trava de segurança: só inicia o processo se a música estiver realmente pausada
+      if (audio.paused) {
+        // força o recarregamento da rádio viva ao voltar de outras páginas
+        if (isRadio) audio.load();
 
-      // tratamento de promessa do play() para evitar erros no console caso o navegador bloqueie o autoplay
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            fadeIntervalRef.current = setInterval(() => {
-              if (audio.volume < MAX_VOLUME - 0.05) {
-                audio.volume = Math.min(MAX_VOLUME, audio.volume + 0.05);
-              } else {
-                audio.volume = MAX_VOLUME; 
-                if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
-              }
-            }, 500); // intervalo de tempo do fade-in :)
-          })
-          .catch((e) => console.log("Erro/Autoplay bloqueado pelo navegador:", e));
+        // configuração de fade-in 
+        audio.volume = 0; 
+        const playPromise = audio.play();
+
+        // tratamento de promessa do play() para evitar erros no console caso o navegador bloqueie o autoplay
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              fadeIntervalRef.current = setInterval(() => {
+                if (audio.volume < MAX_VOLUME - 0.05) {
+                  audio.volume = Math.min(MAX_VOLUME, audio.volume + 0.05);
+                } else {
+                  audio.volume = MAX_VOLUME; 
+                  if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+                }
+              }, 50); // intervalo de tempo do fade-in :)
+            })
+            .catch((e) => {
+              console.log("Erro/Autoplay bloqueado pelo navegador:", e);
+              // trava para desligar o botão caso o navegador bloqueie o som
+              onToggle(); 
+            });
+        }
       }
     } else {
-      // config do fade-out
-      fadeIntervalRef.current = setInterval(() => {
-        if (audio.volume > 0.05) {
-          audio.volume = Math.max(0, audio.volume - 0.05);
-        } else {
-          audio.volume = 0;
-          audio.pause(); 
-          if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
-        }
-      }, 30); // intervalo de tempo do fade-in :)
+      // trava de segurança: só aplica fade-out se a música estiver tocando
+      if (!audio.paused) {
+        // config do fade-out
+        fadeIntervalRef.current = setInterval(() => {
+          if (audio.volume > 0.05) {
+            audio.volume = Math.max(0, audio.volume - 0.05);
+          } else {
+            audio.volume = 0;
+            audio.pause(); 
+            if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+          }
+        }, 30); // intervalo de tempo do fade-out :)
+      }
     }
 
     return () => {
       if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying]);
 
   // salva o progresso da música local a cada atualização de tempo
