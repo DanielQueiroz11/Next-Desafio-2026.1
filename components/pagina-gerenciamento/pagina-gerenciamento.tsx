@@ -8,7 +8,7 @@ import ModalAdicionarProduto from "@/components/modais/adicionar";
 import ModalVisualizarProduto from "@/components/modais/visualizar";
 import ModalEditarProduto from "@/components/modais/editar";
 import ModalExcluirProduto from "@/components/modais/excluir";
-import ModalDuplicarProduto from "@/components/modais/duplicar";
+{/* import ModalDuplicarProduto from "@/components/modais/duplicar"; */}
 
 type Produto = {
   id: number;
@@ -43,7 +43,8 @@ export default function PaginaGerenciamento({
   const [produtoVisualizar, setProdutoVisualizar] = useState<Produto | null>(null);
   const [produtoExcluir, setProdutoExcluir] = useState<Produto | null>(null);
   const [produtoEditar, setProdutoEditar] = useState<Produto | null>(null);
-  const [produtoDuplicar, setProdutoDuplicar] = useState<Produto | null>(null);
+  
+  {/* const [produtoDuplicar, setProdutoDuplicar] = useState<Produto | null>(null); */}
 
   // estado local para a barra de pesquisa
   const [searchTerm, setSearchTerm] = useState(searchTermProp);
@@ -173,6 +174,14 @@ export default function PaginaGerenciamento({
                 <line x1="4" x2="20" y1="18" y2="18" />
               </svg>
             </button>
+            
+            {/* botão de voltar apenas visível em telas menores */}
+            <Link
+              href="/"
+              className="hidden md:block lg:hidden absolute md:static left-4 top-6 text-rock-red font-bold underline text-[15px] md:text-[18px]"
+            >
+              &larr; Voltar
+            </Link>
           </div>
 
           {/* título e contador dinâmico de produtos do estoque geral */}
@@ -243,7 +252,7 @@ export default function PaginaGerenciamento({
             )}
           </div>
 
-          {/* listagem de produtos iterando sobre o array vindo do banco via props */}
+          {/* listagem de produtos iterando sobre o array */}
           {produtos.length > 0 ? (
             <div className="flex flex-col gap-6 lg:gap-8 flex-1">
               {produtos.map((produto) => (
@@ -263,7 +272,7 @@ export default function PaginaGerenciamento({
                   {/* linha/card de conteúdo do produto */}
                   <div className="w-full flex flex-col lg:flex-row items-center py-6 px-4 text-black gap-4 lg:gap-0">
                     <div className="w-full lg:w-[15%] flex justify-center">
-                      <div className="relative w-50 h-50 lg:w-36 lg:h-36 bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden shrink-0">
+                      <div className="relative w-50 h-50 lg:w-34 lg:h-34 bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden shrink-0">
                         <Image
                           src={produto.image || "/imagens/produto-padrao.jpg"}
                           alt={produto.title}
@@ -283,7 +292,7 @@ export default function PaginaGerenciamento({
                     </div>
                     
                     {/* botões de ação do crud */}
-                    <div className="w-full lg:w-[15%] flex flex-row lg:flex-col flex-wrap items-center justify-center gap-2 lg:gap-3 mt-4 lg:mt-0 border-t border-gray-200 lg:border-t-0 pt-4 lg:pt-0">
+                    <div className="w-full lg:w-[15%] flex flex-row lg:flex-col items-center justify-center gap-2 lg:gap-4 mt-4 lg:mt-0 border-t border-gray-200 lg:border-t-0 pt-4 lg:pt-0">
                       <button
                         onClick={() => setProdutoVisualizar(produto)}
                         className="flex-1 lg:flex-none lg:w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-2 lg:py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer text-sm"
@@ -298,16 +307,19 @@ export default function PaginaGerenciamento({
                       </button>
                       <button
                         onClick={() => setProdutoExcluir(produto)}
-                        className="flex-1 lg:flex-none lg:w-24 bg-gray-800 hover:bg-black text-white font-bold py-2 lg:py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer text-sm"
+                        className="flex-1 lg:flex-none lg:w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-2 lg:py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer text-sm lg:bg-rock-red lg:hover:bg-red-700"
                       >
                         Excluir
                       </button>
-                       <button
+
+                      {/* botão duplicar: */}
+                      {/* <button
                         onClick={() => setProdutoDuplicar(produto)}
                         className="flex-1 lg:flex-none lg:w-24 bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 lg:py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer text-sm"
                       >
                         Duplicar
                       </button>
+                      */}
                     </div>
                   </div>
                 </div>
@@ -410,12 +422,14 @@ export default function PaginaGerenciamento({
           onClose={() => setProdutoExcluir(null)}
         />
       )}
-      {produtoDuplicar && (
+      
+      {/* {produtoDuplicar && (
         <ModalDuplicarProduto
           produto={produtoDuplicar}
           onClose={() => setProdutoDuplicar(null)}
         />
       )}
+      */}
     </main>
   );
 }
