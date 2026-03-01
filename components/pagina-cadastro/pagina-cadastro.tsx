@@ -6,20 +6,23 @@ import { useState } from "react";
 import { useRouter } from "next/navigation"; 
 
 export default function PaginaCadastro() {
+  // olhinho
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   
   const router = useRouter();
 
+  // simula o envio do formulário e redireciona o usuário para o login
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault(); 
     router.push("/login"); 
   };
 
   return (
+    // container principal ocupando a tela toda
     <main className="relative min-h-screen w-full flex items-start md:items-center justify-center bg-rock-dark overflow-x-hidden overflow-y-auto px-4 pt-6 md:py-12">
       
-      {/* fundo */}
+      {/* fundo com imagem */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/imagens/fundo-login.jpg"
@@ -31,18 +34,17 @@ export default function PaginaCadastro() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black/90"></div>
       </div>
 
-      {/* card */}
+      {/* card principal do formulário */}
       <div className="relative z-10 w-full max-w-[450px] bg-black/70 backdrop-blur-md p-6 md:p-10 rounded-2xl shadow-2xl border border-white/10">
         
-        {/* título  */}
+        {/* título principal */}
         <h2 className="text-[28px] md:text-[36px] lg:text-[40px] font-black text-center text-white mb-8 tracking-wide uppercase">
           Cadastre-se
         </h2>
 
-        {/* formulário */}
         <form className="flex flex-col gap-5" onSubmit={handleRegister}>
           
-          {/* campo nome */}
+          {/* campo: nome */}
           <div className="flex flex-col gap-2">
             <label htmlFor="name" className="text-white font-bold ml-1 text-[16px] md:text-[18px]">
               Nome
@@ -56,7 +58,7 @@ export default function PaginaCadastro() {
             />
           </div>
 
-          {/* campo e-mail */}
+          {/* campo: e-mail */}
           <div className="flex flex-col gap-2">
             <label htmlFor="email" className="text-white font-bold ml-1 text-[16px] md:text-[18px]">
               E-mail
@@ -70,12 +72,13 @@ export default function PaginaCadastro() {
             />
           </div>
 
-          {/* campo senha */}
+          {/* campo: senha */}
           <div className="flex flex-col gap-2">
             <label htmlFor="password" className="text-white font-bold ml-1 text-[16px] md:text-[18px]">
               Senha
             </label>
             <div className="relative w-full">
+              {/* o tipo do input muda entre text e password dependendo do estado */}
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
@@ -90,15 +93,17 @@ export default function PaginaCadastro() {
                 aria-label={showPassword ? "Esconder senha" : "Mostrar senha"}
               >
                 {showPassword ? (
+                   // ícone de olho aberto
                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
                 ) : (
+                   // ícone de olho fechado
                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>
                 )}
               </button>
             </div>
           </div>
 
-          {/* campo confirmar senha */}
+          {/* campo: confirmar senha */}
           <div className="flex flex-col gap-2">
             <label htmlFor="confirm-password" className="text-white font-bold ml-1 text-[16px] md:text-[18px]">
               Confirmar Senha
@@ -126,7 +131,7 @@ export default function PaginaCadastro() {
             </div>
           </div>
 
-          {/* link login  */}
+          {/* link de atalho para quem já possui conta */}
           <div className="flex justify-center w-full mt-2">
             <Link
               href="/login"
@@ -136,7 +141,7 @@ export default function PaginaCadastro() {
             </Link>
           </div>
 
-          {/* botão cadastro */}
+          {/* botão principal de envio do formulário */}
           <button
             type="submit"
             className="mt-2 w-full bg-rock-red hover:bg-red-700 text-white font-extrabold text-[18px] md:text-[20px] py-3.5 rounded-full transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-lg shadow-rock-red/20 cursor-pointer"
@@ -145,7 +150,7 @@ export default function PaginaCadastro() {
           </button>
         </form>
 
-        {/* botão home */}
+        {/* botão auxiliar de retorno à home */}
         <div className="mt-8 flex justify-center">
           <Link
             href="/"

@@ -6,18 +6,21 @@ import { useState } from "react";
 import { useRouter } from "next/navigation"; 
 
 export default function PaginaLogin() {
+  // alternar o input de senha 
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
+  // simula o processo de autenticação e redireciona para a página administrativa
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault(); 
     router.push("/gerenciamento"); 
   };
 
   return (
+    // container principal 
     <main className="relative min-h-screen w-full flex items-start md:items-center justify-center bg-rock-dark overflow-hidden px-4 pt-12 md:pt-0">
       
-      {/* imagem de fundo */}
+      {/* área contendo imagem de fundo */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/imagens/fundo-login.jpg"
@@ -29,17 +32,18 @@ export default function PaginaLogin() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black/90"></div>
       </div>
 
-      {/* card login */}
+      {/* container principal do formulário */}
       <div className="relative z-10 w-full max-w-[450px] bg-black/70 backdrop-blur-md p-8 md:p-10 rounded-2xl shadow-2xl border border-white/10">
         
-        {/* título */}
+        {/* cabeçalho do formulário */}
         <h2 className="text-[28px] md:text-[32px] lg:text-[35px] xl:text-[38px] 2xl:text-[42px] font-black text-center text-white mb-8 tracking-wide uppercase">
           Entrar
         </h2>
 
+        {/* início do formulário */}
         <form className="flex flex-col gap-5" onSubmit={handleLogin}>
           
-          {/* campo nome */}
+          {/* campo: nome */}
           <div className="flex flex-col gap-2">
             <label htmlFor="name" className="text-white font-bold ml-1 text-[16px] md:text-[18px]">
               Nome
@@ -52,7 +56,7 @@ export default function PaginaLogin() {
             />
           </div>
 
-          {/* campo email */}
+          {/* campo: e-mail */}
           <div className="flex flex-col gap-2">
             <label htmlFor="email" className="text-white font-bold ml-1 text-[16px] md:text-[18px]">
               E-mail
@@ -65,13 +69,14 @@ export default function PaginaLogin() {
             />
           </div>
 
-          {/* campo senha */}
+          {/* campo: senha */}
           <div className="flex flex-col gap-2">
             <label htmlFor="password" className="text-white font-bold ml-1 text-[16px] md:text-[18px]">
               Senha
             </label>
             <div className="relative w-full">
               <input
+                // alterna o tipo do input baseado no estado boolean
                 type={showPassword ? "text" : "password"}
                 id="password"
                 placeholder="**********"
@@ -112,7 +117,7 @@ export default function PaginaLogin() {
             </Link>
           </div>
 
-          {/* botão login */}
+          {/* botão principal de submissão do form */}
           <button
             type="submit"
             className="mt-2 w-full bg-rock-red hover:bg-red-700 text-white font-extrabold text-[18px] md:text-[20px] py-3.5 rounded-full transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-lg shadow-rock-red/20 cursor-pointer"
@@ -121,7 +126,7 @@ export default function PaginaLogin() {
           </button>
         </form>
 
-        {/* botão voltar para home */}
+        {/* botão auxiliar de retorno para a home */}
         <div className="mt-8 flex justify-center">
           <Link href="/"
             className="group flex items-center gap-2 bg-white text-rock-red font-bold px-6 py-2.5 rounded-full transition-all hover:bg-gray-100 hover:shadow-md active:scale-95 text-sm md:text-base">

@@ -7,7 +7,9 @@ export default function HeroSection() {
   const { isPlaying, toggleAudio } = useAudio();
 
   return (
+    // container principal da seção 
     <section className="relative w-full min-h-[450px] flex flex-col items-center justify-center text-center overflow-hidden bg-rock-dark">
+      
       {/* imagem de fundo */}
       <div className="absolute inset-0 z-0 opacity-20">
         <Image
@@ -19,14 +21,18 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* textos */}
+      {/* conteúdo de texto */}
       <div className="relative z-10 px-4 max-w-[1300px] mx-auto w-full">
+        
+        {/* título principal */}
         <h1 className="text-[35px] md:text-[42px] lg:text-[52px] xl:text-[56px] 2xl:text-[62px] font-black mb-6 tracking-normal text-white drop-shadow-lg uppercase transition-all duration-300">
           Vista o{" "}
+          {/* palavra interativa "SOM" */}
           <span
             onClick={toggleAudio}
             title="Clique para ligar/desligar a rádio"
             className={`cursor-pointer inline-block transition-all duration-300 hover:scale-[1.03] active:scale-95 text-rock-red ${
+              // aplica uma animação se a música estiver tocando
               isPlaying ? "animate-grave drop-shadow-lg" : ""
             }`}
           >
@@ -34,6 +40,7 @@ export default function HeroSection() {
           </span>{" "}
           que você <span className="text-rock-red">ama</span>
         </h1>
+        
         <p className="text-gray-200 text-lg md:text-[16px] lg:text-[20px] xl:text-[22px] 2xl:text-[26px] font-medium drop-shadow-md transition-all duration-300">
           As melhores camisetas, moletons e acessórios do rock e metal!🎸
         </p>

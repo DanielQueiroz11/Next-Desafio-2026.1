@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+
 import { useSearchParams, useRouter } from "next/navigation";
 
 type Produto = {
@@ -25,15 +26,20 @@ export default function PaginaProdutos({
   const searchParams = useSearchParams();
   const router = useRouter();
   
+  // inicializa a pesquisa local
   const query = searchParams.get("search") || "";
   const [searchTerm, setSearchTerm] = useState(query);
 
+  // filtra os produtos no lado do cliente
   const filteredProducts = produtos.filter((product) =>
     product.title.toLowerCase().includes(query.toLowerCase())
   );
 
+  // função disparada a cada tecla digitada na barra de pesquisa
   const handleSearch = (term: string) => {
     setSearchTerm(term);
+    
+    // manipula os parâmetros da URL sem recarregar a página inteira
     const params = new URLSearchParams(searchParams.toString());
     
     if (term) {
@@ -42,20 +48,24 @@ export default function PaginaProdutos({
       params.delete("search");
     }
     
+    // reseta para a página 1 ao iniciar uma nova busca
     params.set("page", "1"); 
     
+    // previne que o usuário tenha um histórico infinito de letras digitadas
     router.replace(`/produtos?${params.toString()}`);
   };
 
-  // função para mudar de página mantendo a busca atual
+  // mudar de página mantendo a busca atual (e vice-versa)
   const mudarPagina = (novaPagina: number) => {
     if (novaPagina >= 1 && novaPagina <= totalPaginas) {
       const params = new URLSearchParams(searchParams.toString());
       params.set("page", novaPagina.toString());
+      // push adiciona a navegação no histórico
       router.push(`/produtos?${params.toString()}`);
     }
   };
 
+  // formatador de moeda
   const formatarPreco = (valor: number) => {
     return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   };
@@ -65,6 +75,7 @@ export default function PaginaProdutos({
     currency: "BRL",
   });
 
+  // calcula automaticamente as parcelas e os juros aplicáveis (máx 6x)
   const formatarParcela = (valor: number) => {
     let parcelas = Math.ceil(valor / 20);
     parcelas = Math.max(1, Math.min(6, parcelas));
@@ -78,10 +89,11 @@ export default function PaginaProdutos({
   };
 
   return (
+    // container principal 
     <section className="w-full min-h-screen bg-rock-dark pt-12 pb-7 px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
         
-        {/* barra de pesquisa */}
+        {/* barra de pesquisa controlada */}
         <div className="flex flex-col items-center mb-12">
           <div className="relative w-full max-w-sm">
             <input
@@ -91,6 +103,7 @@ export default function PaginaProdutos({
               onChange={(e) => handleSearch(e.target.value)}
               className="w-full bg-white text-rock-red placeholder:text-rock-red rounded-full text-lg py-3 pl-6 pr-12 focus:outline-none focus:ring-2 focus:ring-rock-red shadow-lg transition-all font-medium"
             />
+            {/* ícone de lupa */}
             <div className="absolute right-4 top-1/2 -translate-y-1/2 text-rock-red cursor-pointer hover:scale-[1.05] transition-transform duration-300 will-change-transform">
                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
@@ -98,7 +111,7 @@ export default function PaginaProdutos({
             </div>
           </div>
 
-          {/* mensagem de resultados da busca */}
+          {/* mensagem de feedback da pesquisa */}
           {searchTerm && (
             <div className="w-full max-w-sm mt-3 px-3 text-center text-gray-400 text-[14px] lg:text-[15px] xl:text-[16px] 2xl:text-[17px] font-medium">
               {searchTerm !== query ? (
@@ -112,10 +125,10 @@ export default function PaginaProdutos({
           )}
         </div>
 
-        {/* grid de produtos */}
         {filteredProducts.length > 0 ? (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-items-center">
+              {/* iterando sobre os produtos e criando cards responsivos */}
               {filteredProducts.map((product) => (
                 <div
                   key={product.id}
@@ -174,7 +187,7 @@ export default function PaginaProdutos({
               ))}
             </div>
 
-            {/* paginação */}
+            {/* controles de paginação */}
             {totalPaginas > 1 && (
               <div className="flex justify-center items-center gap-2 md:gap-5 mt-8 md:mt-12 mb-8 text-rock-red font-medium text-[15px] md:text-[18px]">
                 <button 
@@ -187,6 +200,7 @@ export default function PaginaProdutos({
                   <span className="hidden md:inline">Anterior</span>
                 </button>
                 
+                {/* números dinâmicos gerados baseados na quantidade de páginas */}
                 <div className="flex items-center gap-2 md:gap-3 text-gray-300">
                   {Array.from({ length: totalPaginas }, (_, i) => i + 1).map((p) => {
                     if (p === 1 || p === totalPaginas || Math.abs(paginaAtual - p) <= 1) {
@@ -211,6 +225,7 @@ export default function PaginaProdutos({
                   })}
                 </div>
 
+                {/* botão avançar página */}
                 <button 
                   onClick={() => mudarPagina(paginaAtual + 1)}
                   disabled={paginaAtual === totalPaginas}
@@ -224,6 +239,7 @@ export default function PaginaProdutos({
             )}
           </>
         ) : (
+          // tela vazia busca
           <div className="text-center py-20 animate-pulse">
             <h3 className="text-white text-2xl font-bold">Nenhum produto encontrado 🤘</h3>
             <p className="text-gray-400 mt-2">Tente buscar por outro nome.</p>

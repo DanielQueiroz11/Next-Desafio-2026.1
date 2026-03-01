@@ -5,7 +5,8 @@ export default function Footer() {
   return (
     <footer className="w-full bg-rock-dark text-white py-5 border-t border-white/10">
       <div className="w-full max-w-[1400px] 2xl:max-w-[1600px] mx-auto px-6 md:px-10 lg:px-12 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 lg:gap-8 min-[1920px]:gap-20 items-center text-center md:text-left">
-        {/* logo */}
+        
+        {/* seção central no PC, mas fica no topo no mobile */}
         <div className="flex justify-center md:order-2 pb-2">
           <Link
             href="/"
@@ -21,7 +22,7 @@ export default function Footer() {
           </Link>
         </div>
 
-        {/* redes sociais */}
+        {/* seção da esquerda no pc: redes sociais e links */}
         <div className="flex flex-col items-center md:items-start gap-4 md:order-1">
           <Link
             href="https://linktr.ee/codejr"
@@ -113,7 +114,7 @@ export default function Footer() {
             </Link>
           </div>
 
-          {/* copyright PC */}
+          {/* bloco de copyright e termos (visível apenas em telas md para cima) */}
           <div className="hidden md:flex flex-col text-xs md:text-[10px] lg:text-xs min-[1920px]:text-sm text-gray-400 mt-4 min-[1920px]:mt-6 font-mono text-left">
             <p>© 2026 Caverna do Rock. Todos os direitos reservados.</p>
             <div className="flex gap-3 mt-1">
@@ -138,7 +139,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* contato */}
+        {/* seção da direita no pc: contatos */}
         <div className="flex flex-col items-center md:items-end gap-4 md:order-3">
           <Link href="/contato" className="w-full text-center md:text-right">
             <h3 className="font-bold text-lg md:text-base lg:text-lg min-[1920px]:text-xl tracking-wider hover:text-rock-red transition-colors cursor-pointer">
@@ -197,7 +198,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* copyright mobile */}
+      {/* bloco de copyright e termos (visível apenas em telas de celular) */}
       <div className="md:hidden max-w-7xl mx-auto px-6 mt-10 pt-6 border-t border-white/5">
         <div className="flex flex-col items-center text-xs text-gray-500 font-mono text-center">
           <p>© 2026 Caverna do Rock. Todos os direitos reservados.</p>

@@ -20,6 +20,7 @@ export default function ModalVisualizarProduto({
   onClose: () => void;
 }) {
   
+  // bloqueia o scroll do fundo da tela enquanto o modal tiver aberto
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
@@ -27,14 +28,17 @@ export default function ModalVisualizarProduto({
     };
   }, []);
 
+  // formatar o preço 
   const formatarPreco = (valor: number) => {
     return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(valor);
   };
 
+  // cálculo valor das parcelas (máximo de 6x sem juros)
   const calcularParcela = (valor: number) => {
     let parcelas = Math.ceil(valor / 20);
     parcelas = Math.max(1, Math.min(6, parcelas)); 
     
+    // se o valor for baixo o suficiente, exibe apenas a opção à vista
     if (parcelas === 1) return { prefix: "À vista", value: "", suffix: "" };
     
     return {
@@ -51,12 +55,13 @@ export default function ModalVisualizarProduto({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4 py-6 overflow-y-auto"
       onClick={onClose}
     >
+      {/* caixa principal do modal */}
       <div 
         className="bg-[#1A1A1A] w-full max-w-[450px] rounded-[32px] p-8 flex flex-col gap-7 relative my-auto shadow-2xl border border-white/5 cursor-default mt-20 md:mt-auto"
         onClick={(e) => e.stopPropagation()} 
       >
         
-        {/* X fechar */}
+        {/* botão de fechar (X) no canto superior direito */}
         <button 
           onClick={onClose}
           className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors cursor-pointer"
@@ -68,13 +73,13 @@ export default function ModalVisualizarProduto({
           Visualizar produto
         </h2>
 
-        {/* nome */}
+        {/* campo: nome */}
         <div className="flex flex-col gap-1">
           <label className="text-white font-bold text-sm">Nome</label>
           <p className="text-gray-300 text-sm">{produto.title}</p>
         </div>
 
-       {/* imagem */}
+       {/* campo: imagem */}
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">Imagem</label>
           <div className="relative w-full max-w-[280px] aspect-square mx-auto bg-white rounded-2xl overflow-hidden shadow-inner mt-2">
@@ -87,7 +92,7 @@ export default function ModalVisualizarProduto({
           </div>
         </div>
 
-        {/* preço */}
+        {/* campo: preço */}
         <div className="flex flex-col gap-1">
           <label className="text-white font-bold text-sm">Preço</label>
           <div>
@@ -100,7 +105,7 @@ export default function ModalVisualizarProduto({
           </div>
         </div>
 
-        {/* descrição geral */}
+        {/* campo: descrição geral */}
         <div className="flex flex-col gap-1">
           <label className="text-white font-bold text-sm">Descrição (geral)</label>
           <p className="text-gray-300 text-sm leading-relaxed text-justify">
@@ -108,7 +113,7 @@ export default function ModalVisualizarProduto({
           </p>
         </div>
 
-        {/* descrição individual */}
+        {/* campo: descrição individual (detalhada) */}
         <div className="flex flex-col gap-1">
           <label className="text-white font-bold text-sm">Descrição (visualização individual)</label>
           <p className="text-gray-300 text-sm leading-relaxed text-justify">
@@ -116,7 +121,7 @@ export default function ModalVisualizarProduto({
           </p>
         </div>
 
-        {/* botão fechar */}
+        {/* botão de ação: fechar */}
         <div className="flex justify-center mt-6">
           <button 
             onClick={onClose} 

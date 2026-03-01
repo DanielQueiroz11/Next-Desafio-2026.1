@@ -11,15 +11,19 @@ export const metadata: Metadata = {
   description: "Site de vendas de roupas e acessórios de rock e metal.",
 };
 
+// componente raiz (server component)
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
+    // tag html principal 
     <html lang="pt-br">
       <body className={`${inter.className} bg-rock-dark`}>
+        {/* isolamento dos provedores de estado (client) protegendo a renderização no servidor */}
         <AppProvider>
+          {/* área onde as páginas específicas (page.tsx) serão renderizadas dinamicamente */}
           {children}
         </AppProvider>
       </body>

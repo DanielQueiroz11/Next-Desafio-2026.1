@@ -14,19 +14,23 @@ export default function ModalAdicionarProduto({
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // trava o scroll da página de fundo enquanto o modal estiver aberto (melhoria de ux)
   useEffect(() => {
     document.body.style.overflow = "hidden";
+    // destrava o scroll quando o modal é fechado
     return () => {
       document.body.style.overflow = "unset";
     };
   }, []);
 
+  // máscara para formatar o preço em reais (r$) em tempo real enquanto o usuário digita
   const handlePrecoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/\D/g, "");
     if (!value) {
       setPreco("");
       return;
     }
+    // limita o tamanho para evitar valores muito altos
     if (value.length > 6) {
       value = value.slice(0, 6);
     }
@@ -38,6 +42,7 @@ export default function ModalAdicionarProduto({
     setPreco(formatted);
   };
 
+  // gera um preview visual da imagem selecionada antes de enviar para o servidor
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -47,11 +52,13 @@ export default function ModalAdicionarProduto({
     }
   };
 
+  // lida com o envio do formulário, ativando o estado de loading e chamando a server action
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     const formData = new FormData(e.currentTarget);
+    // chamada da função que fará a inserção no banco via prisma
     await adicionarProduto(formData);
 
     setIsSubmitting(false);
@@ -59,6 +66,7 @@ export default function ModalAdicionarProduto({
   };
 
   return (
+    // overlay escuro que fecha o modal se clicado fora
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4 py-6 overflow-y-auto"
       onMouseDown={(e) => {
@@ -95,7 +103,7 @@ export default function ModalAdicionarProduto({
           Adicionar produto
         </h2>
 
-        {/* nome */}
+        {/* campo: nome */}
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">Nome</label>
           <input
@@ -106,7 +114,7 @@ export default function ModalAdicionarProduto({
           />
         </div>
 
-        {/* imagem */}
+        {/* campo: imagem */}
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">Imagem</label>
           <div className="flex flex-col items-center gap-4 mt-2">
@@ -136,7 +144,7 @@ export default function ModalAdicionarProduto({
           </div>
         </div>
 
-        {/* preço */}
+        {/* campo: preço */}
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">Preço</label>
           <div className="flex items-center bg-[#0D0D0D] border border-transparent focus-within:border-rock-red rounded-xl px-3.5 transition-colors shadow-inner">
@@ -153,7 +161,7 @@ export default function ModalAdicionarProduto({
           </div>
         </div>
 
-        {/* ordem na vitrine */}
+        {/* campo: ordem na vitrine */}
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">Posição na vitrine (0 é prioridade, aparece primeiro)</label>
           <input
@@ -161,11 +169,13 @@ export default function ModalAdicionarProduto({
             name="ordem"
             defaultValue="0"
             min="0"
+            // previne digitação de números negativos ou caracteres especiais inválidos :)
             onKeyDown={(e) => {
               if (e.key === '-' || e.key === 'e') {
                 e.preventDefault();
               }
             }}
+            // remove o foco se o usuário girar o scroll do mouse, evitando mudança acidental de valor
             onWheel={(e) => {
               (e.target as HTMLInputElement).blur();
             }}
@@ -177,7 +187,7 @@ export default function ModalAdicionarProduto({
           </p>
         </div>
 
-        {/* descrição geral */}
+        {/* campo: descrição geral */}
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">
             Descrição (geral)
@@ -190,7 +200,7 @@ export default function ModalAdicionarProduto({
           />
         </div>
 
-        {/* descrição individual */}
+        {/* campo: descrição individual */}
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">
             Descrição (visualização individual)
@@ -202,6 +212,7 @@ export default function ModalAdicionarProduto({
           />
         </div>
 
+        {/* botões de ação */}
         <div className="flex justify-center gap-6 mt-8">
           <button
             type="submit"

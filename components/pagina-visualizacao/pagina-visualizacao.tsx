@@ -16,11 +16,13 @@ interface ProdutoProps {
   };
 }
 
+// converter moeda
 const formatadorMoeda = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL",
 });
 
+// calcular as parcelas 
 const formatarParcela = (valor: number) => {
   let parcelas = Math.ceil(valor / 20);
   parcelas = Math.max(1, Math.min(6, parcelas));
@@ -32,17 +34,21 @@ const formatarParcela = (valor: number) => {
 };
 
 export default function PaginaVisualizacao({ produto }: ProdutoProps) {
+  // controlar as seleções do usuário antes da compra
   const [selectedSize, setSelectedSize] = useState("M");
   const [quantity, setQuantity] = useState(1);
   const [selectedModel, setSelectedModel] = useState("Masculino");
 
+  // controle do modal de feedback de adição ao carrinho
   const [showModal, setShowModal] = useState(false);
 
   const { addToCart } = useCart();
 
+  // manipular o contador de quantidade
   const increaseQty = () => setQuantity((prev) => prev + 1);
   const decreaseQty = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
 
+  // monta o objeto do produto com as variações escolhidas e envia pro contexto
   const handleAddToCart = () => {
     addToCart({
       id: produto.id,
@@ -63,11 +69,15 @@ export default function PaginaVisualizacao({ produto }: ProdutoProps) {
   const tamanhosDisponiveis = ["P", "M", "G", "GG"];
 
   return (
+    // container principal 
     <section className="w-full min-h-[calc(100vh-80px)] bg-rock-dark text-white py-8 md:py-12 px-6 sm:px-8 md:px-12 flex justify-center relative">
+      
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 lg:gap-20 items-start">
-        {/* lado esquerdo */}
+        
+        {/* coluna da esquerda: informações principais e imagem */}
         <div className="flex flex-col gap-6">
-          {/* título e preço */}
+          
+          {/* cabeçalho do produto: título e precificação */}
           <div>
             <h1 className="text-[26px] md:text-[30px] lg:text-[34px] xl:text-[40px] 2xl:text-[48px] font-black mb-2 tracking-wide leading-tight">
               {produto.title}
@@ -80,7 +90,7 @@ export default function PaginaVisualizacao({ produto }: ProdutoProps) {
             </p>
           </div>
 
-          {/* imagem */}
+          {/* container da imagem */}
           <div className="relative w-full aspect-square bg-white rounded-2xl flex items-center justify-center overflow-hidden shadow-xl border border-white/10 group">
             <div className="relative w-full h-full p-6 md:p-8">
               <Image
@@ -94,22 +104,22 @@ export default function PaginaVisualizacao({ produto }: ProdutoProps) {
           </div>
         </div>
 
-        {/* lado direito */}
+        {/* coluna da direita: detalhes e opções de compra */}
         <div className="flex flex-col gap-8 md:pt-2">
-          {/* descrição */}
+        
           <div>
             <h3 className="text-[18px] md:text-xl font-bold mb-3 text-white uppercase tracking-wider">
               Descrição
             </h3>
             <p className="text-gray-300 text-[15px] md:text-base leading-relaxed text-justify">
-              {/* tenta usar a grande, se não tiver, usa a curtinha. */}
+              {/* tenta usar a grande, se não tiver, usa a curta */}
               {produto.fullDescription ||
                 produto.description ||
                 "Descrição não disponível para este produto."}
             </p>
           </div>
 
-          {/* modelo */}
+          {/* opções de modelo de corte da camisa */}
           <div>
             <h3 className="text-rock-red text-[16px] md:text-lg font-bold mb-3 uppercase tracking-wider">
               Modelo
@@ -131,7 +141,7 @@ export default function PaginaVisualizacao({ produto }: ProdutoProps) {
             </div>
           </div>
 
-          {/* tamanho */}
+          {/* botões de seleção de tamanho */}
           <div>
             <h3 className="text-rock-red text-[16px] md:text-lg font-bold mb-3 uppercase tracking-wider">
               Tamanho
@@ -153,7 +163,7 @@ export default function PaginaVisualizacao({ produto }: ProdutoProps) {
             </div>
           </div>
 
-          {/* quantidade */}
+          {/* controle de quantidade (não pode ser menor que 1) */}
           <div>
             <h3 className="text-rock-red text-[16px] md:text-lg font-bold mb-3 uppercase tracking-wider">
               Quantidade
@@ -175,9 +185,10 @@ export default function PaginaVisualizacao({ produto }: ProdutoProps) {
             </div>
           </div>
 
-          {/* botões de ação */}
+          {/* botões de ação e navegação inferior */}
           <div className="flex flex-col gap-4 mt-2">
-            {/* botão adicionar */}
+            
+            {/* botão principal de adicionar ao carrinho */}
             <button
               onClick={handleAddToCart}
               className="w-full bg-rock-red text-white font-extrabold text-[18px] md:text-xl py-4 rounded-full hover:bg-red-700 hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-rock-red/20 flex items-center justify-center gap-3 cursor-pointer"
@@ -200,7 +211,7 @@ export default function PaginaVisualizacao({ produto }: ProdutoProps) {
               Adicionar ao carrinho
             </button>
 
-            {/* link direto para o carrinho */}
+            {/* atalho rápido para ver o carrinho */}
             <Link
               href="/carrinho"
               className="text-center text-[16px] md:text-base text-gray-400 hover:text-white mt-1 underline transition-colors font-medium"
@@ -210,18 +221,17 @@ export default function PaginaVisualizacao({ produto }: ProdutoProps) {
           </div>
         </div>
       </div>
-
-      {/* modal de sucesso */}
       {showModal && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-6"
           onClick={handleCloseModal}
         >
+          {/* evita que o clique dentro do modal acione o fechamento configurado no fundo */}
           <div
             className="bg-[#1A1A1A] border border-white/10 p-8 pt-10 rounded-3xl shadow-2xl max-w-sm w-full flex flex-col items-center text-center relative cursor-default"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* botão X */}
+            {/* botão (X) para fechar o aviso */}
             <button
               onClick={handleCloseModal}
               className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors cursor-pointer"

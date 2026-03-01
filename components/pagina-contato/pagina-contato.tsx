@@ -4,15 +4,20 @@ import { useState } from "react";
 import { enviarEmail } from "@/src/app/actions/enviar-email";
 
 export default function PaginaContato() {
+  // controlar o feedback visual do botão (loading, sucesso ou erro)
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
+  // lidar com o envio do formulário
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    // previne o comportamento padrão de recarregar a página
     e.preventDefault();
     setStatus("loading");
 
+    // extrai os dados nativamente do formulário html
     const form = e.currentTarget; 
     const formData = new FormData(form);
     
+    // chama a server action passando os dados
     const result = await enviarEmail(formData);
 
     if (result.success) {
@@ -27,21 +32,24 @@ export default function PaginaContato() {
   };
 
   return (
+    // container principal
     <main className="min-h-screen bg-rock-dark text-white py-10 px-4 md:px-8">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-[40px] font-extrabold text-center mb-12 text-white">
           Contato
         </h1>
 
+        {/* grid responsivo: 1 coluna no mobile/tablet, 2 colunas no PC */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-8 lg:gap-x-12 md:max-w-xl md:mx-auto lg:max-w-none">
           
-          {/* coluna da esquerda: formulário */}
+          {/* coluna da esquerda: formulário de mensagem */}
           <div className="border border-white/10 rounded-lg p-6 md:p-10 lg:p-8 bg-[#121212]">
             <h2 className="text-[22px] md:text-[23px] lg:text-[24px] xl:text-[25px] 2xl:text-[27px] font-extrabold text-center mb-8">
               Envie uma mensagem
             </h2>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+              {/* campo: nome */}
               <div>
                 <label className="block text-[17px] md:text-[18px] xl:text-[20px] 2xl:text-[22px] font-bold mb-2">Nome</label>
                 <input
@@ -53,6 +61,7 @@ export default function PaginaContato() {
                 />
               </div>
 
+              {/* campo: e-mail */}
               <div>
                 <label className="block text-[17px] md:text-[18px] xl:text-[20px] 2xl:text-[22px] font-bold mb-2">E-mail</label>
                 <input
@@ -64,6 +73,7 @@ export default function PaginaContato() {
                 />
               </div>
 
+              {/* campo: assunto */}
               <div>
                 <label className="block text-[17px] md:text-[18px] xl:text-[20px] 2xl:text-[22px] font-bold mb-2">Assunto</label>
                 <input
@@ -75,6 +85,7 @@ export default function PaginaContato() {
                 />
               </div>
 
+              {/* campo: mensagem */}
               <div>
                 <label className="block text-[17px] md:text-[18px] xl:text-[20px] 2xl:text-[22px] font-bold mb-2">Mensagem</label>
                 <textarea
@@ -86,6 +97,7 @@ export default function PaginaContato() {
                 />
               </div>
 
+              {/* botão de envio dinâmico com base no status da requisição */}
               <button
                 type="submit"
                 disabled={status === "loading" || status === "success"}
@@ -105,12 +117,15 @@ export default function PaginaContato() {
             </form>
           </div>
 
-          {/* coluna da direita */}
+          {/* coluna da direita: informações gerais */}
           <div className="flex flex-col gap-8">
-            {/* 1° bloco: informações de contato */}
+            
+            {/* 1° bloco: informações de contato (email, telefone e endereço) */}
             <div className="border border-white/10 rounded-lg p-6 md:p-10 lg:p-8 bg-[#121212] flex-1">
               <h2 className="text-[22px] md:text-[23px] lg:text-[24px] xl:text-[25px] 2xl:text-[27px] font-extrabold text-center mb-8">Informações de contato</h2>
               <div className="flex flex-col gap-8">
+                
+                {/* info: email */}
                 <div className="flex items-start gap-4">
                   <div className="mt-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
@@ -121,6 +136,7 @@ export default function PaginaContato() {
                   </div>
                 </div>
 
+                {/* info: telefone */}
                 <div className="flex items-start gap-4">
                   <div className="mt-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -132,7 +148,7 @@ export default function PaginaContato() {
                   </div>
                 </div>
 
-                {/* ENDEREÇO CLICÁVEL */}
+                {/* info: endereço clicável que abre no google maps */}
                 <a 
                   href="https://www.google.com/maps/search/?api=1&query=Rua+Barão+de+Cataguases,+4789+-+Santa+Helena,+Juiz+de+Fora+-+MG" 
                   target="_blank" 
@@ -158,7 +174,7 @@ export default function PaginaContato() {
 
             {/* 2° bloco: redes sociais */}
             <div className="border border-white/10 rounded-lg p-6 md:p-10 lg:p-8 bg-[#121212] flex-1">
-             <h2 className="text-[22px] md:text-[23px] lg:text-[24px] xl:text-[25px] 2xl:text-[27px] font-extrabold text-center mb-6">Redes sociais</h2>
+              <h2 className="text-[22px] md:text-[23px] lg:text-[24px] xl:text-[25px] 2xl:text-[27px] font-extrabold text-center mb-6">Redes sociais</h2>
               <p className="text-sm text-gray-300 mb-8 text-center md:text-left lg:text-center">
                 Siga-nos nas redes sociais para ficar por dentro das <span className="text-rock-red font-bold">novidades e promoções</span>.
               </p>

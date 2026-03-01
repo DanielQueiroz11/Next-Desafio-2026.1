@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  // limpar os produtos antigos :)
+  // limpa os produtos antigos para evitar duplicação de dados
   await prisma.product.deleteMany();
 
   const products = [
@@ -63,10 +63,11 @@ async function main() {
     });
   }
 
-  // pra saber se deu certo!!
+  // pra saber se deu certo!! --> mensagem de sucesso visível no terminal
   console.log("Banco de dados semeado com produtos de Rock com sucesso! 🤘");
 }
 
+// executa a função principal lidando com possíveis erros e encerrando a conexão ao final
 main()
   .catch((e) => {
     console.error(e);

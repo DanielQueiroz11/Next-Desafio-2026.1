@@ -15,35 +15,39 @@ export default function ModalExcluirProduto({
   produto: Produto;
   onClose: () => void;
 }) {
+  // controlar o carregamento e evitar muitos cliques na hora de excluir
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // bloqueia o scroll da página ao fundo quando o modal abre
+  // bloqueia o scroll da página ao fundo quando o modal abre 
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
+    // restaurar o scroll ao fechar o modal
     return () => {
       document.body.style.overflow = "unset";
     };
   }, []);
 
-  // função que chama o backend para deletar
+  // chama o backend para deletar e gerencia o estado de loading
   const handleExcluir = async () => {
     setIsDeleting(true);
     await excluirProduto(produto.id);
     setIsDeleting(false);
-    onClose(); // fecha o modal após excluir
+    onClose(); // fecha o modal automaticamente após concluir a exclusão
   };
 
   return (
+    // overlay com fundo escuro que fecha o modal ao clicar fora
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4 py-6 overflow-y-auto"
       onClick={onClose}
     >
+      {/* container principal do modal */}
       <div
         className="bg-[#1A1A1A] w-full max-w-[450px] rounded-[32px] p-8 flex flex-col gap-6 relative my-auto shadow-2xl border border-white/5 cursor-default"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* X */}
+        {/* botão de fechar (X) no canto superior */}
         <button
           onClick={onClose}
           disabled={isDeleting}
@@ -52,12 +56,12 @@ export default function ModalExcluirProduto({
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
 
-        {/* título */}
+        {/* título principal */}
         <h2 className="text-[22px] font-black text-white text-center mb-2 mt-2">
           Excluir produto
         </h2>
 
-        {/* texto de aviso */}
+        {/* texto de confirmação */}
         <p className="text-white text-[16px] font-medium leading-relaxed text-center px-2">
           Tem certeza que deseja excluir o produto <span className="text-rock-red font-bold">&quot;{produto.title}&quot;</span>?
           Essa ação não poderá ser desfeita!

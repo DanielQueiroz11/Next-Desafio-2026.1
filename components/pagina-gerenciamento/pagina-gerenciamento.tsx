@@ -38,19 +38,22 @@ export default function PaginaGerenciamento({
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  // estados para controlar a abertura e fechamento de cada modal do crud
   const [isModalAdicionarOpen, setIsModalAdicionarOpen] = useState(false);
   const [produtoVisualizar, setProdutoVisualizar] = useState<Produto | null>(null);
   const [produtoExcluir, setProdutoExcluir] = useState<Produto | null>(null);
   const [produtoEditar, setProdutoEditar] = useState<Produto | null>(null);
   const [produtoDuplicar, setProdutoDuplicar] = useState<Produto | null>(null);
 
+  // estado local para a barra de pesquisa
   const [searchTerm, setSearchTerm] = useState(searchTermProp);
   
-  // controle da Sidebar no mobile
+  // estado para controle da sidebar no modo mobile/tablet
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const isSearching = searchTerm !== searchTermProp;
 
+  // atualiza os parâmetros da url para realizar a busca no lado do servidor
   const handleSearch = (term: string) => {
     setSearchTerm(term);
     const params = new URLSearchParams(searchParams.toString());
@@ -61,10 +64,13 @@ export default function PaginaGerenciamento({
       params.delete("search");
     }
 
+    // reseta para a primeira página sempre que uma nova busca é feita
     params.set("page", "1");
+    // utiliza replace em vez de push para não poluir o histórico de navegação do usuário
     router.replace(`/gerenciamento?${params.toString()}`);
   };
 
+  // atualiza a url para mudar de página sem perder o termo de pesquisa atual
   const mudarPagina = (novaPagina: number) => {
     if (novaPagina >= 1 && novaPagina <= totalPaginas) {
       const params = new URLSearchParams(searchParams.toString());
@@ -73,6 +79,7 @@ export default function PaginaGerenciamento({
     }
   };
 
+  // formatar os valores
   const formatarPreco = (valor: number) => {
     return new Intl.NumberFormat("pt-BR", {
       style: "currency",
@@ -83,6 +90,7 @@ export default function PaginaGerenciamento({
   return (
     <main className="flex min-h-screen bg-rock-dark">
       
+      {/* fecha a sidebar ao clicar fora dela */}
       {isSidebarOpen && (
         <div 
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden transition-opacity"
@@ -90,13 +98,13 @@ export default function PaginaGerenciamento({
         />
       )}
 
-      {/* sidebar */}
+      {/* menu lateral - sidebar */}
       <aside 
         className={`fixed inset-y-0 left-0 z-50 flex flex-col w-[250px] shrink-0 bg-rock-dark min-h-screen shadow-2xl border-r border-white/10 transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/*botão "X" (mobile) */}
+        {/* botão "X" para fechar a sidebar no mobile */}
         <button 
           onClick={() => setIsSidebarOpen(false)}
           className="absolute top-4 right-4 text-gray-400 hover:text-white lg:hidden cursor-pointer"
@@ -148,12 +156,13 @@ export default function PaginaGerenciamento({
         </nav>
       </aside>
 
-      {/* parte da direita */}
+      {/* área principal de conteúdo à direita */}
       <section className="flex-1 flex flex-col min-w-0">
+        
         {/* topbar */}
         <header className="relative w-full py-6 md:py-0 md:h-24 bg-[#2A2A2A] flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-8 shadow-md z-0 border-b border-white/5">
           <div className="w-full md:flex-1 flex justify-start">
-            {/* menu hambúrguer */}
+            {/* botão hambúrguer exclusivo do mobile */}
             <button
               onClick={() => setIsSidebarOpen(true)}
               className="absolute md:static left-4 top-6 lg:hidden text-white hover:text-rock-red transition-colors cursor-pointer flex items-center justify-center"
@@ -166,7 +175,7 @@ export default function PaginaGerenciamento({
             </button>
           </div>
 
-          {/* título com a quantidade total de produtos do site */}
+          {/* título e contador dinâmico de produtos do estoque geral */}
           <div className="flex flex-col items-center mt-8 md:mt-0">
             <h1 className="text-white text-xl md:text-2xl lg:text-[28px] font-black tracking-wider uppercase text-center leading-tight">
               Gerenciamento
@@ -179,6 +188,7 @@ export default function PaginaGerenciamento({
             </span>
           </div>
 
+          {/* botão responsável por abrir o modal principal de criação (create do crud) */}
           <div className="w-full md:flex-1 flex justify-end mt-6 md:mt-0">
             <button
               onClick={() => setIsModalAdicionarOpen(true)}
@@ -189,9 +199,9 @@ export default function PaginaGerenciamento({
           </div>
         </header>
 
-        {/* área do conteúdo */}
         <div className="p-4 md:p-8 flex-1 flex flex-col max-w-7xl mx-auto w-full bg-[#1A1A1A]">
-          {/* barra de pesquisa */}
+          
+          {/* barra de pesquisa controlada via state e url */}
           <div className="flex flex-col items-center mb-8">
             <div className="relative w-full max-w-sm 2xl:max-w-md">
               <input
@@ -219,7 +229,7 @@ export default function PaginaGerenciamento({
               </div>
             </div>
 
-            {/* mensagem de resultados da busca */}
+            {/* feedback visual sobre os resultados da pesquisa atual */}
             {searchTerm && (
               <div className="w-full max-w-md mt-3 px-3 text-gray-400 text-[13.5px] font-medium">
                 {isSearching ? (
@@ -233,7 +243,7 @@ export default function PaginaGerenciamento({
             )}
           </div>
 
-          {/* lista dos cards */}
+          {/* listagem de produtos iterando sobre o array vindo do banco via props */}
           {produtos.length > 0 ? (
             <div className="flex flex-col gap-6 lg:gap-8 flex-1">
               {produtos.map((produto) => (
@@ -241,7 +251,7 @@ export default function PaginaGerenciamento({
                   key={produto.id}
                   className="w-full bg-[#F5F5F5] rounded-xl overflow-hidden shadow-xl md:max-w-xl md:mx-auto lg:max-w-none"
                 >
-                  {/* cabeçalho vermelho */}
+                  {/* cabeçalho da tabela (escondido em telas menores) */}
                   <div className="hidden lg:flex w-full bg-rock-red text-white items-center py-3 px-4 font-bold text-[15px]">
                     <div className="w-[15%] text-center">Imagem</div>
                     <div className="w-[20%] text-center">Nome</div>
@@ -250,7 +260,7 @@ export default function PaginaGerenciamento({
                     <div className="w-[15%] text-center">Ações</div>
                   </div>
 
-                  {/* corpo (branco) do card */}
+                  {/* linha/card de conteúdo do produto */}
                   <div className="w-full flex flex-col lg:flex-row items-center py-6 px-4 text-black gap-4 lg:gap-0">
                     <div className="w-full lg:w-[15%] flex justify-center">
                       <div className="relative w-50 h-50 lg:w-36 lg:h-36 bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden shrink-0">
@@ -272,7 +282,7 @@ export default function PaginaGerenciamento({
                       {produto.description}
                     </div>
                     
-                    {/* botões de ação */}
+                    {/* botões de ação do crud */}
                     <div className="w-full lg:w-[15%] flex flex-row lg:flex-col flex-wrap items-center justify-center gap-2 lg:gap-3 mt-4 lg:mt-0 border-t border-gray-200 lg:border-t-0 pt-4 lg:pt-0">
                       <button
                         onClick={() => setProdutoVisualizar(produto)}
@@ -288,7 +298,7 @@ export default function PaginaGerenciamento({
                       </button>
                       <button
                         onClick={() => setProdutoExcluir(produto)}
-                        className="flex-1 lg:flex-none lg:w-24 bg-rock-red hover:bg-red-700 text-white font-bold py-2 lg:py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer text-sm"
+                        className="flex-1 lg:flex-none lg:w-24 bg-gray-800 hover:bg-black text-white font-bold py-2 lg:py-1.5 rounded-lg transition-all shadow-md active:scale-95 cursor-pointer text-sm"
                       >
                         Excluir
                       </button>
@@ -304,6 +314,7 @@ export default function PaginaGerenciamento({
               ))}
             </div>
           ) : (
+            // tela vazia exibida quando a pesquisa não retorna resultados
             <div className="flex-1 flex flex-col items-center justify-center text-center py-20">
               <p className="text-gray-400 text-xl font-bold">
                 Nenhum produto encontrado. 🤘
@@ -311,7 +322,7 @@ export default function PaginaGerenciamento({
             </div>
           )}
 
-          {/* paginação */}
+          {/* controles de paginação exibidos somente se houver mais de uma página */}
           {totalPaginas > 1 && (
             <div className="flex justify-center items-center gap-2 md:gap-5 mt-12 mb-4 text-rock-red font-medium text-sm md:text-[18px]">
               <button
@@ -324,9 +335,11 @@ export default function PaginaGerenciamento({
                 <span className="hidden md:inline">Anterior</span>
               </button>
 
+              {/* gera dinamicamente os números de página baseado no total */}
               <div className="flex items-center gap-1 md:gap-3 text-gray-300">
                 {Array.from({ length: totalPaginas }, (_, i) => i + 1).map(
                   (p) => {
+                    // exibe apenas a primeira, a última e as páginas adjacentes à atual
                     if (
                       p === 1 ||
                       p === totalPaginas ||
@@ -342,6 +355,7 @@ export default function PaginaGerenciamento({
                         </button>
                       );
                     }
+                    // adiciona reticências para indicar que há páginas ocultas
                     if (p === paginaAtual - 2 || p === paginaAtual + 2) {
                       return (
                         <span
@@ -371,7 +385,7 @@ export default function PaginaGerenciamento({
         </div>
       </section>
 
-      {/* renderização dos modais */}
+      {/* área de montagem de todos os modais */}
       {isModalAdicionarOpen && (
         <ModalAdicionarProduto
           onClose={() => setIsModalAdicionarOpen(false)}

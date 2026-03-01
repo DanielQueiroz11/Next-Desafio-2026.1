@@ -11,6 +11,7 @@ export type CartItem = {
   image: string;
 };
 
+// estado inicial (mock :) )
 const initialCart: CartItem[] = [
   {
     id: 1,
@@ -42,25 +43,33 @@ type CartContextType = {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
+// gerencia o estado do carrinho e distribui as funções para os filhos
 export function CartProvider({ children }: { children: ReactNode }) {
+  // armazena a lista de produtos no carrinho do usuário
   const [cartItems, setCartItems] = useState<CartItem[]>(initialCart);
 
+  // adicionar novos produtos ou somar a quantidade se já existirem no carrinho
   const addToCart = (item: CartItem) => {
     setCartItems((prev) => {
+      // verifica se o produto (mesmo id) já foi adicionado antes
       const existingItem = prev.find((i) => i.id === item.id);
       if (existingItem) {
+        // se existir, atualiza apenas a quantidade daquele item, mantendo os outros inalterados
         return prev.map((i) =>
           i.id === item.id ? { ...i, quantity: i.quantity + item.quantity } : i
         );
       }
+      // se não existir, adiciona o objeto do item novo no final do array do carrinho
       return [...prev, item];
     });
   };
 
+  // remover um item específico do carrinho filtrando-o para fora da lista através do id
   const removeFromCart = (id: number) => {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
+  // incrementar a quantidade de um item diretamente na tela do carrinho
   const increaseQuantity = (id: number) => {
     setCartItems((prev) =>
       prev.map((item) =>
@@ -69,6 +78,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
   };
 
+  // decrementar a quantidade, impedindo via condição que o valor fique menor que 1
   const decreaseQuantity = (id: number) => {
     setCartItems((prev) =>
       prev.map((item) =>
@@ -79,10 +89,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
   };
 
+  // esvaziar completamente o carrinho
   const clearCart = () => {
     setCartItems([]);
   };
 
+  // cálculo da quantidade total de itens para exibir na bolinha da navbar
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (

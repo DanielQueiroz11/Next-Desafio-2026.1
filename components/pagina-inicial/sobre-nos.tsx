@@ -6,15 +6,17 @@ type SobreNosProps = {
 
 export default function SobreNos({ identities = [] }: SobreNosProps) {
   
-  // DEFESA: Filtra a lista para garantir que não haja títulos duplicados
+  // filtra a lista recebida da API para garantir que não haja títulos duplicados
   const identidadesUnicas = identities.filter(
     (item, index, self) => 
       index === self.findIndex((t) => t.title.toLowerCase() === item.title.toLowerCase())
   );
 
+  // função utilitária que renderiza um ícone svg dinâmico
   const renderIcon = (title: string) => {
     const titleLower = title.toLowerCase();
     
+    // verifica se é "missão"
     if (titleLower.includes("miss")) {
       return (
         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
@@ -25,6 +27,7 @@ export default function SobreNos({ identities = [] }: SobreNosProps) {
       );
     }
     
+    // verifica se é "visão"
     if (titleLower.includes("vis")) {
       return (
         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
@@ -34,6 +37,7 @@ export default function SobreNos({ identities = [] }: SobreNosProps) {
       );
     }
 
+    // fallback padrão para "valores"
     return (
       <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
         <line x1="8" y1="6" x2="21" y2="6" />
@@ -47,21 +51,26 @@ export default function SobreNos({ identities = [] }: SobreNosProps) {
   };
 
   return (
+    // container principal da seção
     <section className="w-full py-16 px-4 bg-[#111] relative">
+      
       <div className="absolute inset-0 opacity-20 pointer-events-none" 
            style={{
              backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E")`
            }}
       ></div>
 
+      {/* área central */}
       <div className="max-w-7xl mx-auto relative z-10">
         <h2 className="text-[32px] md:text-[38px] font-bold text-center mb-12 text-white">
           Sobre Nós
         </h2>
 
+        {/* renderização condicional garantindo que o grid só aparece se houver dados da API */}
         {identidadesUnicas.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Agora fazemos o map em 'identidadesUnicas' em vez de 'identities' */}
+            
+            {/* mapeia os itens limpos e filtrados para renderizar os cards */}
             {identidadesUnicas.map((item) => (
               <div 
                 key={item.id} 
@@ -78,6 +87,7 @@ export default function SobreNos({ identities = [] }: SobreNosProps) {
             ))}
           </div>
         ) : (
+          // estado de carregamento visível enquanto a API não devolve a resposta
           <div className="text-center text-gray-400 py-8">
             <p>Carregando informações da Caverna do Rock...</p>
           </div>

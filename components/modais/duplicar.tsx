@@ -21,13 +21,16 @@ export default function ModalDuplicarProduto({
   onClose: () => void;
 }) {
   const router = useRouter();
+  // estados para controlar o número de cópias e o visual de carregamento
   const [quantidade, setQuantidade] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
+  // interage com a API route para duplicar os itens no banco
   const handleDuplicar = async () => {
     setIsLoading(true);
 
     try {
+      // requisição post enviando o ID original e quantas cópias devem ser feitas
       const response = await fetch("/api/produtos/duplicar", {
         method: "POST",
         headers: {
@@ -40,6 +43,7 @@ export default function ModalDuplicarProduto({
       });
 
       if (response.ok) {
+        // atualiza a rota atual para o servidor buscar os dados atualizados do banco 
         router.refresh();
         onClose();
       } else {
@@ -54,6 +58,7 @@ export default function ModalDuplicarProduto({
   };
 
   return (
+    // overlay com fundo escuro e desfoque para destacar o modal
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
       <div className="bg-[#2A2A2A] rounded-2xl w-full max-w-md p-6 shadow-2xl border border-white/10 relative">
         <h2 className="text-2xl font-black text-white mb-2 uppercase">
@@ -65,6 +70,7 @@ export default function ModalDuplicarProduto({
           deseja criar?
         </p>
 
+        {/* controle de quantidade limitando a 50 para evitar travamentos no banco!! */}
         <div className="mb-8">
           <label className="block text-white font-bold mb-2 text-sm">
             Quantidade de cópias
@@ -79,6 +85,7 @@ export default function ModalDuplicarProduto({
           />
         </div>
 
+        {/* botões de ação desabilitados dinamicamente durante o loading */}
         <div className="flex gap-4 justify-end">
           <button
             onClick={onClose}

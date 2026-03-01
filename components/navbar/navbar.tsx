@@ -7,17 +7,20 @@ import { useAudio } from "@/src/providers/audio-context";
 import { useCart } from "@/src/providers/cart-context";
 
 export default function Navbar() {
+  //controlar a abertura e fechamento do menu no mobile
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { isPlaying, toggleAudio } = useAudio();
   const { cartCount } = useCart();
 
+  // trava o scroll da página de fundo quando o menu mobile tiver aberto
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
     }
+    // garantir que o scroll volte ao normal ao desmontar
     return () => {
       document.body.style.overflow = "auto";
     };
@@ -25,12 +28,14 @@ export default function Navbar() {
 
   return (
     <nav className="relative w-full h-20 bg-rock-dark flex items-center justify-between px-6 md:px-8 border-b border-white/10 z-50">
-      {/* menu hambúrguer (mobile e tablet) */}
+      
+      {/* menu hambúrguer (visível só no mobile e tablet) */}
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         className="text-white lg:hidden hover:text-rock-red transition-colors z-50 relative"
       >
         {isMenuOpen ? (
+          // ícone de fechar (X)
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-9 h-9"
@@ -46,6 +51,7 @@ export default function Navbar() {
             />
           </svg>
         ) : (
+          // ícone de hambúrguer
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="bi bi-list w-9 h-9"
@@ -60,7 +66,7 @@ export default function Navbar() {
         )}
       </button>
 
-      {/* centro: logo */}
+      {/* centro: logo da loja com alinhamento absoluto no mobile e estático no desktop */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 lg:static lg:transform-none lg:translate-x-0 lg:translate-y-0 flex items-center z-50">
         <Link
           href="/"
@@ -74,9 +80,10 @@ export default function Navbar() {
         </Link>
       </div>
 
-      {/* área direita - campos + carrinho */}
+      {/* área direita: links de navegação e carrinho */}
       <div className="flex items-center gap-6 md:gap-4 lg:gap-8 min-[1920px]:gap-12 font-medium z-50 relative">
-        {/* links (apenas desktop a partir de lg: 1024px) */}
+        
+        {/* links principais (visíveis apenas a partir de 1024px) */}
         <div className="hidden lg:flex items-center gap-3 lg:gap-8 min-[1920px]:gap-12">
           <AudioPlayer
             isPlaying={isPlaying}
@@ -116,7 +123,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* carrinho */}
+        {/* ícone do carrinho de compras */}
         <Link
           href="/carrinho"
           onClick={() => setIsMenuOpen(false)}
@@ -137,7 +144,7 @@ export default function Navbar() {
             <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
           </svg>
 
-          {/* quantidade no carrinho */}
+          {/* contador de itens  */}
           {cartCount > 0 && (
             <span className="absolute -top-1.5 -right-2 bg-rock-red text-white text-[10px] md:text-[12px] lg:text-[13px] min-[1920px]:text-[15px] font-bold w-4 h-4 md:w-5 md:h-5 lg:w-5 lg:h-5 min-[1920px]:w-6 min-[1920px]:h-6 rounded-full flex items-center justify-center border border-rock-dark">
               {cartCount}
@@ -148,7 +155,8 @@ export default function Navbar() {
 
       {isMenuOpen && (
         <div className="absolute top-20 left-0 w-full h-[calc(100vh-80px)] bg-[#0d0d0d]/98 backdrop-blur-md border-t border-white/10 lg:hidden flex flex-col items-center pt-8 pb-12 px-6 shadow-2xl animate-in slide-in-from-top-2 duration-300 z-40 overflow-y-auto">
-          {/* links em formato de lista */}
+          
+          {/* lista de links do mobile */}
           <div className="flex flex-col w-full max-w-sm gap-2">
             <Link
               href="/"
@@ -187,6 +195,7 @@ export default function Navbar() {
             </Link>
           </div>
 
+          {/* player de rádio integrado ao menu mobile */}
           <div className="mt-10 flex flex-col items-center gap-4">
             <span className="text-gray-500 text-[13px] font-bold uppercase tracking-[0.15em]">
               Rádio da Caverna

@@ -7,20 +7,23 @@ import path from "path";
 
 // ADICIONAR
 export async function adicionarProduto(formData: FormData) {
+  // extração tipada dos dados enviados pelo formulário do front-end
   const nome = formData.get("nome") as string;
   const precoString = formData.get("preco") as string;
   const descricaoGeral = formData.get("descricaoGeral") as string;
   const descricaoIndividual = formData.get("descricaoIndividual") as string;
   const imagemFile = formData.get("imagem") as File | null;
   
-  // pega o valor do campo "ordem" do formulário (se não tiver nada, vira 0)
   const ordem = parseInt(formData.get("ordem") as string) || 0;
 
+  // tratamento da string de moeda para ser aceita pelo bd
   const precoLimpo = precoString.replace(/\./g, "").replace(",", ".");
   const precoFormatado = parseFloat(precoLimpo);
 
+  // define uma imagem padrão caso o usuário não envie nenhuma
   let caminhoImagem = "/imagens/produto-padrao.jpg";
 
+  // se houver arquivo de imagem válido, converte para buffer e salva fisicamente no servidor
   if (imagemFile && imagemFile.size > 0) {
     const bytes = await imagemFile.arrayBuffer();
     const buffer = Buffer.from(bytes);
@@ -36,6 +39,7 @@ export async function adicionarProduto(formData: FormData) {
     caminhoImagem = `/imagens/${nomeArquivo}`;
   }
 
+  // criação do registro do produto no banco de dados
   await db.product.create({
     data: {
       title: nome,
@@ -61,6 +65,7 @@ export async function excluirProduto(id: number) {
       where: { id },
     });
 
+    // limpa o cache das rotas para que o produto suma imediatamente da tela
     revalidatePath("/gerenciamento");
     revalidatePath("/");
     revalidatePath("/produtos");
@@ -75,6 +80,7 @@ export async function excluirProduto(id: number) {
 // EDITAR
 export async function editarProduto(formData: FormData) {
   try {
+    // extração dos dados
     const id = parseInt(formData.get("id") as string);
     const nome = formData.get("nome") as string;
     const precoString = formData.get("preco") as string;
@@ -94,7 +100,7 @@ export async function editarProduto(formData: FormData) {
       description: string;
       fullDescription: string;
       ordem: number; 
-      image?: string; // imagem é opcional
+      image?: string;
     };
 
     const dadosAtualizados: DadosAtualizados = {
@@ -105,7 +111,7 @@ export async function editarProduto(formData: FormData) {
       ordem: ordem, // coloca a ordem nos dados que serão atualizados
     };
 
-    // se o usuário mandou uma imagem nova, salva e adiciona na att
+    // se o usuário mandou uma imagem nova, salva o arquivo novo e adiciona o caminho na atualização
     if (imagemFile && imagemFile.size > 0) {
       const bytes = await imagemFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
@@ -120,12 +126,12 @@ export async function editarProduto(formData: FormData) {
       dadosAtualizados.image = `/imagens/${nomeArquivo}`;
     }
 
+    // executa o update via prisma apenas nos campos alterados/enviados
     await db.product.update({
       where: { id },
       data: dadosAtualizados,
     });
 
-    // atualiza as telas
     revalidatePath("/gerenciamento");
     revalidatePath("/");
     revalidatePath("/produtos");
@@ -137,7 +143,7 @@ export async function editarProduto(formData: FormData) {
   }
 }
 
-// verificar ordem (checa se alguém já ocupa a posição e devolve nome e ID)
+// verificar ordem (checa se alguém já ocupa a posição e devolve nome e id)
 export async function verificarOrdem(ordem: number, idIgnorado?: number) {
   if (!ordem || ordem === 0) return null;
 
@@ -146,6 +152,7 @@ export async function verificarOrdem(ordem: number, idIgnorado?: number) {
       ordem: ordem,
       ...(idIgnorado && { id: { not: idIgnorado } }),
     },
+    // seleciona apenas o que é necessário para otimizar o banco
     select: { title: true, id: true }, 
   });
 

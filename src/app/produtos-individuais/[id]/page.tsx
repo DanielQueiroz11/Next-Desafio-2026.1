@@ -6,12 +6,14 @@ export default async function ProdutoPage(props: {
 }) {
   const params = await props.params; 
 
+  // busca o produto específico no bd
   const produtoDoBanco = await db.product.findUnique({
     where: {
       id: Number(params.id), 
     },
   });
 
+  // tratamento de erro (caso o usuário acesse um id inexistente ou deletado)
   if (!produtoDoBanco) {
     return (
       <div className="flex h-screen items-center justify-center bg-rock-dark text-white text-2xl font-bold">
@@ -20,5 +22,6 @@ export default async function ProdutoPage(props: {
     );
   }
 
+  // renderiza o componente client-side 
   return <PaginaVisualizacao produto={produtoDoBanco} />;
 }

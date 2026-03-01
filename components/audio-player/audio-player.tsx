@@ -9,15 +9,17 @@ interface AudioPlayerProps {
 }
 
 export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: AudioPlayerProps) {
+  // useRef aqui para acessar o elemento de áudio e o intervalo sem causar renderizações desnecessárias
   const audioRef = useRef<HTMLAudioElement>(null);
   const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const MP3_URL = "/audios/led-zep.mp3";
   const RADIO_URL = "https://s2-webradio.antenne.de/heavy-metal";
 
-  // funciona apenas para PC e androids, o iOS ignora isso, rs
+  // limite de volume (funciona apenas para PC e android; o iOS bloqueia o controle de volume, e.e)
   const MAX_VOLUME = 0.3; 
 
+  // efeito executado na montagem: recupera o tempo da música do sessionStorage para que a música continue de onde parou ao navegar entre as páginas.
   useEffect(() => {
     if (audioRef.current) {
       if (!isRadio) {
@@ -29,19 +31,22 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
     }
   }, [isRadio]);
 
+  // controlar o play/pause e os efeitos de fade-in/fade-out
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
+    // limpa qualquer intervalo de fade anterior para evitar conflitos
     if (fadeIntervalRef.current) {
       clearInterval(fadeIntervalRef.current);
     }
 
     if (isPlaying) {
-      // fade-in
+      // configuração de fade-in 
       audio.volume = 0; 
       const playPromise = audio.play();
 
+      // tratamento de promessa do play() para evitar erros no console caso o navegador bloqueie o autoplay
       if (playPromise !== undefined) {
         playPromise
           .then(() => {
@@ -52,12 +57,12 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
                 audio.volume = MAX_VOLUME; 
                 if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
               }
-            }, 500); //pra começar
+            }, 500); // intervalo de tempo do fade-in :)
           })
-          .catch((e) => console.log("Erro/Autoplay:", e));
+          .catch((e) => console.log("Erro/Autoplay bloqueado pelo navegador:", e));
       }
     } else {
-      // fade-out
+      // config do fade-out
       fadeIntervalRef.current = setInterval(() => {
         if (audio.volume > 0.05) {
           audio.volume = Math.max(0, audio.volume - 0.05);
@@ -66,7 +71,7 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
           audio.pause(); 
           if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
         }
-      }, 30); //pra pausar
+      }, 30); // intervalo de tempo do fade-in :)
     }
 
     return () => {
@@ -74,6 +79,7 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
     };
   }, [isPlaying]);
 
+  // salva o progresso da música local a cada atualização de tempo
   const handleTimeUpdate = () => {
     if (audioRef.current && !isRadio) {
       sessionStorage.setItem("musicTime", audioRef.current.currentTime.toString());
@@ -99,7 +105,7 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
         aria-label={isRadio ? "Tocar rádio" : "Tocar música"}
       >
         {isPlaying ? (
-          // ícone som ligado 
+          // ícone som ligado
           <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
             <path d="M15.54 8.46a5 5 0 0 1 0 7.07" opacity="0.5">
@@ -110,7 +116,7 @@ export default function AudioPlayer({ isPlaying, onToggle, isRadio = false }: Au
             </path>
           </svg>
         ) : (
-          // ícone mutar
+          // ícone som mutado
           <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-300">
             <path d="M11 5L6 9H2v6h4l5 4V5z" />
             <line x1="23" y1="9" x2="17" y2="15" />

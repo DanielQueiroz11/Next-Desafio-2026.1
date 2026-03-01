@@ -13,12 +13,16 @@ type Produto = {
 };
 
 export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
+  // controla o deslocamento horizontal do carrossel
   const [currentIndex, setCurrentIndex] = useState(0);
+  
+  // identificar os diferentes breakpoints da tela
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
   const [isLargeDesktop, setIsLargeDesktop] = useState(false);
   const [isUltrawide, setIsUltrawide] = useState(false); 
 
+  // exibir o preço padrão BR
   const formatadorMoeda = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
@@ -26,6 +30,7 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
 
   const formatarPreco = (valor: number) => formatadorMoeda.format(valor);
 
+  // calcula dinamicamente as parcelas permitidas (até 6x sem juros)
   const renderParcelamento = (valor: number) => {
     let parcelas = Math.ceil(valor / 20);
     parcelas = Math.max(1, Math.min(6, parcelas));
@@ -48,19 +53,24 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
       setIsLargeDesktop(width >= 1600 && width < 1999);
       setIsUltrawide(width >= 2000); 
     };
+    
+    // chamada inicial imediata para não precisar esperar o resize
     handleResize();
     window.addEventListener("resize", handleResize);
+    
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // mobile e tablet com 6 cards
+  // limita a quantidade total de produtos que entram no carrossel conforme a tela
   const displayProdutos = (isMobile || isTablet) ? produtos.slice(0, 6)
     : isUltrawide ? produtos.slice(0, 10)
     : produtos.slice(0, 8);
 
+  // define a quantidade de itens visíveis por página
   const itemsPerPage = isMobile ? 1 : isTablet ? 2 : isUltrawide ? 5 : isLargeDesktop ? 4 : 3;
   const maxIndex = Math.max(0, displayProdutos.length - itemsPerPage);
 
+  // avança um slide; volta ao início se estiver no fim
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => {
       if (prevIndex >= maxIndex) return 0;
@@ -68,6 +78,7 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
     });
   };
 
+  // volta um slide; pula para o fim se estiver no início
   const prevSlide = () => {
     setCurrentIndex((prevIndex) => {
       if (prevIndex === 0) return maxIndex;
@@ -75,6 +86,7 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
     });
   };
 
+  // ativação da passagem automática dos slides para mobile
   useEffect(() => {
     if (isMobile && displayProdutos.length > 0) {
       const interval = setInterval(() => {
@@ -85,6 +97,7 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile, maxIndex, displayProdutos.length]);
 
+  // determina a porcentagem de deslocamento css com base no tamanho da tela
   const getTranslateX = () => {
     if (isMobile) return 100;
     if (isTablet) return 50;
@@ -93,10 +106,12 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
     return 33.333333;
   };
 
+  // não renderiza a seção se a API/banco não retornou nenhum destaque
   if (displayProdutos.length === 0) return null;
 
   return (
     <section className="w-full max-w-[1300px] min-[1600px]:max-w-[1600px] min-[2000px]:max-w-[1800px] mx-auto px-4 py-16 overflow-hidden">
+      
       {/* título */}
       <div className="flex items-center justify-center gap-4 mb-12">
         <svg
@@ -131,7 +146,8 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
       </div>
 
       <div className="relative w-full md:px-12 lg:px-16">
-        {/* seta esquerda */}
+        
+        {/* botão seta de voltar - visível apenas no PC */}
         <button
           onClick={prevSlide}
           className="absolute left-0 z-20 top-1/2 -translate-y-1/2 p-2 bg-white text-black rounded-full hover:bg-gray-200 transition hidden md:flex items-center justify-center cursor-pointer shadow-lg"
@@ -163,6 +179,7 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
                 key={produto.id}
                 className="w-full md:w-1/2 lg:w-1/3 min-[1600px]:w-1/4 min-[2000px]:w-1/5 flex-none px-3 min-[1600px]:px-4 min-[2000px]:px-5 box-border"
               >
+                {/* o card inteiro é um link para a página individual do produto */}
                 <Link
                   href={`/produtos-individuais/${produto.id}`}
                   className="block h-full"
@@ -197,6 +214,7 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
                         </p>
                       </div>
 
+                      {/* faixa vermelha animada */}
                       <div className="hidden lg:block w-full h-1 bg-rock-red mt-2 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                     </div>
 
@@ -207,7 +225,7 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
           </div>
         </div>
 
-        {/* seta direita */}
+        {/* botão seta de avançar - visível apenas no PC */}
         <button
           onClick={nextSlide}
           className="absolute right-0 z-20 top-1/2 -translate-y-1/2 p-2 bg-white text-black rounded-full hover:bg-gray-200 transition hidden md:flex items-center justify-center cursor-pointer shadow-lg"
@@ -228,7 +246,7 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
         </button>
       </div>
 
-      {/* labels */}
+      {/* labels :) */}
       <div className="flex lg:hidden justify-center items-center gap-2 mt-6">
         {Array.from({ length: maxIndex + 1 }).map((_, index) => (
           <button
@@ -244,7 +262,6 @@ export default function Destaques({ produtos = [] }: { produtos: Produto[] }) {
         ))}
       </div>
 
-      {/* botão inferior */}
       <div className="flex justify-center mt-12">
         <Link
           href="/produtos"

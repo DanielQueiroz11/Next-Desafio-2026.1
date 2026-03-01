@@ -7,18 +7,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// modelo de perfil (usuário)
 model Profile {
   id   Int    @id @default(autoincrement())
   name String 
 }
 
+// modelo principal do sistema que armazena todas as informações dos produtos da loja
 model Product {
   id              Int      @id @default(autoincrement())
   title           String
   description     String
-  fullDescription String?
   price           Float
+  fullDescription String?  //opcionais
   image           String?   
-  ordem           Int @default(0)
+  ordem           Int      @default(0)  // definir a ordem de exibição na vitrine, menor vem primeiro
   createdAt       DateTime @default(now())
 }

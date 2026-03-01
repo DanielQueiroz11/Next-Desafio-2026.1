@@ -11,7 +11,7 @@ type Produto = {
   description: string;
   fullDescription: string | null;
   image: string | null;
-  ordem: number; // A tipagem da ordem
+  ordem: number;
 };
 
 export default function ModalEditarProduto({ 
@@ -21,11 +21,13 @@ export default function ModalEditarProduto({
   produto: Produto; 
   onClose: () => void;
 }) {
+  // formata o preço inicial vindo do banco para o padrão brasileiro para exibir no input
   const precoInicial = new Intl.NumberFormat("pt-BR", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(produto.price);
 
+  // gerenciar os valores dos inputs dinamicamente
   const [nome, setNome] = useState(produto.title);
   const [preco, setPreco] = useState(precoInicial);
   const [descGeral, setDescGeral] = useState(produto.description);
@@ -37,16 +39,16 @@ export default function ModalEditarProduto({
   
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // checar em tempo real se a posição está ocupada
+  // debouncing: aguarda 500ms após o usuário parar de digitar para verificar a posição no banco
   useEffect(() => {
     const checarPosicao = async () => {
       const numeroDigitado = parseInt(ordem);
       
       if (numeroDigitado && numeroDigitado > 0) {
+        // busca no banco de dados se já existe um produto nessa posição
         const ocupante = await verificarOrdem(numeroDigitado, produto.id);
         
         if (ocupante) {
-          // compara os IDs para saber quem é o mais recente (ID maior = mais novo)
           if (produto.id > ocupante.id) {
             setAvisoOrdem(`A posição ${numeroDigitado} já é do(a) "${ocupante.title}". Se salvar, o(a) "${produto.title}" assumirá a frente por ser mais recente.`);
           } else {
@@ -61,9 +63,11 @@ export default function ModalEditarProduto({
     };
 
     const timeoutId = setTimeout(checarPosicao, 500);
+    // cancela o timeout anterior se o usuário digitar de novo rapidamente
     return () => clearTimeout(timeoutId);
   }, [ordem, produto.id, produto.title]);
 
+  // trava o scroll da página de fundo enquanto o modal estiver aberto
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -71,6 +75,7 @@ export default function ModalEditarProduto({
     };
   }, []);
 
+  // formatar o preço em reais em tempo real
   const handlePrecoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/\D/g, "");
     if (!value) {
@@ -87,6 +92,7 @@ export default function ModalEditarProduto({
     setPreco(formatted);
   };
 
+  // gera um preview visual da nova imagem selecionada antes do upload
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -94,6 +100,7 @@ export default function ModalEditarProduto({
     }
   };
 
+  // envia os dados atualizados para a server action via formdata
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -103,6 +110,7 @@ export default function ModalEditarProduto({
     onClose();
   };
 
+  // calcula as parcelas dinamicamente com base no preço atualizado no input
   const getParcelaInfo = () => {
     const valorNumerico = parseFloat(preco.replace(/\./g, "").replace(",", ".")) || 0;
     let parcelas = Math.ceil(valorNumerico / 20);
@@ -117,6 +125,7 @@ export default function ModalEditarProduto({
   const parcela = getParcelaInfo();
 
   return (
+    // overlay escuro que fecha o modal se clicado fora da área central
     <div 
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4 py-6 overflow-y-auto" 
       onMouseDown={(e) => {
@@ -125,6 +134,7 @@ export default function ModalEditarProduto({
     >
       <form onSubmit={handleSubmit} className="bg-[#1A1A1A] w-full max-w-[450px] rounded-[32px] p-8 flex flex-col gap-5 relative my-auto shadow-2xl border border-white/5 cursor-default mt-20 md:mt-auto" onClick={(e) => e.stopPropagation()}>
         
+        {/* input oculto para enviar o id do produto para o backend sem exibir para o usuário */}
         <input type="hidden" name="id" value={produto.id} />
 
         <button type="button" onClick={onClose} className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors cursor-pointer">
@@ -133,13 +143,13 @@ export default function ModalEditarProduto({
 
         <h2 className="text-[22px] font-black text-white text-center mb-2">Editar produto</h2>
 
-        {/* nome */}
+        {/* campo: nome */}
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">Nome</label>
           <input type="text" name="nome" value={nome} onChange={(e) => setNome(e.target.value)} required className="bg-[#0D0D0D] border border-transparent focus:border-rock-red rounded-xl p-3.5 text-white outline-none transition-colors shadow-inner" />
         </div>
 
-        {/* ordem na vitrine */}
+        {/* campo: ordem na vitrine */}
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">Posição na vitrine</label>
           <input 
@@ -148,15 +158,16 @@ export default function ModalEditarProduto({
             value={ordem}
             min="0" 
             onKeyDown={(e) => {
-              // bloqueia a digitação do sinal de menos (-) e da letra (e)
               if (e.key === '-' || e.key === 'e') {
                 e.preventDefault();
               }
             }}
             onWheel={(e) => {
+              // remove o foco se o usuário girar o scroll do mouse acidentalmente
               (e.target as HTMLInputElement).blur();
             }}
             onChange={(e) => setOrdem(e.target.value)}
+            // altera a cor da borda dinamicamente caso exista um aviso de colisão de posições
             className={`bg-[#0D0D0D] border rounded-xl p-3.5 text-white outline-none transition-colors shadow-inner ${avisoOrdem ? "border-yellow-500/50 focus:border-yellow-500" : "border-transparent focus:border-rock-red"}`} 
             placeholder="Ex: 1"
           />
@@ -167,7 +178,7 @@ export default function ModalEditarProduto({
           )}
         </div>
 
-        {/* imagem */}
+        {/* campo: imagem */}
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">Imagem</label>
           <div className="flex flex-col items-center gap-4 mt-2">
@@ -186,7 +197,7 @@ export default function ModalEditarProduto({
           </div>
         </div>
 
-        {/* preço */}
+        {/* campo: preço */}
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">Preço</label>
           <div>
@@ -202,13 +213,13 @@ export default function ModalEditarProduto({
           </div>
         </div>
 
-        {/* descrição geral */}
+        {/* campo: descrição geral */}
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">Descrição (geral)</label>
           <textarea rows={2} name="descricaoGeral" value={descGeral} onChange={(e) => setDescGeral(e.target.value)} required className="bg-[#0D0D0D] border border-transparent focus:border-rock-red rounded-xl p-3.5 text-white outline-none transition-colors resize-none shadow-inner text-sm leading-relaxed" />
         </div>
 
-        {/* descrição individual */}
+        {/* campo: descrição individual */}
         <div className="flex flex-col gap-1.5">
           <label className="text-white font-bold text-sm">Descrição (visualização individual)</label>
           <textarea rows={4} name="descricaoIndividual" value={descIndiv} onChange={(e) => setDescIndiv(e.target.value)} className="bg-[#0D0D0D] border border-transparent focus:border-rock-red rounded-xl p-3.5 text-white outline-none transition-colors resize-none shadow-inner text-sm leading-relaxed" />
